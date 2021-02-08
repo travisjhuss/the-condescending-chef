@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Typography, Button } from '@material-ui/core';
 
 function Nav() {
@@ -19,27 +19,31 @@ function Nav() {
   }
 
   return (
-    
-      <div className="drawer">
-        <Link to={loginLinkData.path}>
-          {loginLinkData.text}
+
+    <div className="drawer">
+      <Link to={loginLinkData.path}>
+        {loginLinkData.text}
+      </Link>
+      <br />
+      <Link to="/about">
+        About
         </Link>
-        <br/>
-        <Link to="/about">
-          About
-        </Link>
-        <br/>
-        {user.id && (
-          <>
-            <Link to="/info">
-              Info Page
+      <br/>
+      <Link to="/addRecipe">
+        Add Recipe
+      </Link>
+      <br />
+      {user.id && (
+        <>
+          <Link to="/info">
+            Info Page
             </Link>
-            <br/>
-            <LogOutButton />
-          </>
-        )}
-      </div>
-    
+          <br />
+          <LogOutButton />
+        </>
+      )}
+    </div>
+
   );
 }
 

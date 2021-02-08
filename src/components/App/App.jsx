@@ -8,17 +8,18 @@ import {
 
 import { useDispatch } from 'react-redux';
 
-import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
+import AddRecipe from '../AddRecipe/AddRecipe';
 import AboutPage from '../AboutPage/AboutPage';
 import UserDashboard from '../UserDashboard/UserDashboard';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Header from '../Header/Header';
+import { useSelector } from 'react-redux';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -41,6 +42,8 @@ const theme = createMuiTheme({
 })
 
 function App() {
+
+  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,8 +53,10 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        {user.id && <Header />}
+        {/* <Header /> */}
         <div>
-          
+
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -119,6 +124,14 @@ function App() {
               authRedirect="/user"
             >
               <LandingPage />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // logged in shows AddRecipe else shows LoginPage
+              exact
+              path="/addRecipe"
+            >
+              <AddRecipe />
             </ProtectedRoute>
 
             {/* If none of the other routes matched, we will show a 404. */}

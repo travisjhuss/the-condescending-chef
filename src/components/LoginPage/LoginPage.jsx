@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
+import { Typography, Button } from '@material-ui/core';
 
 function LoginPage() {
   const history = useHistory();
@@ -10,15 +11,14 @@ function LoginPage() {
       <LoginForm />
 
       <center>
-        <button
-          type="button"
-          className="btn btn_asLink"
+        <Button
+          color="secondary"
           onClick={() => {
             history.push('/registration');
           }}
         >
-          Register
-        </button>
+          <Typography variant="subtitle2">Register</Typography>
+        </Button>
       </center>
     </div>
   );

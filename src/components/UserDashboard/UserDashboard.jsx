@@ -1,19 +1,24 @@
 import React from 'react';
-import Nav from '../Nav/Nav';
+import Header from '../Header/Header';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector} from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Typography, Button } from '@material-ui/core';
+import './UserDashboard.css';
 
 function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
+
+
   return (
-    <div className="container">
-      <Nav />
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
-      <LogOutButton className="btn" />
-    </div>
+      <div className="dashboard">
+        <Header />
+        
+        <Typography variant="h4" color="secondary">Welcome, {user.username}!</Typography>
+
+        <LogOutButton className="btn" />
+      </div>
   );
 }
 

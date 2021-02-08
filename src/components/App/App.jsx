@@ -51,7 +51,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <div>
-          <Nav />
+          
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />

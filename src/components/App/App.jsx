@@ -21,7 +21,6 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
 
 import './App.css';
 

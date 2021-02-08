@@ -10,7 +10,7 @@ import './Footer.css';
 function Footer() {
   return (
     <footer>
-      <Typography variant="subtitle1" color="secondary">&copy; Prime Digital Academy</Typography>
+      <Typography variant="subtitle1" color="secondary">&copy; Travis J. Huss</Typography>
     </footer>
   );
 }

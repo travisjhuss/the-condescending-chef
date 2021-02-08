@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 import './Footer.css';
 
 // This is one of our simplest components
@@ -7,7 +8,11 @@ import './Footer.css';
 // or even care what the redux state is, so it doesn't need 'connect()'
 
 function Footer() {
-  return <footer>&copy; Prime Digital Academy</footer>;
+  return (
+    <footer>
+      <Typography variant="subtitle1" color="secondary">&copy; Prime Digital Academy</Typography>
+    </footer>
+  );
 }
 
 export default Footer;

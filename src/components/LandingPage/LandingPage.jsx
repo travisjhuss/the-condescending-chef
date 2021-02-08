@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 
 // Material UI imports
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
@@ -18,50 +18,39 @@ function LandingPage() {
 
   return (
     <div className="container">
-      <h2>{heading}</h2>
-
       <div className="grid">
         <div className="grid-col grid-col_8">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra lacus
-            ut ex molestie blandit. Etiam et turpis sit amet risus mollis
-            interdum. Suspendisse et justo vitae metus bibendum fringilla sed
-            sed justo. Aliquam sollicitudin dapibus lectus, vitae consequat odio
-            elementum eget. Praesent efficitur eros vitae nunc interdum, eu
-            interdum justo facilisis. Sed pulvinar nulla ac dignissim efficitur.
-            Quisque eget eros metus. Vestibulum bibendum fringilla nibh a
-            luctus. Duis a sapien metus.
-          </p>
-
-          <p>
-            Praesent consectetur orci dui, id elementum eros facilisis id. Sed
-            id dolor in augue porttitor faucibus eget sit amet ante. Nunc
-            consectetur placerat pharetra. Aenean gravida ex ut erat commodo, ut
-            finibus metus facilisis. Nullam eget lectus non urna rhoncus
-            accumsan quis id massa. Curabitur sit amet dolor nisl. Proin
-            euismod, augue at condimentum rhoncus, massa lorem semper lacus, sed
-            lobortis augue mi vel felis. Duis ultrices sapien at est convallis
-            congue.
-          </p>
-
-          <p>
-            Fusce porta diam ac tortor elementum, ut imperdiet metus volutpat.
-            Suspendisse posuere dapibus maximus. Aliquam vitae felis libero. In
-            vehicula sapien at semper ultrices. Vivamus sed feugiat libero. Sed
-            sagittis neque id diam euismod, ut egestas felis ultricies. Nullam
-            non fermentum mauris. Sed in enim ac turpis faucibus pretium in sit
-            amet nisi.
-          </p>
+          <Typography variant="h4" color="secondary">Welcome to </Typography>
+          <Typography variant="h3" color="secondary">The Condescending Chef</Typography>
+          <br />
+          <Typography variant="body1" color="secondary">
+            Think of it as your own personal Gordon Ramsey. An online
+            community and database of recipes reviewed by real chefs giving you
+            the feedback you seek.
+          </Typography>
+          <br />
+          <Typography variant="body1" color="secondary">
+            Drawing from decades of real restaurant experience, our chefs will take
+            the time to dig through the recipe and give feedback. Feedback can include
+            not just a review of a given recipe but also tips to make it better or
+            certain substitutions to consider. With the "The Condescending Chef"
+            you'll get the hard truth and come out a better cook able to tackle any
+            challenge in your kitchen.
+        </Typography>
         </div>
         <div className="grid-col grid-col_4">
-          <RegisterForm />
-
           <center>
-            <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
-            </button>
+            <RegisterForm />
+          </center>
+          <center>
+            <Typography variant="h6" color="secondary">Already a Member?</Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={onLogin}
+            >
+              <Typography variant="button" color="secondary">Login</Typography>
+            </Button>
           </center>
         </div>
       </div>

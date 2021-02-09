@@ -7,7 +7,7 @@ function* postNewUserRecipe(action) {
         const newRecipe = action.payload;
         yield axios.post("/api/userAddedRecipe", { newRecipe });
     } catch(err) {
-        console.log('error in fetchPets:', err);   
+        console.log('error in postNewUserRecipe:', err);   
     }
 }
 

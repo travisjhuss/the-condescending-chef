@@ -32,7 +32,7 @@ function AddUserRecipe() {
 
     const user = useSelector((store) => store.user);
 
-    const [tags, setTags] = useState([]);
+    let [tags, setTags] = useState([]);
     const [newTag, setNewTag] = useState('');
     const [recipeName, setRecipeName] = useState('');
     const [recipePhoto, setRecipePhoto] = useState('');
@@ -84,12 +84,13 @@ function AddUserRecipe() {
 
     function addTag() {
         if (newTag !== '') {
-        tags.push({name: newTag})
+        setTags(tags += ` #${newTag}`)
         setNewTag('');
         }
     }
 
     function submitRecipe() {
+        const tagsToAdd = tags.slice( 1 );
         const recipeToAdd = {
             user_id: user.id,
             name: recipeName,
@@ -97,7 +98,7 @@ function AddUserRecipe() {
             photo: recipePhoto,
             marked_for_review: recipeForReview,
             ingredients: ingredientFields,
-            tags: tags
+            tags: tagsToAdd
         };
         console.log('recipeToAdd:', recipeToAdd);
         dispatch({type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd});
@@ -202,9 +203,7 @@ function AddUserRecipe() {
             />
             <br/>
             <Typography color="secondary">
-                Tags:{tags.map((tag, i) => {
-                    return(<span key={i}>{' '}&#183;{tag.name}{' '}</span>)
-                })}
+                Tags:{' '}{tags}
             </Typography>
             <br/>
             <TextField

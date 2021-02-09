@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 // mui
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import { TextField, Button, IconButton, makeStyles, Typography, Checkbox } from '@material-ui/core';
+
+import './AddUserRecipe.css';
 
 const useStyles = makeStyles({
     input: {
@@ -25,13 +28,23 @@ const useStyles = makeStyles({
 
 function AddUserRecipe() {
 
+    const user = useSelector((store) => store.user);
+
     const [tags, setTags] = useState([]);
     const [newTag, setNewTag] = useState('');
+    const [recipeName, setRecipeName] = useState('');
+    const [recipePhoto, setRecipePhoto] = useState('');
+    const [recipeDescription, setRecipeDescription] = useState('');
+    const [recipeForReview, setRecipeForReview] = useState(false);
     const [ingredientFields, setIngredientFields] = useState([{
         amount: null,
         unit: null,
         name: null
     }]);
+
+    function handleRecipeToAddChange(value, stateSetter) {
+        stateSetter(value);
+    }
 
     function handleAmountChange(index, event) {
         const values = [...ingredientFields];
@@ -68,27 +81,51 @@ function AddUserRecipe() {
     }
 
     function addTag() {
+        if (newTag !== '') {
         tags.push({name: newTag})
         setNewTag('');
+        }
+    }
+
+    function submitRecipe() {
+        const recipeToAdd = {
+            user_id: user.id,
+            name: recipeName,
+            description: recipeDescription,
+            photo: recipePhoto,
+            marked_for_review: recipeForReview,
+            ingredients: ingredientFields,
+            tags: tags
+        };
+        console.log('recipeToAdd:', recipeToAdd);
     }
 
     const classes = useStyles();
 
     console.log('ingredientFields:', ingredientFields);
     console.log('tags:', tags);
+    console.log('recipeName:', recipeName);
+    console.log('recipePhoto:', recipePhoto);
+    console.log('recipeDescription:', recipeDescription);
+    console.log('markedforreview?', recipeForReview);
     return (
-        <div className="container add-recipe">
+        <div className="user-recipe-container">
             <TextField
+                required
                 variant="filled"
                 label="Recipe Name"
                 style={{ width: '500px' }}
                 className={classes.input}
+                value={recipeName}
+                onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipeName)}
             />
             <TextField
                 variant="filled"
                 label="Photo url"
                 style={{ width: '400px' }}
                 className={classes.input}
+                value={recipePhoto}
+                onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipePhoto)}
             />
             <br />
             <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
@@ -99,6 +136,7 @@ function AddUserRecipe() {
                 return (
                     <div key={`${field}-${idx}`}>
                         <TextField
+                            required
                             variant="filled"
                             name="amount"
                             label="#"
@@ -110,6 +148,7 @@ function AddUserRecipe() {
                             onChange={e => handleAmountChange(idx, e)}
                         />
                         <TextField
+                            required
                             variant="filled"
                             name="unit"
                             label="unit"
@@ -121,6 +160,7 @@ function AddUserRecipe() {
                             onChange={e => handleUnitChange(idx, e)}
                         />
                         <TextField
+                            required
                             variant="filled"
                             name="name"
                             label="name"
@@ -140,25 +180,27 @@ function AddUserRecipe() {
             }
             <br />
             <TextField
+                required
                 variant="filled"
                 label="Description"
                 multiline
                 rows={10}
                 style={{ width: '500px' }}
                 className={classes.input}
+                value={recipeDescription}
+                onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipeDescription)}
             />
             <Typography display="inline" color="secondary">Mark for Review</Typography>
             <Checkbox
-                // checked={checked}
-                // onChange={handleChange}
+                onChange={() => setRecipeForReview(!recipeForReview)}
                 color="primary"
-                value="true"
+                value={recipeForReview}
                 style={{ color: '#ad4830' }}
             />
             <br/>
             <Typography color="secondary">
-                Tags:{tags.map((tag) => {
-                    return(<span>{' '}&#183;{tag.name}{' '}</span>)
+                Tags:{tags.map((tag, i) => {
+                    return(<span key={i}>{' '}&#183;{tag.name}{' '}</span>)
                 })}
             </Typography>
             <br/>
@@ -173,7 +215,12 @@ function AddUserRecipe() {
             <IconButton color="primary" type="button" onClick={() => addTag()}>
                 <AddCircleIcon />
             </IconButton>
-            <Button color="primary" variant="contained" endIcon={<LibraryAddIcon/>}>
+            <Button 
+                color="primary" 
+                variant="contained" 
+                endIcon={<LibraryAddIcon/>}
+                onClick={submitRecipe}
+            >
                 <Typography color="secondary">Add Recipe</Typography>
             </Button>
         </div>

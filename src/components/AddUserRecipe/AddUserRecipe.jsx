@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // mui
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -27,6 +27,8 @@ const useStyles = makeStyles({
 })
 
 function AddUserRecipe() {
+
+    const dispatch = useDispatch();
 
     const user = useSelector((store) => store.user);
 
@@ -98,6 +100,7 @@ function AddUserRecipe() {
             tags: tags
         };
         console.log('recipeToAdd:', recipeToAdd);
+        dispatch({type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd});
     }
 
     const classes = useStyles();

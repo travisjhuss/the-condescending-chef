@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 // mui
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
+import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import { TextField, Button, IconButton, makeStyles, Typography, Checkbox } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -24,6 +25,8 @@ const useStyles = makeStyles({
 
 function AddUserRecipe() {
 
+    const [tags, setTags] = useState([]);
+    const [newTag, setNewTag] = useState('');
     const [ingredientFields, setIngredientFields] = useState([{
         amount: null,
         unit: null,
@@ -64,11 +67,15 @@ function AddUserRecipe() {
         setIngredientFields(values);
     }
 
-
+    function addTag() {
+        tags.push({name: newTag})
+        setNewTag('');
+    }
 
     const classes = useStyles();
 
     console.log('ingredientFields:', ingredientFields);
+    console.log('tags:', tags);
     return (
         <div className="container add-recipe">
             <TextField
@@ -149,15 +156,26 @@ function AddUserRecipe() {
                 style={{ color: '#ad4830' }}
             />
             <br/>
+            <Typography color="secondary">
+                Tags:{tags.map((tag) => {
+                    return(<span>{' '}&#183;{tag.name}{' '}</span>)
+                })}
+            </Typography>
+            <br/>
             <TextField
                 variant="filled"
                 label="add Tag"
                 style={{ width: '400px' }}
+                value={newTag}
+                onChange={(event) => setNewTag(event.target.value)}
                 className={classes.input}
             />
-            <IconButton color="primary" type="button" onClick={() => handleAdd()}>
+            <IconButton color="primary" type="button" onClick={() => addTag()}>
                 <AddCircleIcon />
             </IconButton>
+            <Button color="primary" variant="contained" endIcon={<LibraryAddIcon/>}>
+                <Typography color="secondary">Add Recipe</Typography>
+            </Button>
         </div>
     )
 }

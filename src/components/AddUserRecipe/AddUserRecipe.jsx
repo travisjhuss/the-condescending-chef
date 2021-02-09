@@ -90,7 +90,6 @@ function AddUserRecipe() {
     }
 
     function submitRecipe() {
-        const tagsToAdd = tags.slice( 1 );
         const recipeToAdd = {
             user_id: user.id,
             name: recipeName,
@@ -98,7 +97,7 @@ function AddUserRecipe() {
             photo: recipePhoto,
             marked_for_review: recipeForReview,
             ingredients: ingredientFields,
-            tags: tagsToAdd
+            tags: tags
         };
         console.log('recipeToAdd:', recipeToAdd);
         dispatch({type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd});

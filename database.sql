@@ -19,7 +19,8 @@ CREATE TABLE "recipes" (
 	"user_id" INT NOT NULL,
 	"name" VARCHAR(255) NOT NULL,
 	"description" VARCHAR,
-	"photo" VARCHAR,
+	-- replace with photo in images folder
+	"photo" VARCHAR DEFAULT 'https://www.greenbiz.com/sites/default/files/images/articles/featured/fooddisplaysstock.jpg',
 	"marked_for_review" BOOLEAN DEFAULT false,
 	"url" VARCHAR,
 	"date" TIMESTAMP DEFAULT NOW() NOT NULL,

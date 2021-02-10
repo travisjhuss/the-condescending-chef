@@ -5,6 +5,8 @@ import {TextField, Button, IconButton, makeStyles, Typography, Checkbox} from '@
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
+import './AddOutRecipe.css';
+
 const useStyles = makeStyles({
     input: {
         '& .MuiOutlinedInput-root': {
@@ -35,7 +37,7 @@ function AddOutsideRecipe() {
     const [recipePhoto, setRecipePhoto] = useState('');
     const [recipeUrl, setRecipeUrl] = useState('');
     const [recipeForReview, setRecipeForReview] = useState(false);
-    let [tags, setTags] = useState([]);
+    let [tags, setTags] = useState('');
     const [newTag, setNewTag] = useState('');
 
     function handleRecipeToAddChange(value, stateSetter) {
@@ -59,7 +61,7 @@ function AddOutsideRecipe() {
             tags: tags
         };
         console.log('recipeToAdd:', recipeToAdd);
-        // dispatch({type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd});
+        dispatch({type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd});
     }
 
     console.log('tags:', tags);
@@ -68,7 +70,7 @@ function AddOutsideRecipe() {
     console.log('recipeURL:', recipeUrl);
     console.log('markedforreview?', recipeForReview);
     return(
-        <div className="container add-recipe">
+        <div className="outside-recipe-container">
             <TextField
                 required
                 variant="filled"

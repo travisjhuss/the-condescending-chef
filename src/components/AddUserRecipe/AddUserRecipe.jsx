@@ -32,7 +32,7 @@ function AddUserRecipe() {
 
     const user = useSelector((store) => store.user);
 
-    let [tags, setTags] = useState([]);
+    let [tags, setTags] = useState('');
     const [newTag, setNewTag] = useState('');
     const [recipeName, setRecipeName] = useState('');
     const [recipePhoto, setRecipePhoto] = useState('');
@@ -110,7 +110,7 @@ function AddUserRecipe() {
     console.log('recipeName:', recipeName);
     console.log('recipePhoto:', recipePhoto);
     console.log('recipeDescription:', recipeDescription);
-    console.log('markedforreview?', recipeForReview);
+    console.log('marked for review?', recipeForReview);
     return (
         <div className="user-recipe-container">
             <TextField

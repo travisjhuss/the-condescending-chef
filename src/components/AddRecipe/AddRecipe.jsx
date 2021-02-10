@@ -13,12 +13,14 @@ function AddRecipe() {
 
     const clickUserRecipeForm = () => {
         console.log('clicked User recipe');
+        // set up alert
         setIsUserRecipe(true);
         setIsOutsideRecipe(false);
     };
 
     const clickOutsideRecipeForm = () => {
         console.log('clicked outside recipe');
+        // set up alert
         setIsUserRecipe(false);
         setIsOutsideRecipe(true);
     };
@@ -36,14 +38,12 @@ function AddRecipe() {
                         color="secondary"
                     >Add your own recipe</Typography>
                 </Button>
-                {' '}
                 <Typography
                     color="secondary"
                     display="inline"
                 >
-                    Or
+                   {' '}Or{' '}
                 </Typography>
-                {' '}
                 <Button
                     variant="contained"
                     color="primary"

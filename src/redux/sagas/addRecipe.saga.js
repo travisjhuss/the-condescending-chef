@@ -5,7 +5,7 @@ function* postNewUserRecipe(action) {
     try {
         console.log('in postNewUserRecipe:', action.payload);
         const newRecipe = action.payload;
-        yield axios.post("/api/userAddedRecipe", { newRecipe });
+        yield axios.post("/api/userRecipes", { newRecipe });
     } catch(err) {
         console.log('error in postNewUserRecipe:', err);   
     }

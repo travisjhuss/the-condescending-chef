@@ -57,5 +57,22 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// This route *should* return the logged in users recipes
+router.get('/', rejectUnauthenticated, (req, res) => {
+  console.log('/userRecipes GET route');
+  // HOW YOU KNOW IF SOMEONE IS LOGGED IN 
+  console.log('is authenticated?', req.isAuthenticated());
+  // USER INFO FROM DB, will show columns if new cols added
+  console.log('user', req.user);
+  
+  const getUserRecipesQuery = `SELECT * FROM "recipes" WHERE "user_id" = $1`;
+  pool.query(getUserRecipesQuery, [req.user.id]).then((result) => {
+    res.send(result.rows);
+  }).catch((error) => {
+    console.log(error);
+    res.sendStatus(500);
+  });
+});
+
 
 module.exports = router;

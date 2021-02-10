@@ -3,6 +3,7 @@ import AddUserRecipe from '../AddUserRecipe/AddUserRecipe';
 import AddOutsideRecipe from '../AddOutsideRecipe/AddOutsideRecipe';
 // mui
 import { Button, makeStyles, Typography } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 import './AddRecipe.css';
 
@@ -10,51 +11,72 @@ function AddRecipe() {
     // states to determine what recipe form to show
     const [isUserRecipe, setIsUserRecipe] = useState(false);
     const [isOutsideRecipe, setIsOutsideRecipe] = useState(false);
+    const [isFormOpen, setIsFormOpen] = useState(false);
 
     const clickUserRecipeForm = () => {
-        console.log('clicked User recipe');
-        // set up alert
+        setIsFormOpen(true);
         setIsUserRecipe(true);
         setIsOutsideRecipe(false);
     };
 
     const clickOutsideRecipeForm = () => {
-        console.log('clicked outside recipe');
-        // set up alert
+        setIsFormOpen(true);
         setIsUserRecipe(false);
         setIsOutsideRecipe(true);
     };
 
+    const changeForms = () => {
+        setIsFormOpen(false);
+        setIsUserRecipe(false);
+        setIsOutsideRecipe(false);
+    }
+
     return (
         <div className="add-recipe-container">
             <center>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={clickUserRecipeForm}
-                >
-                    <Typography
-                        variant="h6"
-                        color="secondary"
-                    >Add your own recipe</Typography>
-                </Button>
-                <Typography
-                    color="secondary"
-                    display="inline"
-                >
-                   {' '}Or{' '}
-                </Typography>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={clickOutsideRecipeForm}
-                >
-                    <Typography
-                        variant="h6"
-                        color="secondary"
+                {isFormOpen
+                    ? 
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={changeForms}
                     >
-                        Add an outside recipe</Typography>
-                </Button>
+                        <Typography
+                                variant="h6"
+                                color="secondary"
+                        >Change Form</Typography>
+                    </Button>
+                    :
+                    <>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={clickUserRecipeForm}
+                        >
+                            <Typography
+                                variant="h6"
+                                color="secondary"
+                            >Add your own recipe</Typography>
+                        </Button>
+                        <Typography
+                            color="secondary"
+                            display="inline"
+                        >
+                            {' '}Or{' '}
+                        </Typography>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={clickOutsideRecipeForm}
+                        >
+                            <Typography
+                                variant="h6"
+                                color="secondary"
+                            >
+                                Add an outside recipe</Typography>
+                        </Button>
+                    </>
+                }
             </center>
             {isUserRecipe ? <AddUserRecipe /> : null}
             {isOutsideRecipe ? <AddOutsideRecipe /> : null}

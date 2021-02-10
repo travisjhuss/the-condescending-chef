@@ -32,6 +32,10 @@ function Nav() {
       <Link to="/addRecipe">
         Add Recipe
       </Link>
+      <br/>
+      <Link to="/myRecipes">
+        My Recipes
+      </Link>
       <br />
       {user.id && (
         <>

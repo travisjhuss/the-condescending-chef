@@ -2,14 +2,26 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // MUI
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, Grid, Card, makeStyles } from '@material-ui/core';
 import './MyRecipes.css';
+
+const useStyles = makeStyles({
+    card: {
+        backgroundColor: '#ad4830',
+        borderRadius: '3px',
+        margin: '2px'
+    },
+    head: {
+        marginBottom: '30px'
+    }
+})
 
 function MyRecipes() {
 
     const history = useHistory();
     const dispatch = useDispatch();
     const userRecipes = useSelector(store => store.userRecipes);
+    const classes = useStyles();
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MY_RECIPES' });
@@ -17,9 +29,20 @@ function MyRecipes() {
     }, []);
 
     console.log('userRecipes:', userRecipes);
-    return(
-        <div className="test">
-            <Typography variant="h1" color="secondary">In MyRecipes</Typography>
+    return (
+        <div className="recipes-container">
+            <center>
+                <Typography variant="h3" color="secondary" className={classes.head}>MyRecipes</Typography>
+            </center>
+            <Grid container spacing={2}>
+                {userRecipes.map((recipe) => (
+                    <Grid key={recipe.id} item xs={3}>
+                        <Card className={classes.card}>
+                            <Typography color="secondary">{recipe.name}</Typography>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
         </div>
     )
 }

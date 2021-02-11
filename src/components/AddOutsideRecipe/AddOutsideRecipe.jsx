@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AddSuccess from '../AddSuccess/AddSuccess';
+import AddFail from '../AddFail/AddFail';
 // mui
-import { TextField, Button, IconButton, makeStyles, Typography, Checkbox, Dialog } from '@material-ui/core';
+import { TextField, Button, IconButton, makeStyles, Typography, Checkbox, Dialog, Snackbar } from '@material-ui/core';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
@@ -43,7 +44,16 @@ function AddOutsideRecipe() {
     const [newTag, setNewTag] = useState('');
 
     // for dialog box
-    const [open, setOpen] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [openFail, setOpenFail] = useState(false);
+
+    const handleFailClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenFail(false);
+    };
 
     const handleRecipeToAddChange = (value, stateSetter) => {
         stateSetter(value);
@@ -57,18 +67,22 @@ function AddOutsideRecipe() {
     }
 
     const submitRecipe = () => {
-        const recipeToAdd = {
-            user_id: user.id,
-            name: recipeName,
-            photo: recipePhoto,
-            marked_for_review: recipeForReview,
-            url: recipeUrl,
-            tags: tags
-        };
-        console.log('recipeToAdd:', recipeToAdd);
-        dispatch({ type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd });
-        // success dialog
-        setOpen(true);
+        if (recipeName === '' || recipeUrl === '') {
+            setOpenFail(true);
+        } else {
+            const recipeToAdd = {
+                user_id: user.id,
+                name: recipeName,
+                photo: recipePhoto,
+                marked_for_review: recipeForReview,
+                url: recipeUrl,
+                tags: tags
+            };
+            console.log('recipeToAdd:', recipeToAdd);
+            dispatch({ type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd });
+            // success dialog
+            setOpenSuccess(true);
+        }
     }
 
     console.log('tags:', tags);
@@ -97,6 +111,7 @@ function AddOutsideRecipe() {
             />
             <br />
             <TextField
+                required
                 variant="filled"
                 label="Recipe url"
                 style={{ width: '400px' }}
@@ -137,11 +152,19 @@ function AddOutsideRecipe() {
 
             <Dialog
                 maxWidth="sm"
-                open={open}
-                // onClose={handleClose}
+                open={openSuccess}
+            // onClose={handleClose}
             >
                 <AddSuccess />
             </Dialog>
+
+            <Snackbar
+                autoHideDuration={6000}
+                open={openFail}
+                onClose={handleFailClose}
+            >
+                <AddFail handleFailClose={handleFailClose} />
+            </Snackbar>
         </div>
     )
 }

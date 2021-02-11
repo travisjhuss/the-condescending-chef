@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AddSuccess from '../AddSuccess/AddSuccess';
+import AddFail from '../AddFail/AddFail';
 // mui
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
-import { TextField, Button, IconButton, makeStyles, Typography, Checkbox, Dialog } from '@material-ui/core';
+import { TextField, Button, IconButton, makeStyles, Typography, Checkbox, Dialog, Snackbar } from '@material-ui/core';
 
 import './AddUserRecipe.css';
 
@@ -45,7 +46,16 @@ function AddUserRecipe() {
         name: null
     }]);
 
-    const [open, setOpen] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [openFail, setOpenFail] = useState(false);
+
+    const handleFailClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenFail(false);
+    };
 
     const handleRecipeToAddChange = (value, stateSetter) => {
         stateSetter(value);
@@ -87,26 +97,37 @@ function AddUserRecipe() {
 
     const addTag = () => {
         if (newTag !== '') {
-        setTags(tags += ` #${newTag}`)
-        setNewTag('');
+            setTags(tags += ` #${newTag}`)
+            setNewTag('');
         }
     }
-    
+
 
     const submitRecipe = () => {
-        const recipeToAdd = {
-            user_id: user.id,
-            name: recipeName,
-            description: recipeDescription,
-            photo: recipePhoto,
-            marked_for_review: recipeForReview,
-            ingredients: ingredientFields,
-            tags: tags
-        };
-        console.log('recipeToAdd:', recipeToAdd);
-        dispatch({type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd});
-        // success dialog
-        setOpen(true);
+
+        for (let ingredient of ingredientFields) {
+            if (ingredient.amount === null || ingredient.unit === null || ingredient.name === null) {
+                setOpenFail(true);
+            } else {
+                if (recipeName === '' || recipeDescription === '') {
+                    setOpenFail(true);
+                } else {
+                    const recipeToAdd = {
+                        user_id: user.id,
+                        name: recipeName,
+                        description: recipeDescription,
+                        photo: recipePhoto,
+                        marked_for_review: recipeForReview,
+                        ingredients: ingredientFields,
+                        tags: tags
+                    };
+                    console.log('recipeToAdd:', recipeToAdd);
+                    dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
+                    // success dialog
+                    setOpenSuccess(true);
+                }
+            }
+        }
     }
 
     const classes = useStyles();
@@ -206,11 +227,11 @@ function AddUserRecipe() {
                 value={recipeForReview}
                 style={{ color: '#ad4830' }}
             />
-            <br/>
+            <br />
             <Typography color="secondary">
                 Tags:{' '}{tags}
             </Typography>
-            <br/>
+            <br />
             <TextField
                 variant="filled"
                 label="add Tag"
@@ -222,10 +243,10 @@ function AddUserRecipe() {
             <IconButton color="primary" type="button" onClick={() => addTag()}>
                 <AddCircleIcon />
             </IconButton>
-            <Button 
-                color="primary" 
-                variant="contained" 
-                endIcon={<LibraryAddIcon/>}
+            <Button
+                color="primary"
+                variant="contained"
+                endIcon={<LibraryAddIcon />}
                 onClick={submitRecipe}
             >
                 <Typography color="secondary">Add Recipe</Typography>
@@ -233,11 +254,19 @@ function AddUserRecipe() {
 
             <Dialog
                 maxWidth="sm"
-                open={open}
-                // onClose={handleClose}
+                open={openSuccess}
+            // onClose={handleClose}
             >
                 <AddSuccess />
             </Dialog>
+
+            <Snackbar
+                autoHideDuration={6000}
+                open={openFail}
+                onClose={handleFailClose}
+            >
+                <AddFail handleFailClose={handleFailClose} />
+            </Snackbar>
         </div>
     )
 }

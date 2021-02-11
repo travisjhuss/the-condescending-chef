@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { DialogActions, DialogTitle, Button } from '@material-ui/core';

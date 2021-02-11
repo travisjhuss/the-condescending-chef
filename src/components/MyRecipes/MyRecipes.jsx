@@ -43,7 +43,7 @@ function MyRecipes() {
         dispatch({ type: 'FETCH_MY_RECIPES' });
     }, []);
 
-    console.log('userRecipes:', userRecipes);
+    // console.log('userRecipes:', userRecipes);
     const sortedData = userRecipes.sort((a, b) => {
         if (sortType === 'date' || sortType === 'chef_grade') {
             return b[sortType] > a[sortType] ? 1 : -1;

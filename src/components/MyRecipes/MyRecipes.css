@@ -12,4 +12,6 @@
     background-color: #fff4dd;
     color: #ad4830;
     font-family: 'Fraunces', serif;
+    border:  #ad4830 1px solid;
+    border-radius: 3px;
 }

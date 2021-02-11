@@ -60,7 +60,7 @@ function MyRecipes() {
                 <Typography variant="h3" color="secondary" className={classes.head}>MyRecipes</Typography>
             </center>
             <div className="sort-container">
-                <Typography color="secondary" display="inline">Sort by:{' '}</Typography>
+                <Typography variant="body2" color="secondary" display="inline">Sort by:{' '}</Typography>
                 <select value={sortType} className="sort-select" onChange={(e) => setSortType(e.target.value)}>
                     <option value="date">Date</option>
                     <option value="name">Name</option>

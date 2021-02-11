@@ -7,9 +7,7 @@ import {
     Grid, Card,
     makeStyles, CardActionArea,
     CardActions, CardContent,
-    CardMedia, Select,
-    MenuItem, InputLabel,
-    FormControl
+    CardMedia
 } from '@material-ui/core';
 import './MyRecipes.css';
 
@@ -43,6 +41,11 @@ function MyRecipes() {
         dispatch({ type: 'FETCH_MY_RECIPES' });
     }, []);
 
+    const openRecipe = (id) => {
+        console.log('clicked on recipe id:', id);
+        // history.push(`/recipeDetails/${id}`);
+    }
+
     // console.log('userRecipes:', userRecipes);
     const sortedData = userRecipes.sort((a, b) => {
         if (sortType === 'date' || sortType === 'chef_grade') {
@@ -68,7 +71,7 @@ function MyRecipes() {
                 {sortedData.map((recipe) => (
                     <Grid key={recipe.id} item xs={3}>
                         <Card className={classes.card}>
-                            <CardActionArea>
+                            <CardActionArea onClick={() => openRecipe(recipe.id)}>
                                 <CardMedia
                                     component="img"
                                     alt="recipe photo"

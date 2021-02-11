@@ -24,7 +24,7 @@ CREATE TABLE "recipes" (
 	"marked_for_review" BOOLEAN DEFAULT false,
 	"url" VARCHAR,
 	"date" TIMESTAMP DEFAULT NOW() NOT NULL,
-	"chef_grade" VARCHAR DEFAULT 'n/a',
+	"chef_grade" VARCHAR DEFAULT '0',
 	"chef_feedback" VARCHAR
 );
 

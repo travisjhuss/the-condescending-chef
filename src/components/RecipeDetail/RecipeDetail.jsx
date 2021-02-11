@@ -9,11 +9,16 @@ function RecipeDetail() {
     const { id } = useParams();
     const history = useHistory();
 
+    const recipeDetails = useSelector(state => state.details.recipeDetails);
+    const recipeIngredients = useSelector(state => state.details.recipeIngredients);
+
     useEffect(() => {
         dispatch({type: 'FETCH_RECIPE_DETAILS', payload: id});
         dispatch({type: 'FETCH_RECIPE_INGREDIENTS', payload: id});
     }, []);
 
+    console.log('recipeDetails:', recipeDetails);
+    console.log('recipeIngredients:', recipeIngredients);
     return(
         <h1>in recipe detail</h1>
     )

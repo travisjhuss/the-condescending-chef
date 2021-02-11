@@ -19,8 +19,8 @@ function* fetchRecipeDetails(action) {
         console.log('fetchRecipeDetails at id:', action.payload);
         const response = yield axios.get(`/api/recipes/${action.payload}`);
         console.log('fetchRecipeDetails response.data:', response.data[0]);
-        // save in reducer
-        // yield put({type: 'SET_SELECTED_MOVIE_GENRES', payload: response.data})
+        // save in recipe reducer
+        yield put({type: 'SET_SELECTED_RECIPE', payload: response.data[0]});
     } catch(err) {
         console.log('error in fetchUserRecipes:', err);   
     }
@@ -32,8 +32,8 @@ function* fetchRecipeIngredients(action) {
         console.log('fetchRecipeIngredients at id:', action.payload);
         const response = yield axios.get(`/api/recipes/ingredients/${action.payload}`);
         console.log('fetchRecipeIngredients response.data:', response.data);
-        // // save in recipes reducer
-        // yield put({type: 'SET_USER_RECIPES', payload: response.data})
+        // // save in recipe ingredients reducer
+        yield put({type: 'SET_SELECTED_RECIPE_INGREDIENTS', payload: response.data})
     } catch(err) {
         console.log('error in fetchUserRecipes:', err);   
     }

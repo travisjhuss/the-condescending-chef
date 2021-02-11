@@ -2,7 +2,15 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // MUI
-import { Button, Typography, Grid, Card, makeStyles, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core';
+import {
+    Button, Typography,
+    Grid, Card,
+    makeStyles, CardActionArea,
+    CardActions, CardContent,
+    CardMedia, Select,
+    MenuItem, InputLabel,
+    FormControl
+} from '@material-ui/core';
 import './MyRecipes.css';
 
 const useStyles = makeStyles({
@@ -12,6 +20,12 @@ const useStyles = makeStyles({
         margin: '2px',
     },
     head: {
+        marginBottom: '30px'
+    },
+    select: {
+        backgroundColor: '#fff4dd',
+        border: '1px, #ad4830, solid',
+        height: '30px',
         marginBottom: '30px'
     }
 })
@@ -23,19 +37,35 @@ function MyRecipes() {
     const userRecipes = useSelector(store => store.userRecipes);
     const classes = useStyles();
 
+    const [sortType, setSortType] = useState('date');
+
     useEffect(() => {
         dispatch({ type: 'FETCH_MY_RECIPES' });
-        // dispatch({type: 'CLEAR_SEARCH'});
     }, []);
 
     console.log('userRecipes:', userRecipes);
+    const sortedData = userRecipes.sort((a, b) => {
+        if (sortType === 'date' || sortType === 'chef_grade') {
+            return b[sortType] > a[sortType] ? 1 : -1;
+        } else {
+            return a[sortType].toUpperCase() > b[sortType].toUpperCase() ? 1 : -1;
+        }
+    });
     return (
         <div className="recipes-container">
             <center>
                 <Typography variant="h3" color="secondary" className={classes.head}>MyRecipes</Typography>
             </center>
+            <div className="sort-container">
+                <Typography color="secondary" display="inline">Sort by:{' '}</Typography>
+                <select value={sortType} className="sort-select" onChange={(e) => setSortType(e.target.value)}>
+                    <option value="date">Date</option>
+                    <option value="name">Name</option>
+                    <option value="chef_grade">Grade</option>
+                </select>
+            </div>
             <Grid container spacing={2}>
-                {userRecipes.map((recipe) => (
+                {sortedData.map((recipe) => (
                     <Grid key={recipe.id} item xs={3}>
                         <Card className={classes.card}>
                             <CardActionArea>
@@ -52,9 +82,11 @@ function MyRecipes() {
                                     <Typography variant="body2" color="textSecondary">
                                         {recipe.tags}
                                     </Typography>
-                                    <Typography variant="body2" color="secondary" align="right">
-                                        {recipe.chef_grade}
-                                    </Typography>
+                                    {recipe.chef_grade === '0'
+                                        ? null
+                                        : <Typography variant="body2" color="secondary" align="right">
+                                            {recipe.chef_grade}
+                                        </Typography>}
                                 </CardContent>
                             </CardActionArea>
                         </Card>

@@ -44,29 +44,29 @@ function AddUserRecipe() {
         name: null
     }]);
 
-    function handleRecipeToAddChange(value, stateSetter) {
+    const handleRecipeToAddChange = (value, stateSetter) => {
         stateSetter(value);
     }
 
-    function handleAmountChange(index, event) {
+    const handleAmountChange = (index, event) => {
         const values = [...ingredientFields];
         values[index].amount = event.target.value
         setIngredientFields(values);
     }
 
-    function handleUnitChange(index, event) {
+    const handleUnitChange = (index, event) => {
         const values = [...ingredientFields];
         values[index].unit = event.target.value
         setIngredientFields(values);
     }
 
-    function handleNameChange(index, event) {
+    const handleNameChange = (index, event) => {
         const values = [...ingredientFields];
         values[index].name = event.target.value
         setIngredientFields(values);
     }
 
-    function handleAdd() {
+    const handleAdd = () => {
         const values = [...ingredientFields];
         values.push({
             amount: null,
@@ -76,20 +76,20 @@ function AddUserRecipe() {
         setIngredientFields(values);
     }
 
-    function handleRemove(i) {
+    const handleRemove = (i) => {
         const values = [...ingredientFields];
         values.splice(i, 1);
         setIngredientFields(values);
     }
 
-    function addTag() {
+    const addTag = () => {
         if (newTag !== '') {
         setTags(tags += ` #${newTag}`)
         setNewTag('');
         }
     }
 
-    function submitRecipe() {
+    const submitRecipe = () => {
         const recipeToAdd = {
             user_id: user.id,
             name: recipeName,

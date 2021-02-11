@@ -40,18 +40,18 @@ function AddOutsideRecipe() {
     let [tags, setTags] = useState('');
     const [newTag, setNewTag] = useState('');
 
-    function handleRecipeToAddChange(value, stateSetter) {
+    const handleRecipeToAddChange = (value, stateSetter) => {
         stateSetter(value);
     }
 
-    function addTag() {
+    const addTag = () => {
         if (newTag !== '') {
         setTags(tags += ` #${newTag}`)
         setNewTag('');
         }
     }
 
-    function submitRecipe() {
+    const submitRecipe = () => {
         const recipeToAdd = {
             user_id: user.id,
             name: recipeName,
@@ -62,6 +62,8 @@ function AddOutsideRecipe() {
         };
         console.log('recipeToAdd:', recipeToAdd);
         dispatch({type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd});
+        // success dialog
+        // push to dashboard
     }
 
     console.log('tags:', tags);

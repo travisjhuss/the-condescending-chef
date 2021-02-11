@@ -25,7 +25,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-app.use('/api/userAddedRecipe', userRecipeRouter);
+app.use('/api/userRecipes', userRecipeRouter);
 app.use('/api/outsideAddedRecipe', outsideRecipeRouter);
 
 // Serve static files

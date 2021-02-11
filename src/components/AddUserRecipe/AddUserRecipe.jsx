@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import AddSuccess from '../AddSuccess/AddSuccess';
 // mui
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
-import { TextField, Button, IconButton, makeStyles, Typography, Checkbox } from '@material-ui/core';
+import { TextField, Button, IconButton, makeStyles, Typography, Checkbox, Dialog } from '@material-ui/core';
 
 import './AddUserRecipe.css';
 
@@ -43,6 +44,8 @@ function AddUserRecipe() {
         unit: null,
         name: null
     }]);
+
+    const [open, setOpen] = useState(false);
 
     const handleRecipeToAddChange = (value, stateSetter) => {
         stateSetter(value);
@@ -88,6 +91,7 @@ function AddUserRecipe() {
         setNewTag('');
         }
     }
+    
 
     const submitRecipe = () => {
         const recipeToAdd = {
@@ -101,6 +105,8 @@ function AddUserRecipe() {
         };
         console.log('recipeToAdd:', recipeToAdd);
         dispatch({type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd});
+        // success dialog
+        setOpen(true);
     }
 
     const classes = useStyles();
@@ -224,6 +230,14 @@ function AddUserRecipe() {
             >
                 <Typography color="secondary">Add Recipe</Typography>
             </Button>
+
+            <Dialog
+                maxWidth="sm"
+                open={open}
+                // onClose={handleClose}
+            >
+                <AddSuccess />
+            </Dialog>
         </div>
     )
 }

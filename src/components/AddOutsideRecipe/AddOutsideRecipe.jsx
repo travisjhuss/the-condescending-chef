@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import AddSuccess from '../AddSuccess/AddSuccess';
 // mui
-import {TextField, Button, IconButton, makeStyles, Typography, Checkbox} from '@material-ui/core';
+import { TextField, Button, IconButton, makeStyles, Typography, Checkbox, Dialog } from '@material-ui/core';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+
 
 import './AddOutRecipe.css';
 
@@ -40,14 +42,17 @@ function AddOutsideRecipe() {
     let [tags, setTags] = useState('');
     const [newTag, setNewTag] = useState('');
 
+    // for dialog box
+    const [open, setOpen] = useState(false);
+
     const handleRecipeToAddChange = (value, stateSetter) => {
         stateSetter(value);
     }
 
     const addTag = () => {
         if (newTag !== '') {
-        setTags(tags += ` #${newTag}`)
-        setNewTag('');
+            setTags(tags += ` #${newTag}`)
+            setNewTag('');
         }
     }
 
@@ -61,9 +66,9 @@ function AddOutsideRecipe() {
             tags: tags
         };
         console.log('recipeToAdd:', recipeToAdd);
-        dispatch({type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd});
+        dispatch({ type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd });
         // success dialog
-        // push to dashboard
+        setOpen(true);
     }
 
     console.log('tags:', tags);
@@ -71,7 +76,7 @@ function AddOutsideRecipe() {
     console.log('recipePhoto:', recipePhoto);
     console.log('recipeURL:', recipeUrl);
     console.log('markedforreview?', recipeForReview);
-    return(
+    return (
         <div className="outside-recipe-container">
             <TextField
                 required
@@ -90,7 +95,7 @@ function AddOutsideRecipe() {
                 value={recipePhoto}
                 onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipePhoto)}
             />
-            <br/>
+            <br />
             <TextField
                 variant="filled"
                 label="Recipe url"
@@ -109,7 +114,7 @@ function AddOutsideRecipe() {
             <Typography color="secondary">
                 Tags:{' '}{tags}
             </Typography>
-            <br/>
+            <br />
             <TextField
                 variant="filled"
                 label="add Tag"
@@ -121,14 +126,22 @@ function AddOutsideRecipe() {
             <IconButton color="primary" type="button" onClick={() => addTag()}>
                 <AddCircleIcon />
             </IconButton>
-            <Button 
-                color="primary" 
-                variant="contained" 
-                endIcon={<LibraryAddIcon/>}
+            <Button
+                color="primary"
+                variant="contained"
+                endIcon={<LibraryAddIcon />}
                 onClick={submitRecipe}
             >
                 <Typography color="secondary">Add Recipe</Typography>
             </Button>
+
+            <Dialog
+                maxWidth="sm"
+                open={open}
+                // onClose={handleClose}
+            >
+                <AddSuccess />
+            </Dialog>
         </div>
     )
 }

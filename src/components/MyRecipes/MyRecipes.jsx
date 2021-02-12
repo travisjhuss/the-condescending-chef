@@ -43,7 +43,7 @@ function MyRecipes() {
 
     const openRecipe = (id) => {
         console.log('clicked on recipe id:', id);
-        // history.push(`/recipeDetails/${id}`);
+        history.push(`/recipeDetails/${id}`);
     }
 
     // console.log('userRecipes:', userRecipes);

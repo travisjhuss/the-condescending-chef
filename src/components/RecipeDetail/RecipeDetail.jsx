@@ -15,9 +15,10 @@ import './RecipeDetail.css';
 
 const useStyles = makeStyles({
     paper: {
-        backgroundColor: '#ad4830',
-        width: '800px',
+        backgroundColor: '#fff4dd',
         margin: 'auto',
+        padding: '10px',
+        overflow: 'scroll'
     },
     button: {
         marginRight: '30px',
@@ -41,69 +42,71 @@ function RecipeDetail() {
 
     const goBack = () => {
         history.goBack();
-    } 
+    }
 
     console.log('recipeDetails:', recipeDetails);
     console.log('recipeIngredients:', recipeIngredients);
     return (
         <div className="recipe-container">
-            <div className="recipe-head">
-                <Typography display="inline" color="secondary" variant="h2" >{recipeDetails.name}</Typography>
-                <Typography color="secondary" variant="subtitle1">From user:{' '}{recipeDetails.user_id}</Typography>
-                <Typography variant="caption" color="secondary">
-                    {recipeDetails.tags}
-                </Typography>
-            </div>
-            <div className="recipe-img">
-                <img src={recipeDetails.photo} />
-            </div>
-            <div className="feedback">
-                <Typography variant="h6" color="secondary">
-                    Chef Feedback:
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <IconButton
+                        color="secondary"
+                        size="medium"
+                        className={classes.button}
+                        onClick={goBack}
+                    >
+                        <ArrowBackIosIcon />
+                    </IconButton>
+                    <IconButton color="secondary" size="medium" className={classes.button}>
+                        <EditOutlinedIcon />
+                    </IconButton>
+                    <IconButton color="secondary" size="medium" className={classes.button}>
+                        <DeleteOutlineIcon />
+                    </IconButton>
+                </Grid>
+                <Grid item xs={8}>
+                    <Typography display="inline" color="secondary" variant="h2" >{recipeDetails.name}</Typography>
+                    <Typography color="secondary" variant="subtitle1">From user:{' '}{recipeDetails.user_id}</Typography>
+                    <Typography variant="caption" color="secondary">
+                        {recipeDetails.tags}
                     </Typography>
-                <div className="feedback-text">
-                    <Typography variant="body1" color="primary">{recipeDetails.chef_feedback}</Typography>
-                    <Typography variant="h6" color="primary">{recipeDetails.chef_grade}</Typography>
-                </div>
-            </div>
-            <div className="ingredients">
-                <Typography variant="h6" color="secondary">
-                    Ingredients:
-                </Typography>
-                <div className="ingredients-list">
-                    {recipeIngredients.map((ingredient, i) => {
-                        return (
-                            <Typography key={i} color="primary">
-                                &#183;{' '}{ingredient.amount} {ingredient.unit} {ingredient.name}
-                            </Typography>
-                        )
-                    })}
-                </div>
-            </div>
-            <div className="description">
-                <Typography variant="h6" color="secondary">
-                    Instructions:
+                </Grid>
+                <Grid item xs={4}>
+                    <img src={recipeDetails.photo} className="recipe-img" />
+                </Grid>
+                <Grid item xs={8}>
+                    <Typography variant="h6" color="secondary">
+                        Chef Feedback:
                     </Typography>
-                <div className="description-text">
-                    <Typography color="primary">{recipeDetails.description}</Typography>
-                </div>
-            </div>
-            <div className="buttons">
-                <IconButton 
-                    color="secondary" 
-                    size="medium" 
-                    className={classes.button}
-                    onClick={goBack}    
-                >
-                    <ArrowBackIosIcon />
-                </IconButton>
-                <IconButton color="secondary" size="medium" className={classes.button}>
-                    <EditOutlinedIcon />
-                </IconButton>
-                <IconButton color="secondary" size="medium" className={classes.button}>
-                    <DeleteOutlineIcon />
-                </IconButton>
-            </div>
+                    <Paper className={classes.paper} style={{height: '100px'}}>
+                        <Typography variant="body1" color="primary">{recipeDetails.chef_feedback}</Typography>
+                        <Typography variant="h6" color="primary">{recipeDetails.chef_grade}</Typography>
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography variant="h6" color="secondary">
+                        Ingredients:
+                </Typography>
+                    <Paper className={classes.paper} style={{height: '250px'}}>
+                        {recipeIngredients.map((ingredient, i) => {
+                            return (
+                                <Typography key={i} color="primary">
+                                    &#183;{' '}{ingredient.amount} {ingredient.unit} {ingredient.name}
+                                </Typography>
+                            )
+                        })}
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography variant="h6" color="secondary">
+                        Instructions:
+                    </Typography>
+                    <Paper className={classes.paper} style={{height: '250px'}}>
+                        <Typography color="primary">{recipeDetails.description}</Typography>
+                    </Paper>
+                </Grid>
+            </Grid>
         </div>
     )
 };

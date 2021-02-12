@@ -5,11 +5,13 @@ import { useHistory, useParams } from "react-router-dom";
 import {
     Button, Typography,
     Grid, Paper,
-    makeStyles, IconButton
+    makeStyles, IconButton,
+    Checkbox
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditOutlinedIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
 import './RecipeDetail.css';
 
@@ -75,39 +77,64 @@ function RecipeDetail() {
                 <Grid item xs={4}>
                     <img src={recipeDetails.photo} className="recipe-img" />
                 </Grid>
-                <Grid item xs={8}>
-                    <Typography variant="h6" color="secondary">
-                        Chef Feedback:
-                    </Typography>
-                    <Paper className={classes.paper} style={{height: '100px'}}>
-                        <Typography variant="body1" color="primary">{recipeDetails.chef_feedback}</Typography>
-                        <Typography variant="h6" color="primary">{recipeDetails.chef_grade}</Typography>
-                    </Paper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Typography variant="h6" color="secondary">
-                        Ingredients:
-                </Typography>
-                    <Paper className={classes.paper} style={{height: '250px'}}>
-                        {recipeIngredients.map((ingredient, i) => {
-                            return (
-                                <Typography key={i} color="primary">
-                                    &#183;{' '}{ingredient.amount} {ingredient.unit} {ingredient.name}
-                                </Typography>
-                            )
-                        })}
-                    </Paper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Typography variant="h6" color="secondary">
-                        Instructions:
-                    </Typography>
-                    <Paper className={classes.paper} style={{height: '250px'}}>
-                        <Typography color="primary">{recipeDetails.description}</Typography>
-                    </Paper>
-                </Grid>
+                {recipeDetails.chef_grade === '0'
+                    ?
+                    <Grid item xs={8} style={{ marginBottom: '40px' }}>
+                        <Typography color="secondary" display="inline">Mark for Review</Typography>
+                        <Checkbox
+                            // onChange={() => setRecipeForReview(!recipeForReview)}
+                            color="primary"
+                            // value={recipeForReview}
+                            style={{ color: '#fff4dd' }}
+                        />
+                    </Grid>
+                    :
+                    <Grid item xs={8}>
+                        <Typography variant="h6" color="secondary" display="inline">
+                            Chef Score:
+                        </Typography>
+                        {' '}
+                        <Typography display="inline" color="secondary" variant="h5">{recipeDetails.chef_grade}</Typography>
+                        <Paper className={classes.paper} style={{ height: '100px' }}>
+                            <Typography variant="body1" color="primary">{recipeDetails.chef_feedback}</Typography>
+                        </Paper>
+                    </Grid>
+                }
+                {recipeDetails.url
+                    ? 
+                    <Grid item xs={6}>
+                        <Button endIcon={<OpenInNewIcon />} color="secondary">
+                            <Typography display="inline" color="secondary" variant="h5">Open Recipe</Typography>
+                        </Button>
+                    </Grid>
+                    :
+                    <>
+                        <Grid item xs={6}>
+                            <Typography variant="h6" color="secondary">
+                                Ingredients:
+                            </Typography>
+                            <Paper className={classes.paper} style={{ height: '250px' }}>
+                                {recipeIngredients.map((ingredient, i) => {
+                                    return (
+                                        <Typography key={i} color="primary">
+                                            &#183;{' '}{ingredient.amount} {ingredient.unit} {ingredient.name}
+                                        </Typography>
+                                    )
+                                })}
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Typography variant="h6" color="secondary">
+                                Instructions:
+                            </Typography>
+                            <Paper className={classes.paper} style={{ height: '250px' }}>
+                                <Typography color="primary">{recipeDetails.description}</Typography>
+                            </Paper>
+                        </Grid>
+                    </>
+                }
             </Grid>
-        </div>
+        </div >
     )
 };
 

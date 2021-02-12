@@ -5,8 +5,11 @@ import { useHistory, useParams } from "react-router-dom";
 import {
     Button, Typography,
     Grid, Paper,
-    makeStyles
+    makeStyles, IconButton
 } from '@material-ui/core';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import EditOutlinedIcon from '@material-ui/icons/Edit';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 import './RecipeDetail.css';
 
@@ -16,15 +19,9 @@ const useStyles = makeStyles({
         width: '800px',
         margin: 'auto',
     },
-    head: {
-        marginBottom: '30px'
+    button: {
+        marginRight: '30px',
     },
-    select: {
-        backgroundColor: '#fff4dd',
-        border: '1px, #ad4830, solid',
-        height: '30px',
-        marginBottom: '30px'
-    }
 })
 
 function RecipeDetail() {
@@ -42,6 +39,10 @@ function RecipeDetail() {
         dispatch({ type: 'FETCH_RECIPE_INGREDIENTS', payload: id });
     }, []);
 
+    const goBack = () => {
+        history.goBack();
+    } 
+
     console.log('recipeDetails:', recipeDetails);
     console.log('recipeIngredients:', recipeIngredients);
     return (
@@ -49,6 +50,9 @@ function RecipeDetail() {
             <div className="recipe-head">
                 <Typography display="inline" color="secondary" variant="h2" >{recipeDetails.name}</Typography>
                 <Typography color="secondary" variant="subtitle1">From user:{' '}{recipeDetails.user_id}</Typography>
+                <Typography variant="caption" color="secondary">
+                    {recipeDetails.tags}
+                </Typography>
             </div>
             <div className="recipe-img">
                 <img src={recipeDetails.photo} />
@@ -83,6 +87,22 @@ function RecipeDetail() {
                 <div className="description-text">
                     <Typography color="primary">{recipeDetails.description}</Typography>
                 </div>
+            </div>
+            <div className="buttons">
+                <IconButton 
+                    color="secondary" 
+                    size="medium" 
+                    className={classes.button}
+                    onClick={goBack}    
+                >
+                    <ArrowBackIosIcon />
+                </IconButton>
+                <IconButton color="secondary" size="medium" className={classes.button}>
+                    <EditOutlinedIcon />
+                </IconButton>
+                <IconButton color="secondary" size="medium" className={classes.button}>
+                    <DeleteOutlineIcon />
+                </IconButton>
             </div>
         </div>
     )

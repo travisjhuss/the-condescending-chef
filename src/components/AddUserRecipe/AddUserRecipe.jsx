@@ -255,7 +255,6 @@ function AddUserRecipe() {
             <Dialog
                 maxWidth="sm"
                 open={openSuccess}
-            // onClose={handleClose}
             >
                 <AddSuccess />
             </Dialog>

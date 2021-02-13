@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import EditSuccess from '../EditSuccess/EditSuccess';
+import AddFail from '../AddFail/AddFail';
 // MUI
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -41,10 +43,21 @@ function EditRecipe() {
     const [newRecipe, setNewRecipe] = useState(editRecipeDetails);
     let [newTags, setNewTags] = useState(editRecipeDetails.tags);
 
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [openFail, setOpenFail] = useState(false);
+
     useEffect(() => {
         dispatch({ type: 'FETCH_RECIPE_TO_EDIT', payload: id });
         dispatch({ type: 'FETCH_RECIPE_TO_EDIT_INGREDIENTS', payload: id });
     }, [id]);
+
+    const handleFailClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenFail(false);
+    };
 
     const handleAdd = () => {
         const values = [...ingredientFields];
@@ -85,6 +98,25 @@ function EditRecipe() {
         setIngredientFields(values);
     }
 
+    const submitChanges = () => {
+
+        setNewRecipe({ ...newRecipe, ingredients: ingredientFields });
+        for (let ingredient of ingredientFields) {
+            if (ingredient.amount === '' || ingredient.unit === '' || ingredient.name === '') {
+                setOpenFail(true);
+            } else {
+                if (newRecipe.name === '' || newRecipe.description === '') {
+                    setOpenFail(true);
+                } else {
+                    setNewRecipe({ ...newRecipe, ingredients: ingredientFields });
+                    // dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
+                    // success dialog
+                    setOpenSuccess(true);
+                }
+            }
+        }
+    }
+
     console.log('newRecipe:', newRecipe);
     console.log('ingredientFields', ingredientFields);
     return (
@@ -94,7 +126,7 @@ function EditRecipe() {
                     color="primary"
                     variant="contained"
                     endIcon={<LibraryAddIcon />}
-                // onClick={submitRecipe}
+                    onClick={submitChanges}
                 >
                     <Typography color="secondary">Save Changes</Typography>
                 </Button>
@@ -200,6 +232,20 @@ function EditRecipe() {
                 onChange={(event) => setNewTags(event.target.value)}
                 className={classes.input}
             />
+            <Dialog
+                maxWidth="sm"
+                open={openSuccess}
+            >
+                <EditSuccess />
+            </Dialog>
+
+            <Snackbar
+                autoHideDuration={6000}
+                open={openFail}
+                onClose={handleFailClose}
+            >
+                <AddFail handleFailClose={handleFailClose} />
+            </Snackbar>
         </div>
     )
 }

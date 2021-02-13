@@ -43,4 +43,23 @@ router.get('/ingredients/:id', (req, res) => {
         });
 });
 
+
+// Delete a recipe if it's something the logged in user added
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const recipeId = req.params.id;
+    queryText = `
+      DELETE FROM "recipes"
+      WHERE id = $1 AND "user_id" = $2;
+    `
+    pool.query(queryText, [recipeId, req.user.id])
+      .then((result) => {
+        console.log(result)
+        res.sendStatus(200)
+      })
+      .catch((err) => {
+        console.log(err)
+        res.sendStatus(500)
+      })
+  });
+
 module.exports = router;

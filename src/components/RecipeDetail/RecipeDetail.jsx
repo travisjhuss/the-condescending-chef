@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 // MUI
@@ -6,7 +6,8 @@ import {
     Button, Typography,
     Grid, Paper,
     makeStyles, IconButton,
-    Checkbox
+    Checkbox, Dialog,
+    DialogTitle, DialogActions
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditOutlinedIcon from '@material-ui/icons/Edit';
@@ -34,6 +35,9 @@ function RecipeDetail() {
     const history = useHistory();
     const classes = useStyles();
 
+    const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+
+    const user = useSelector(state => state.user);
     const recipeDetails = useSelector(state => state.details.recipeDetails);
     const recipeIngredients = useSelector(state => state.details.recipeIngredients);
 
@@ -45,6 +49,16 @@ function RecipeDetail() {
     const goBack = () => {
         history.goBack();
     }
+
+    const handleDelete = () => {
+        setOpenDeleteConfirmation(true);
+    }
+
+    const confirmDelete = () => {
+        dispatch({ type: 'DELETE_USER_RECIPE', payload: recipeDetails.id });
+        history.push('/myRecipes');
+    }
+
 
     console.log('recipeDetails:', recipeDetails);
     console.log('recipeIngredients:', recipeIngredients);
@@ -60,12 +74,23 @@ function RecipeDetail() {
                     >
                         <ArrowBackIosIcon />
                     </IconButton>
-                    <IconButton color="secondary" size="medium" className={classes.button}>
-                        <EditOutlinedIcon />
-                    </IconButton>
-                    <IconButton color="secondary" size="medium" className={classes.button}>
-                        <DeleteOutlineIcon />
-                    </IconButton>
+                    {user.id === recipeDetails.user_id
+                        ?
+                        <>
+                            <IconButton color="secondary" size="medium" className={classes.button}>
+                                <EditOutlinedIcon />
+                            </IconButton>
+                            <IconButton
+                                color="secondary"
+                                size="medium"
+                                className={classes.button}
+                                onClick={handleDelete}
+                            >
+                                <DeleteOutlineIcon />
+                            </IconButton>
+                        </>
+                        : null
+                    }
                 </Grid>
                 <Grid item xs={8}>
                     <Typography display="inline" color="secondary" variant="h2" >{recipeDetails.name}</Typography>
@@ -101,7 +126,7 @@ function RecipeDetail() {
                     </Grid>
                 }
                 {recipeDetails.url
-                    ? 
+                    ?
                     <Grid item xs={6}>
                         <Button endIcon={<OpenInNewIcon />} color="secondary">
                             <Typography display="inline" color="secondary" variant="h5">Open Recipe</Typography>
@@ -134,6 +159,22 @@ function RecipeDetail() {
                     </>
                 }
             </Grid>
+            <Dialog
+                maxWidth="sm"
+                open={openDeleteConfirmation}
+            >
+                <div style={{ backgroundColor: '#fff4dd' }}>
+                    <DialogTitle style={{ color: '#ad4830' }}>Are you sure you want to delete this recipe?</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={() => setOpenDeleteConfirmation(false)} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={confirmDelete} color="secondary" variant="outlined" style={{ backgroundColor: '#990f02'}}>
+                            Delete
+                        </Button>
+                    </DialogActions>
+                </div>
+            </Dialog>
         </div >
     )
 };

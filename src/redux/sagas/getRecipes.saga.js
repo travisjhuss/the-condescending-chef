@@ -39,12 +39,24 @@ function* fetchRecipeIngredients(action) {
     }
 }
 
+function* deleteUserRecipe(action) {
+    try {
+        const deleteID = action.payload;
+        console.log('deleting recipe with id:', deleteID);
+        yield axios.delete(`/api/recipes/${deleteID}`);
+        yield put({ type: 'FETCH_MY_RECIPES' });
+    } catch (err) {
+        console.log('error in deleteUserRecipe', err);
+    }
+}
+
 
 
 function* getRecipesSaga() {
     yield takeEvery('FETCH_MY_RECIPES', fetchUserRecipes);
     yield takeEvery('FETCH_RECIPE_DETAILS', fetchRecipeDetails);
     yield takeEvery('FETCH_RECIPE_INGREDIENTS', fetchRecipeIngredients);
+    yield takeEvery('DELETE_USER_RECIPE', deleteUserRecipe);
 }
 
 export default getRecipesSaga;

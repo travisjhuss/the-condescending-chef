@@ -31,7 +31,7 @@ CREATE TABLE "recipes" (
 -- ingredient data joins on recipe id
 CREATE TABLE "ingredients" (
 	"id" SERIAL PRIMARY KEY,
-	"recipe_id" INT REFERENCES "recipes" NOT NULL,
+	"recipe_id" INT REFERENCES "recipes" ON DELETE CASCADE NOT NULL,
 	"name" VARCHAR(255) NOT NULL,
 	"unit" VARCHAR(100) NOT NULL,
 	"amount" INT NOT NULL

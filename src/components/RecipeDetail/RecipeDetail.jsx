@@ -82,6 +82,8 @@ function RecipeDetail() {
                     {user.id === recipeDetails.user_id
                         ?
                         <>
+                            {recipeDetails.url === null
+                            ? 
                             <IconButton 
                                 color="secondary" 
                                 size="medium" 
@@ -90,6 +92,8 @@ function RecipeDetail() {
                             >
                                 <EditOutlinedIcon />
                             </IconButton>
+                            : null
+                            }
                             <IconButton
                                 color="secondary"
                                 size="medium"

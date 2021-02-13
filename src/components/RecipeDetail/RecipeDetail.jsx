@@ -44,7 +44,7 @@ function RecipeDetail() {
     useEffect(() => {
         dispatch({ type: 'FETCH_RECIPE_DETAILS', payload: id });
         dispatch({ type: 'FETCH_RECIPE_INGREDIENTS', payload: id });
-    }, []);
+    }, [id]);
 
     const goBack = () => {
         history.goBack();
@@ -57,6 +57,11 @@ function RecipeDetail() {
     const confirmDelete = () => {
         dispatch({ type: 'DELETE_USER_RECIPE', payload: recipeDetails.id });
         history.push('/myRecipes');
+    }
+
+    const openEditRecipe = (id) => {
+        console.log('clicked edit for:', id );
+        history.push(`/editRecipe/${id}`)
     }
 
 
@@ -77,7 +82,12 @@ function RecipeDetail() {
                     {user.id === recipeDetails.user_id
                         ?
                         <>
-                            <IconButton color="secondary" size="medium" className={classes.button}>
+                            <IconButton 
+                                color="secondary" 
+                                size="medium" 
+                                className={classes.button}
+                                onClick={() => openEditRecipe(recipeDetails.id)}
+                            >
                                 <EditOutlinedIcon />
                             </IconButton>
                             <IconButton

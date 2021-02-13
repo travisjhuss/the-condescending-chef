@@ -21,6 +21,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Header from '../Header/Header';
 import MyRecipes from '../MyRecipes/MyRecipes';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
+import EditRecipe from '../EditRecipe/EditRecipe';
 import { useSelector } from 'react-redux';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -145,11 +146,19 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute
-              // logged in shows MyRecipes else shows LoginPage
+              // logged in shows RecipeDetails else shows LoginPage
               exact
               path="/recipeDetails/:id"
             >
               <RecipeDetail />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // logged in shows MyRecipes else shows LoginPage
+              exact
+              path="/editRecipe/:id"
+            >
+              <EditRecipe />
             </ProtectedRoute>
 
             {/* If none of the other routes matched, we will show a 404. */}

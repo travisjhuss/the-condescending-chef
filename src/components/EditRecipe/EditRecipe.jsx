@@ -11,11 +11,19 @@ function EditRecipe() {
     const { id } = useParams();
     const dispatch = useDispatch();
 
+    const user = useSelector(state => state.user);
+    const editRecipeDetails = useSelector(state => state.edit.editRecipeDetails);
+    const editRecipeIngredients = useSelector(state => state.edit.editRecipeIngredients);
+
     useEffect(() => {
         dispatch({ type: 'FETCH_RECIPE_TO_EDIT', payload: id });
-        // dispatch({ type: 'FETCH_RECIPE_INGREDIENTS', payload: id });
+        dispatch({ type: 'FETCH_RECIPE_TO_EDIT_INGREDIENTS', payload: id });
     }, [id]);
 
+ 
+
+    console.log('editRecipeDetails:', editRecipeDetails);
+    console.log('editRecipeIngredients', editRecipeIngredients);
     return(
         <div className="edit-container">
             <Typography color="secondary">IN EDIT RECIPE</Typography>

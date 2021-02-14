@@ -40,8 +40,6 @@ function EditRecipe() {
     const editRecipeIngredients = useSelector(state => state.edit.editRecipeIngredients);
 
     const [ingredientFields, setIngredientFields] = useState(editRecipeIngredients);
-    const [newRecipe, setNewRecipe] = useState(editRecipeDetails);
-    let [newTags, setNewTags] = useState(editRecipeDetails.tags);
 
     const [openSuccess, setOpenSuccess] = useState(false);
     const [openFail, setOpenFail] = useState(false);
@@ -75,10 +73,6 @@ function EditRecipe() {
         setIngredientFields(values);
     }
 
-
-    const handleNewRecipeChange = (event) => {
-        setNewRecipe({ ...newRecipe, [event.target.name]: event.target.value });
-    }
 
     const handleAmountChange = (index, event) => {
         const values = [...ingredientFields];
@@ -117,7 +111,6 @@ function EditRecipe() {
         }
     }
 
-    console.log('newRecipe:', newRecipe);
     console.log('ingredientFields', ingredientFields);
     return (
         <div className="edit-container">
@@ -138,18 +131,16 @@ function EditRecipe() {
                 label="Recipe Name"
                 style={{ width: '500px' }}
                 className={classes.input}
-                value={newRecipe.name}
-                name="name"
-                onChange={handleNewRecipeChange}
+                value={editRecipeDetails.name}
+                onChange={(event) => {dispatch({type: 'EDIT_RECIPE_NAME', payload: event.target.value})}}
             />
             <TextField
                 variant="filled"
                 label="Photo url"
                 style={{ width: '400px' }}
                 className={classes.input}
-                value={newRecipe.photo}
-                name="photo"
-                onChange={handleNewRecipeChange}
+                value={editRecipeDetails.photo}
+                onChange={(event) => {dispatch({type: 'EDIT_RECIPE_PHOTO', payload: event.target.value})}}
             />
             <br />
             <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
@@ -219,18 +210,17 @@ function EditRecipe() {
                 rows={10}
                 style={{ width: '500px' }}
                 className={classes.input}
-                value={newRecipe.description}
-                name="description"
-                onChange={handleNewRecipeChange}
+                value={editRecipeDetails.description}
+                onChange={(event) => {dispatch({type: 'EDIT_RECIPE_DESCRIPTION', payload: event.target.value})}}
             />
             {' '}
             <TextField
                 variant="filled"
                 label="Tags"
                 style={{ width: '400px' }}
-                value={newTags}
-                onChange={(event) => setNewTags(event.target.value)}
+                value={editRecipeDetails.tags}
                 className={classes.input}
+                onChange={(event) => {dispatch({type: 'EDIT_RECIPE_TAGS', payload: event.target.value})}}
             />
             <Dialog
                 maxWidth="sm"

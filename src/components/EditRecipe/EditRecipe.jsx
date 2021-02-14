@@ -39,8 +39,6 @@ function EditRecipe() {
     const editRecipeDetails = useSelector(state => state.edit.editRecipeDetails);
     const editRecipeIngredients = useSelector(state => state.edit.editRecipeIngredients);
 
-    const [ingredientFields, setIngredientFields] = useState(editRecipeIngredients);
-
     const [openSuccess, setOpenSuccess] = useState(false);
     const [openFail, setOpenFail] = useState(false);
 
@@ -58,39 +56,15 @@ function EditRecipe() {
     };
 
     const handleAdd = () => {
-        const values = [...ingredientFields];
-        values.push({
-            amount: '',
-            unit: '',
-            name: ''
-        });
-        setIngredientFields(values);
+        dispatch({type: 'ADD_INGREDIENT_TO_EDIT'})
     }
 
     const handleRemove = (i) => {
-        const values = [...ingredientFields];
-        values.splice(i, 1);
-        setIngredientFields(values);
+        // const values = [...ingredientFields];
+        // values.splice(i, 1);
+        // setIngredientFields(values);
     }
 
-
-    const handleAmountChange = (index, event) => {
-        const values = [...ingredientFields];
-        values[index].amount = event.target.value
-        setIngredientFields(values);
-    }
-
-    const handleUnitChange = (index, event) => {
-        const values = [...ingredientFields];
-        values[index].unit = event.target.value
-        setIngredientFields(values);
-    }
-
-    const handleNameChange = (index, event) => {
-        const values = [...ingredientFields];
-        values[index].name = event.target.value
-        setIngredientFields(values);
-    }
 
     const submitChanges = () => {
 
@@ -111,7 +85,8 @@ function EditRecipe() {
         }
     }
 
-    console.log('ingredientFields', ingredientFields);
+    console.log('editRecipeIng:', editRecipeIngredients);
+    console.log('editRecipeDeets:', editRecipeDetails);
     return (
         <div className="edit-container">
             <center>
@@ -151,49 +126,49 @@ function EditRecipe() {
             >
                 <AddCircleIcon />
             </IconButton>
-            {ingredientFields.map((ing, idx) => {
+            {editRecipeIngredients.map((ing, i) => {
                 return (
-                    <div key={`${idx}`}>
+                    <div key={`${i}`}>
                         <TextField
                             required
                             variant="filled"
-                            name="amount"
                             label="#"
                             type="number"
                             size="small"
+                            name={`${i}`}
                             style={{ width: '70px' }}
                             className={classes.input}
                             value={ing.amount}
-                            onChange={e => handleAmountChange(idx, e)}
+                            onChange={(event) => {dispatch({type: 'EDIT_INGREDIENT_AMOUNT', payload: [event.target.name, event.target.value]})}}
                         />
                         <TextField
                             required
                             variant="filled"
-                            name="unit"
+                            name={`${i}`}
                             label="unit"
                             type="text"
                             size="small"
                             style={{ width: '90px' }}
                             className={classes.input}
                             value={ing.unit}
-                            onChange={e => handleUnitChange(idx, e)}
+                            onChange={(event) => {dispatch({type: 'EDIT_INGREDIENT_UNIT', payload: [event.target.name, event.target.value]})}}
                         />
                         <TextField
                             required
                             variant="filled"
-                            name="name"
+                            name={`${i}`}
                             label="name"
                             type="text"
                             size="small"
                             style={{ width: '300px' }}
                             className={classes.input}
                             value={ing.name}
-                            onChange={e => handleNameChange(idx, e)}
+                            onChange={(event) => {dispatch({type: 'EDIT_INGREDIENT_NAME', payload: [event.target.name, event.target.value]})}}
                         />
                         <IconButton
                             color="primary"
                             type="button"
-                            onClick={() => handleRemove(idx)}
+                            onClick={() => handleRemove(i)}
                         >
                             <CancelIcon />
                         </IconButton>

@@ -5,13 +5,13 @@ const editRecipeDetails = (state = [], action) => {
         case 'SET_EDITING_RECIPE':
             return action.payload;
         case 'EDIT_RECIPE_NAME':
-            return {...state, name: action.payload};
+            return { ...state, name: action.payload };
         case 'EDIT_RECIPE_PHOTO':
-            return {...state, photo: action.payload};
+            return { ...state, photo: action.payload };
         case 'EDIT_RECIPE_DESCRIPTION':
-            return {...state, description: action.payload};
+            return { ...state, description: action.payload };
         case 'EDIT_RECIPE_TAGS':
-            return {...state, tags: action.payload};
+            return { ...state, tags: action.payload };
         default:
             return state;
     }
@@ -21,6 +21,15 @@ const editRecipeIngredients = (state = [], action) => {
     switch (action.type) {
         case 'SET_EDITING_RECIPE_INGREDIENTS':
             return action.payload;
+        case 'EDIT_INGREDIENT_AMOUNT':
+            return [...state, state[Number(action.payload[0])].amount = Number(action.payload[1])];
+        case 'EDIT_INGREDIENT_UNIT':
+            return [...state, state[action.payload[0]].unit = action.payload[1]];
+        case 'EDIT_INGREDIENT_NAME':
+            return [...state, state[action.payload[0]].name = action.payload[1]];
+        case 'ADD_INGREDIENT_TO_EDIT':
+
+            // return [...state, ]
         default:
             return state;
     }

@@ -6,15 +6,24 @@ import {
     makeStyles, Table,
     TableBody, TableCell,
     TableContainer, TableHead,
-    TableRow, Paper
+    TableRow, Paper,
+    IconButton
 }
     from '@material-ui/core';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const useStyles = makeStyles({
     table: {
-        backgroundColor: '#ad4830',
+        backgroundColor: '#fff4dd',
         margin: 'auto',
         width: '800px',
+    },
+    head: {
+        backgroundColor: '#ad4830',
+    },
+    body: {
+        border: '#ad4830',
     }
 })
 
@@ -32,15 +41,37 @@ function AdminDashboard() {
     console.log('recipes to review:', recipesToReview);
     return (
         <div style={{ marginTop: '100px' }}>
-            <TableContainer component={Paper}class={classes.table}>
+            <TableContainer component={Paper} class={classes.table}>
                 <Table >
-                    <TableHead>
+                    <TableHead class={classes.head}>
                         <TableRow>
-                            <TableCell></TableCell>
+                            <TableCell>Recipe</TableCell>
+                            <TableCell>User</TableCell>
+                            <TableCell>Date</TableCell>
+                            <TableCell>Review</TableCell>
+                            <TableCell>Remove</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        // .map
+                    <TableBody class={classes.body}>
+                        {recipesToReview.map((recipe, i) => {
+                            return (
+                                <TableRow key={i}>
+                                    <TableCell>{recipe.name}</TableCell>
+                                    <TableCell>{recipe.user_id}</TableCell>
+                                    <TableCell>{recipe.date}</TableCell>
+                                    <TableCell>
+                                        <IconButton>
+                                            <OpenInNewIcon />
+                                        </IconButton>
+                                    </TableCell>
+                                    <TableCell>
+                                        <IconButton>
+                                            <DeleteOutlineIcon />
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            )
+                        })}
                     </TableBody>
                 </Table>
             </TableContainer>

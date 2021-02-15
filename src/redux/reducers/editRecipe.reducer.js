@@ -39,9 +39,7 @@ const editRecipeIngredients = (state = [], action) => {
             }
             return [...state, newIngredient];
         case 'REMOVE_INGREDIENT_FROM_EDIT':
-            // console.log('action.payload', action.payload);
             state = state.filter(ingredient => ingredient.name !== action.payload);
-            // console.log('state after filter:', state);
             return state;
         default:
             return state;

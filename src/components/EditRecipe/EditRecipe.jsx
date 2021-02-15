@@ -56,35 +56,34 @@ function EditRecipe() {
     };
 
     const handleAdd = () => {
-        dispatch({type: 'ADD_INGREDIENT_TO_EDIT'});
+        dispatch({ type: 'ADD_INGREDIENT_TO_EDIT' });
     }
 
     const handleRemove = (name) => {
-        dispatch({type: 'REMOVE_INGREDIENT_FROM_EDIT', payload: name});
+        dispatch({ type: 'REMOVE_INGREDIENT_FROM_EDIT', payload: name });
     }
 
 
     const submitChanges = () => {
 
-        setNewRecipe({ ...newRecipe, ingredients: ingredientFields });
-        for (let ingredient of ingredientFields) {
+        for (let ingredient of editRecipeIngredients) {
             if (ingredient.amount === '' || ingredient.unit === '' || ingredient.name === '') {
                 setOpenFail(true);
-            } else {
-                if (newRecipe.name === '' || newRecipe.description === '') {
-                    setOpenFail(true);
-                } else {
-                    setNewRecipe({ ...newRecipe, ingredients: ingredientFields });
-                    // dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
-                    // success dialog
-                    setOpenSuccess(true);
-                }
             }
+        }
+        if (editRecipeDetails.name === '' || editRecipeDetails.description === '') {
+            setOpenFail(true);
+        } else {
+            const editedRecipe = { ...editRecipeDetails, ingredients: editRecipeIngredients };
+            console.log('editedRecipe:', editedRecipe);
+            // dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
+            // success dialog
+            // setOpenSuccess(true);
         }
     }
 
-    console.log('editRecipeIng:', editRecipeIngredients);
-    console.log('editRecipeDeets:', editRecipeDetails);
+    // console.log('editRecipeIng:', editRecipeIngredients);
+    // console.log('editRecipeDeets:', editRecipeDetails);
     return (
         <div className="edit-container">
             <center>
@@ -105,7 +104,7 @@ function EditRecipe() {
                 style={{ width: '500px' }}
                 className={classes.input}
                 value={editRecipeDetails.name}
-                onChange={(event) => {dispatch({type: 'EDIT_RECIPE_NAME', payload: event.target.value})}}
+                onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_NAME', payload: event.target.value }) }}
             />
             <TextField
                 variant="filled"
@@ -113,7 +112,7 @@ function EditRecipe() {
                 style={{ width: '400px' }}
                 className={classes.input}
                 value={editRecipeDetails.photo}
-                onChange={(event) => {dispatch({type: 'EDIT_RECIPE_PHOTO', payload: event.target.value})}}
+                onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_PHOTO', payload: event.target.value }) }}
             />
             <br />
             <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
@@ -137,7 +136,7 @@ function EditRecipe() {
                             style={{ width: '70px' }}
                             className={classes.input}
                             value={ing.amount}
-                            onChange={(event) => {dispatch({type: 'EDIT_INGREDIENT_AMOUNT', payload: [event.target.name, event.target.value]})}}
+                            onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_AMOUNT', payload: [event.target.name, event.target.value] }) }}
                         />
                         <TextField
                             required
@@ -149,7 +148,7 @@ function EditRecipe() {
                             style={{ width: '90px' }}
                             className={classes.input}
                             value={ing.unit}
-                            onChange={(event) => {dispatch({type: 'EDIT_INGREDIENT_UNIT', payload: [event.target.name, event.target.value]})}}
+                            onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_UNIT', payload: [event.target.name, event.target.value] }) }}
                         />
                         <TextField
                             required
@@ -161,7 +160,7 @@ function EditRecipe() {
                             style={{ width: '300px' }}
                             className={classes.input}
                             value={ing.name}
-                            onChange={(event) => {dispatch({type: 'EDIT_INGREDIENT_NAME', payload: [event.target.name, event.target.value]})}}
+                            onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_NAME', payload: [event.target.name, event.target.value] }) }}
                         />
                         <IconButton
                             color="primary"
@@ -184,7 +183,7 @@ function EditRecipe() {
                 style={{ width: '500px' }}
                 className={classes.input}
                 value={editRecipeDetails.description}
-                onChange={(event) => {dispatch({type: 'EDIT_RECIPE_DESCRIPTION', payload: event.target.value})}}
+                onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_DESCRIPTION', payload: event.target.value }) }}
             />
             {' '}
             <TextField
@@ -193,7 +192,7 @@ function EditRecipe() {
                 style={{ width: '400px' }}
                 value={editRecipeDetails.tags}
                 className={classes.input}
-                onChange={(event) => {dispatch({type: 'EDIT_RECIPE_TAGS', payload: event.target.value})}}
+                onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_TAGS', payload: event.target.value }) }}
             />
             <Dialog
                 maxWidth="sm"

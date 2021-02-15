@@ -23,7 +23,9 @@ const useStyles = makeStyles({
         backgroundColor: '#ad4830',
     },
     body: {
-        border: '#ad4830',
+        '&:nth-of-type(even)': {
+            backgroundColor: '#dbd1bd',
+        }
     }
 })
 
@@ -31,12 +33,18 @@ function AdminDashboard() {
 
     const dispatch = useDispatch();
     const classes = useStyles();
+    const history = useHistory();
 
     const recipesToReview = useSelector(state => state.admin.recipesToReview)
 
     useEffect(() => {
         dispatch({ type: 'FETCH_ALL_RECIPES_FOR_REVIEW' });
     }, []);
+
+    const openReviewForm = (id) => {
+        console.log('clicked on recipe id:', id);
+        // history.push(`/recipeDetails/${id}`);
+    }
 
     console.log('recipes to review:', recipesToReview);
     return (
@@ -52,15 +60,15 @@ function AdminDashboard() {
                             <TableCell>Remove</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody class={classes.body}>
+                    <TableBody >
                         {recipesToReview.map((recipe, i) => {
                             return (
-                                <TableRow key={i}>
+                                <TableRow key={i} class={classes.body}>
                                     <TableCell>{recipe.name}</TableCell>
                                     <TableCell>{recipe.user_id}</TableCell>
                                     <TableCell>{recipe.date}</TableCell>
                                     <TableCell>
-                                        <IconButton>
+                                        <IconButton onClick={() => openReviewForm(recipe.id)}>
                                             <OpenInNewIcon />
                                         </IconButton>
                                     </TableCell>

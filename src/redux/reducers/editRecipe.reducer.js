@@ -23,16 +23,26 @@ const editRecipeIngredients = (state = [], action) => {
             return action.payload;
         case 'EDIT_INGREDIENT_AMOUNT':
             state[Number(action.payload[0])].amount = Number(action.payload[1]);
-            return [...state];
+            return state;
         case 'EDIT_INGREDIENT_UNIT':
             state[Number(action.payload[0])].unit = action.payload[1];
-            return [...state];
+            return state;
         case 'EDIT_INGREDIENT_NAME':
             state[Number(action.payload[0])].name = action.payload[1];
-            return [...state];
-        // case 'ADD_INGREDIENT_TO_EDIT':
-
-            // return [...state, ]
+            return state;
+        case 'ADD_INGREDIENT_TO_EDIT':
+            // add ingredient with no values
+            const newIngredient = {
+                amount: '',
+                unit: '',
+                name: ''
+            }
+            return [...state, newIngredient];
+        case 'REMOVE_INGREDIENT_FROM_EDIT':
+            // console.log('action.payload', action.payload);
+            state = state.filter(ingredient => ingredient.name !== action.payload);
+            // console.log('state after filter:', state);
+            return state;
         default:
             return state;
     }

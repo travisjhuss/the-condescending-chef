@@ -56,13 +56,11 @@ function EditRecipe() {
     };
 
     const handleAdd = () => {
-        dispatch({type: 'ADD_INGREDIENT_TO_EDIT'})
+        dispatch({type: 'ADD_INGREDIENT_TO_EDIT'});
     }
 
-    const handleRemove = (i) => {
-        // const values = [...ingredientFields];
-        // values.splice(i, 1);
-        // setIngredientFields(values);
+    const handleRemove = (name) => {
+        dispatch({type: 'REMOVE_INGREDIENT_FROM_EDIT', payload: name});
     }
 
 
@@ -168,7 +166,7 @@ function EditRecipe() {
                         <IconButton
                             color="primary"
                             type="button"
-                            onClick={() => handleRemove(i)}
+                            onClick={() => handleRemove(ing.name)}
                         >
                             <CancelIcon />
                         </IconButton>

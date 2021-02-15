@@ -19,13 +19,23 @@ function* fetchRecipeToEditIngredients(action) {
         console.log('response in fetch edit ingredients', response.data);
         yield put({type: 'SET_EDITING_RECIPE_INGREDIENTS', payload: response.data})
     } catch (err) {
-        console.log('error in fetchRecipeToEdit', err)
+        console.log('error in fetchRecipeToEdit', err);
+    }
+}
+
+function* submitEditedRecipe(action) {
+    try {
+        console.log('submitEditedRecipe payload:', action.payload);
+        yield axios.put(`/api/recipes/${action.payload.id}`, action.payload);
+    } catch(err) {
+        console.log('error in submitEditedRecipe', err);
     }
 }
 
 function* editRecipeSaga() {
     yield takeEvery('FETCH_RECIPE_TO_EDIT', fetchRecipeToEdit);
-    yield takeEvery('FETCH_RECIPE_TO_EDIT_INGREDIENTS', fetchRecipeToEditIngredients)
+    yield takeEvery('FETCH_RECIPE_TO_EDIT_INGREDIENTS', fetchRecipeToEditIngredients);
+    yield takeEvery('SUBMIT_EDITED_RECIPE', submitEditedRecipe);
 }
 
 export default editRecipeSaga;

@@ -37,7 +37,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
       //Iterates through all of the ingredients in the array
       ingredientsToAdd.forEach((ingredient) => {
-        // SECOND QUERY ADDS GENRE FOR THAT NEW MOVIE
+        // SECOND QUERY ADDS 
         pool.query(insertIngredientsQuery, [createdRecipeId, ingredient.name, ingredient.unit, ingredient.amount]).then(result => {
           //If statement checks to see if we have reached the last genre id before sending back a 201
           if (ingredient === ingredientsToAdd[ingredientsToAdd - 1]) {

@@ -76,9 +76,9 @@ function EditRecipe() {
         } else {
             const editedRecipe = { ...editRecipeDetails, ingredients: editRecipeIngredients };
             console.log('editedRecipe:', editedRecipe);
-            // dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
+            dispatch({ type: 'SUBMIT_EDITED_RECIPE', payload: editedRecipe});
             // success dialog
-            // setOpenSuccess(true);
+            setOpenSuccess(true);
         }
     }
 

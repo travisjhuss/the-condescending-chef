@@ -27,6 +27,7 @@ function* submitEditedRecipe(action) {
     try {
         console.log('submitEditedRecipe payload:', action.payload);
         yield axios.put(`/api/recipes/${action.payload.id}`, action.payload);
+        yield put({ type: 'FETCH_MY_RECIPES' });
     } catch(err) {
         console.log('error in submitEditedRecipe', err);
     }

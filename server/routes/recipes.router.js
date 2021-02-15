@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
         });
 });
 
-// GET genres from selected movie
+// GET ingredients from selected movie
 router.get('/ingredients/:id', (req, res) => {
     // Get id from req.params
     const id = req.params.id;

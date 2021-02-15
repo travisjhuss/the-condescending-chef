@@ -61,6 +61,11 @@ function AddUserRecipe() {
         stateSetter(value);
     }
 
+    // curry function
+    // const handleNewRecipeChange = (event) => {
+    //     setNewRecipe({ ...newRecipe, [event.target.name]: event.target.value });
+    // }
+
     const handleAmountChange = (index, event) => {
         const values = [...ingredientFields];
         values[index].amount = event.target.value
@@ -255,7 +260,6 @@ function AddUserRecipe() {
             <Dialog
                 maxWidth="sm"
                 open={openSuccess}
-            // onClose={handleClose}
             >
                 <AddSuccess />
             </Dialog>

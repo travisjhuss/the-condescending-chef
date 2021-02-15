@@ -72,11 +72,12 @@ router.put('/:id', (req, res) => {
         SET "name" = $1, 
         "description" = $2, 
         "photo" = $3, 
-        "tags" = $4
-        WHERE id = $5
+        "tags" = $4,
+        "marked_for_review" = $5
+        WHERE id = $6
         `;
 
-    pool.query(sqlTextForRecipes, [req.body.name, req.body.description, req.body.photo, req.body.tags, recipeIdToUpdate])
+    pool.query(sqlTextForRecipes, [req.body.name, req.body.description, req.body.photo, req.body.tags, req.body.marked_for_review, recipeIdToUpdate])
         .then((result) => {
             const sqlTextDeleteIngredients = `
                 DELETE FROM "ingredients"

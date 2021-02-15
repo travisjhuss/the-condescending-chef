@@ -7,7 +7,7 @@ import AddFail from '../AddFail/AddFail';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
-import { TextField, Button, IconButton, makeStyles, Typography, Grid, Dialog, Snackbar } from '@material-ui/core';
+import { TextField, Button, IconButton, makeStyles, Typography, Grid, Dialog, Snackbar, Checkbox } from '@material-ui/core';
 
 import './EditRecipe.css';
 
@@ -34,6 +34,7 @@ function EditRecipe() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const classes = useStyles();
+    const history = useHistory();
 
     const user = useSelector(state => state.user);
     const editRecipeDetails = useSelector(state => state.edit.editRecipeDetails);
@@ -87,6 +88,15 @@ function EditRecipe() {
     return (
         <div className="edit-container">
             <center>
+            <Button
+                    color="primary"
+                    variant="contained"
+                    // endIcon={<LibraryAddIcon />}
+                    onClick={() => history.goBack()}
+                >
+                    <Typography color="secondary">Cancel</Typography>
+                </Button>
+                {' '}
                 <Button
                     color="primary"
                     variant="contained"
@@ -97,6 +107,14 @@ function EditRecipe() {
                 </Button>
             </center>
             <br />
+            <Typography display="inline" color="secondary">Mark for Review</Typography>
+            <Checkbox
+                onChange={(event) => { dispatch({ type: 'EDIT_MARKED_FOR_REVIEW', payload: event.target.checked }) }}
+                color="primary"
+                checked={editRecipeDetails.marked_for_review? true : false}
+                style={{ color: '#ad4830' }}
+            />
+            <br/>
             <TextField
                 required
                 variant="filled"
@@ -194,6 +212,7 @@ function EditRecipe() {
                 className={classes.input}
                 onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_TAGS', payload: event.target.value }) }}
             />
+
             <Dialog
                 maxWidth="sm"
                 open={openSuccess}

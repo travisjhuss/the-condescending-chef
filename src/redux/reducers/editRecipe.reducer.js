@@ -12,6 +12,8 @@ const editRecipeDetails = (state = [], action) => {
             return { ...state, description: action.payload };
         case 'EDIT_RECIPE_TAGS':
             return { ...state, tags: action.payload };
+        case 'EDIT_MARKED_FOR_REVIEW':
+            return { ...state, marked_for_review: action.payload };
         default:
             return state;
     }

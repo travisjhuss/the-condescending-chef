@@ -119,24 +119,9 @@ function RecipeDetail() {
                 {recipeDetails.chef_grade === '0'
                     ?
                     <Grid item xs={8} style={{ marginBottom: '40px' }}>
-                        <Typography color="secondary" display="inline">Mark for Review</Typography>
-                        {recipeDetails.marked_for_review === true
-                        ?
-                        <Checkbox
-                            checked={recipeDetails.marked_for_review}
-                            // onChange={() => setRecipeForReview(!recipeForReview)}
-                            color="primary"
-                            // value={recipeForReview}
-                            style={{ color: '#fff4dd' }}
-                        />
-                        :
-                        <Checkbox
-                            // onChange={() => setRecipeForReview(!recipeForReview)}
-                            color="primary"
-                            // value={recipeForReview}
-                            style={{ color: '#fff4dd' }}
-                        />
-                        }
+                        <Typography color="secondary" display="inline">
+                            Marked for Review: {' '} {recipeDetails.marked_for_review? 'Yes' : 'No'}
+                        </Typography>
                     </Grid>
                     :
                     <Grid item xs={8}>

@@ -85,11 +85,11 @@ function AddOutsideRecipe() {
         }
     }
 
-    console.log('tags:', tags);
-    console.log('recipeName:', recipeName);
-    console.log('recipePhoto:', recipePhoto);
-    console.log('recipeURL:', recipeUrl);
-    console.log('markedforreview?', recipeForReview);
+    // console.log('tags:', tags);
+    // console.log('recipeName:', recipeName);
+    // console.log('recipePhoto:', recipePhoto);
+    // console.log('recipeURL:', recipeUrl);
+    // console.log('markedforreview?', recipeForReview);
     return (
         <div className="outside-recipe-container">
             <TextField

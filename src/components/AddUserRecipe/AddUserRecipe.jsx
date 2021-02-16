@@ -113,25 +113,24 @@ function AddUserRecipe() {
         for (let ingredient of ingredientFields) {
             if (ingredient.amount === null || ingredient.unit === null || ingredient.name === null) {
                 setOpenFail(true);
-            } else {
-                if (recipeName === '' || recipeDescription === '') {
-                    setOpenFail(true);
-                } else {
-                    const recipeToAdd = {
-                        user_id: user.id,
-                        name: recipeName,
-                        description: recipeDescription,
-                        photo: recipePhoto,
-                        marked_for_review: recipeForReview,
-                        ingredients: ingredientFields,
-                        tags: tags
-                    };
-                    console.log('recipeToAdd:', recipeToAdd);
-                    dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
-                    // success dialog
-                    setOpenSuccess(true);
-                }
             }
+        }
+        if (recipeName === '' || recipeDescription === '') {
+            setOpenFail(true);
+        } else {
+            const recipeToAdd = {
+                user_id: user.id,
+                name: recipeName,
+                description: recipeDescription,
+                photo: recipePhoto,
+                marked_for_review: recipeForReview,
+                ingredients: ingredientFields,
+                tags: tags
+            };
+            console.log('recipeToAdd:', recipeToAdd);
+            dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
+            // success dialog
+            setOpenSuccess(true);
         }
     }
 

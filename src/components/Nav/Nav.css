@@ -1,5 +1,19 @@
 .drawer {
-  background-color: #94836d;
+  background-color: #fff4dd;
   height: 100%;
-  padding-top: 75px;
+  width: 255px;
+}
+
+.title {
+  z-index: 1400;
+  position: relative;
+}
+
+.drawer-top {
+  background-color: #ad4830;
+  padding: 30px 0px;
+}
+
+.links {
+  margin-top: 10px;
 }

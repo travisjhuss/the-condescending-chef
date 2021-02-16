@@ -19,6 +19,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Header from '../Header/Header';
+import Nav from '../Nav/Nav';
 import MyRecipes from '../MyRecipes/MyRecipes';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
 import EditRecipe from '../EditRecipe/EditRecipe';
@@ -43,7 +44,7 @@ const theme = createMuiTheme({
     secondary: {
       main: '#fff4dd'
     }
-  }
+  },
 })
 
 function App() {
@@ -58,7 +59,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {user.id && <Header />}
+        {user.id && <Nav />}
         <div>
 
           <Switch>

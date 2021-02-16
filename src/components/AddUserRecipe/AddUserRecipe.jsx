@@ -57,10 +57,6 @@ function AddUserRecipe() {
         setOpenFail(false);
     };
 
-    const handleRecipeToAddChange = (value, stateSetter) => {
-        stateSetter(value);
-    }
-
     // curry function
     // const handleNewRecipeChange = (event) => {
     //     setNewRecipe({ ...newRecipe, [event.target.name]: event.target.value });
@@ -118,19 +114,35 @@ function AddUserRecipe() {
         if (recipeName === '' || recipeDescription === '') {
             setOpenFail(true);
         } else {
-            const recipeToAdd = {
-                user_id: user.id,
-                name: recipeName,
-                description: recipeDescription,
-                photo: recipePhoto,
-                marked_for_review: recipeForReview,
-                ingredients: ingredientFields,
-                tags: tags
-            };
-            console.log('recipeToAdd:', recipeToAdd);
-            dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
-            // success dialog
-            setOpenSuccess(true);
+            if (recipePhoto === '') {
+                const recipeToAdd = {
+                    user_id: user.id,
+                    name: recipeName,
+                    description: recipeDescription,
+                    photo: 'https://www.greenbiz.com/sites/default/files/images/articles/featured/fooddisplaysstock.jpg',
+                    marked_for_review: recipeForReview,
+                    ingredients: ingredientFields,
+                    tags: tags
+                };
+                console.log('recipeToAdd:', recipeToAdd);
+                dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
+                // success dialog
+                setOpenSuccess(true);
+            } else {
+                const recipeToAdd = {
+                    user_id: user.id,
+                    name: recipeName,
+                    description: recipeDescription,
+                    photo: recipePhoto,
+                    marked_for_review: recipeForReview,
+                    ingredients: ingredientFields,
+                    tags: tags
+                };
+                console.log('recipeToAdd:', recipeToAdd);
+                dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
+                // success dialog
+                setOpenSuccess(true);
+            }
         }
     }
 
@@ -151,7 +163,7 @@ function AddUserRecipe() {
                 style={{ width: '500px' }}
                 className={classes.input}
                 value={recipeName}
-                onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipeName)}
+                onChange={(event) => setRecipeName(event.target.value)}
             />
             <TextField
                 variant="filled"
@@ -159,7 +171,7 @@ function AddUserRecipe() {
                 style={{ width: '400px' }}
                 className={classes.input}
                 value={recipePhoto}
-                onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipePhoto)}
+                onChange={(event) => setRecipePhoto(event.target.value)}
             />
             <br />
             <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
@@ -222,7 +234,7 @@ function AddUserRecipe() {
                 style={{ width: '500px' }}
                 className={classes.input}
                 value={recipeDescription}
-                onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipeDescription)}
+                onChange={(event) => setRecipeDescription(event.target.value)}
             />
             <Typography display="inline" color="secondary">Mark for Review</Typography>
             <Checkbox

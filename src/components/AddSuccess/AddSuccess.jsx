@@ -11,7 +11,7 @@ function AddSuccess() {
     }
 
     const goHome = () => {
-        history.push('/user')
+        history.push('/myRecipes')
     }
 
     return (
@@ -22,7 +22,7 @@ function AddSuccess() {
                     Add Another
                 </Button>
                 <Button onClick={goHome} color="primary" autoFocus>
-                    Go Home
+                    View myRecipes
                 </Button>
             </DialogActions>
         </div>

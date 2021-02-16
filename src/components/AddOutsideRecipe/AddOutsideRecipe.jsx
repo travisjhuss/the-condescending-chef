@@ -55,9 +55,6 @@ function AddOutsideRecipe() {
         setOpenFail(false);
     };
 
-    const handleRecipeToAddChange = (value, stateSetter) => {
-        stateSetter(value);
-    }
 
     const addTag = () => {
         if (newTag !== '') {
@@ -67,27 +64,44 @@ function AddOutsideRecipe() {
     }
 
     const submitRecipe = () => {
+        
         if (recipeName === '' || recipeUrl === '') {
             setOpenFail(true);
         } else {
-            const recipeToAdd = {
-                user_id: user.id,
-                name: recipeName,
-                photo: recipePhoto,
-                marked_for_review: recipeForReview,
-                url: recipeUrl,
-                tags: tags
-            };
-            console.log('recipeToAdd:', recipeToAdd);
-            dispatch({ type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd });
-            // success dialog
-            setOpenSuccess(true);
+            //check to see if photo is empty string
+            if (recipePhoto === '') {
+                const recipeToAdd = {
+                    user_id: user.id,
+                    name: recipeName,
+                    photo: 'https://www.greenbiz.com/sites/default/files/images/articles/featured/fooddisplaysstock.jpg',
+                    marked_for_review: recipeForReview,
+                    url: recipeUrl,
+                    tags: tags
+                };
+                console.log('recipeToAdd:', recipeToAdd);
+                dispatch({ type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd });
+                // success dialog
+                setOpenSuccess(true);
+            } else {
+                const recipeToAdd = {
+                    user_id: user.id,
+                    name: recipeName,
+                    photo: recipePhoto,
+                    marked_for_review: recipeForReview,
+                    url: recipeUrl,
+                    tags: tags
+                };
+                console.log('recipeToAdd:', recipeToAdd);
+                dispatch({ type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd });
+                // success dialog
+                setOpenSuccess(true);
+            }
         }
     }
 
     // console.log('tags:', tags);
     // console.log('recipeName:', recipeName);
-    // console.log('recipePhoto:', recipePhoto);
+    console.log('recipePhoto:', recipePhoto);
     // console.log('recipeURL:', recipeUrl);
     // console.log('markedforreview?', recipeForReview);
     return (
@@ -99,7 +113,7 @@ function AddOutsideRecipe() {
                 style={{ width: '500px' }}
                 className={classes.input}
                 value={recipeName}
-                onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipeName)}
+                onChange={(event) => setRecipeName(event.target.value)}
             />
             <TextField
                 variant="filled"
@@ -107,7 +121,7 @@ function AddOutsideRecipe() {
                 style={{ width: '400px' }}
                 className={classes.input}
                 value={recipePhoto}
-                onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipePhoto)}
+                onChange={(event) => setRecipePhoto(event.target.value)}
             />
             <br />
             <TextField
@@ -117,7 +131,7 @@ function AddOutsideRecipe() {
                 style={{ width: '400px' }}
                 className={classes.input}
                 value={recipeUrl}
-                onChange={(event) => handleRecipeToAddChange(event.target.value, setRecipeUrl)}
+                onChange={(event) => setRecipeUrl(event.target.value)}
             />
             <Typography display="inline" color="secondary">Mark for Review</Typography>
             <Checkbox

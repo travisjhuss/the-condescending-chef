@@ -12,6 +12,7 @@ const userRouter = require('./routes/user.router');
 const userRecipeRouter = require('./routes/userRecipes.router');
 const outsideRecipeRouter = require('./routes/outsideRecipes.router');
 const recipesRouter = require('./routes/recipes.router');
+const adminRouter = require('./routes/admin.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.use('/api/user', userRouter);
 app.use('/api/userRecipes', userRecipeRouter);
 app.use('/api/outsideAddedRecipe', outsideRecipeRouter);
 app.use('/api/recipes', recipesRouter);
+app.use('/api/admin', adminRouter);
 
 // Serve static files
 app.use(express.static('build'));

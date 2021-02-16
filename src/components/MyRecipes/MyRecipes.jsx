@@ -54,6 +54,7 @@ function MyRecipes() {
             return a[sortType].toUpperCase() > b[sortType].toUpperCase() ? 1 : -1;
         }
     });
+    
     return (
         <div className="recipes-container">
             <center>

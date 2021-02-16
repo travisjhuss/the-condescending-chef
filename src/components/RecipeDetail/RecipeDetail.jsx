@@ -60,8 +60,14 @@ function RecipeDetail() {
     }
 
     const openEditRecipe = (id) => {
-        console.log('clicked edit for:', id );
+        console.log('clicked edit for:', id);
         history.push(`/editRecipe/${id}`)
+    }
+
+    // from stack overflow
+    const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
     }
 
 
@@ -82,18 +88,14 @@ function RecipeDetail() {
                     {user.id === recipeDetails.user_id
                         ?
                         <>
-                            {recipeDetails.url === null
-                            ? 
-                            <IconButton 
-                                color="secondary" 
-                                size="medium" 
+                            <IconButton
+                                color="secondary"
+                                size="medium"
                                 className={classes.button}
                                 onClick={() => openEditRecipe(recipeDetails.id)}
                             >
                                 <EditOutlinedIcon />
                             </IconButton>
-                            : null
-                            }
                             <IconButton
                                 color="secondary"
                                 size="medium"
@@ -120,7 +122,7 @@ function RecipeDetail() {
                     ?
                     <Grid item xs={8} style={{ marginBottom: '40px' }}>
                         <Typography color="secondary" display="inline">
-                            Marked for Review: {' '} {recipeDetails.marked_for_review? 'Yes' : 'No'}
+                            Marked for Review: {' '} {recipeDetails.marked_for_review ? 'Yes' : 'No'}
                         </Typography>
                     </Grid>
                     :
@@ -138,7 +140,12 @@ function RecipeDetail() {
                 {recipeDetails.url
                     ?
                     <Grid item xs={6}>
-                        <Button endIcon={<OpenInNewIcon />} color="secondary">
+                        <Button
+                            endIcon={<OpenInNewIcon />}
+                            color="secondary"
+                            // onclick open link in new tab 
+                            onClick={() => openInNewTab(recipeDetails.url)}
+                        >
                             <Typography display="inline" color="secondary" variant="h5">Open Recipe</Typography>
                         </Button>
                     </Grid>
@@ -179,7 +186,7 @@ function RecipeDetail() {
                         <Button onClick={() => setOpenDeleteConfirmation(false)} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={confirmDelete} color="secondary" variant="outlined" style={{ backgroundColor: '#990f02'}}>
+                        <Button onClick={confirmDelete} color="secondary" variant="outlined" style={{ backgroundColor: '#990f02' }}>
                             Delete
                         </Button>
                     </DialogActions>

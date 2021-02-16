@@ -22,6 +22,8 @@ import Header from '../Header/Header';
 import MyRecipes from '../MyRecipes/MyRecipes';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
 import EditRecipe from '../EditRecipe/EditRecipe';
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import AdminFeedbackPage from '../AdminFeedbackPage/AdminFeedbackPage';
 import { useSelector } from 'react-redux';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -57,7 +59,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         {user.id && <Header />}
-        {/* <Header /> */}
         <div>
 
           <Switch>
@@ -154,11 +155,27 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute
-              // logged in shows MyRecipes else shows LoginPage
+              // logged in shows EditRecipe else shows LoginPage
               exact
               path="/editRecipe/:id"
             >
               <EditRecipe />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // logged in shows AdminDashboard else shows LoginPage
+              exact
+              path="/admin"
+            >
+              <AdminDashboard />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // logged in shows AdminFeedbackPage else shows LoginPage
+              exact
+              path="/admin/feedback/:id"
+            >
+              <AdminFeedbackPage />
             </ProtectedRoute>
 
             {/* If none of the other routes matched, we will show a 404. */}

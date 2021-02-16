@@ -17,7 +17,8 @@ const useStyles = makeStyles({
         overflow: 'scroll'
     },
     container: {
-        margin: "100px 75px"
+        marginTop: "50px",
+        marginLeft: "280px"
     },
     input: {
         '& .MuiOutlinedInput-root': {
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
         backgroundColor: '#fff4dd',
         borderRadius: '3px',
         border: '#a0432c 2px solid',
-        margin: '2px'
+        margin: '2px',
     }
 })
 
@@ -80,9 +81,9 @@ function AdminFeedbackPage() {
                         <img src={recipeDetails.photo} width="250" />
                     </Grid>
                     <Grid item xs={12}>
-                                <Typography color="secondary" variant="h5" >{recipeDetails.name}</Typography>
-                                <Typography color="secondary" variant="subtitle1">From user:{' '}{recipeDetails.user_id}</Typography>
-                                <Typography variant="caption" color="secondary">
+                                <Typography color="secondary" variant="h4" >{recipeDetails.name}</Typography>
+                                <Typography color="secondary" variant="h6">From user:{' '}{recipeDetails.user_id}</Typography>
+                                <Typography variant="body1" color="secondary">
                                     {recipeDetails.tags}
                                 </Typography>
                             </Grid>
@@ -101,23 +102,23 @@ function AdminFeedbackPage() {
                         :
                         <>
                             <Grid item xs={12}>
-                                <Typography variant="h6" color="secondary">
+                                <Typography variant="h5" color="secondary">
                                     Ingredients:
                                 </Typography>
                                 <br />
                                 {recipeIngredients.map((ingredient, i) => {
                                     return (
-                                        <Typography key={i} color="primary">
+                                        <Typography key={i} color="primary" variant="h6">
                                             &#183;{' '}{ingredient.amount} {ingredient.unit} {ingredient.name}
                                         </Typography>
                                     )
                                 })}
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography variant="h6" color="secondary">
+                                <Typography variant="h5" color="secondary">
                                     Instructions:
                                 </Typography>
-                                <Typography color="primary">{recipeDetails.description}</Typography>
+                                <Typography variant="h6" color="primary">{recipeDetails.description}</Typography>
                             </Grid>
                         </>
                     }
@@ -125,10 +126,10 @@ function AdminFeedbackPage() {
                 </Grid>
                 <Grid item xs={6} container spacing={2}>
                     <Grid item xs={12}>
-                        <Typography color="secondary" variant="h5">Chef Feedback Form</Typography>
+                        <Typography color="secondary" variant="h4">Chef Feedback Form</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="body2" color="secondary" display="inline">Score:{' '}</Typography>
+                        <Typography variant="h6" color="secondary" display="inline">Score:{' '}</Typography>
                         <select
                             value={recipeScore}
                             className="sort-select"

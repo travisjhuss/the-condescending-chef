@@ -83,12 +83,12 @@ function MyRecipes() {
                                     <Typography gutterBottom variant="h5" color="secondary">
                                         {recipe.name}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography variant="body1" color="textSecondary">
                                         {recipe.tags}
                                     </Typography>
                                     {recipe.chef_grade === '0'
                                         ? null
-                                        : <Typography variant="body2" color="secondary" align="right">
+                                        : <Typography variant="h5" color="secondary" align="right">
                                             {recipe.chef_grade}
                                         </Typography>}
                                 </CardContent>

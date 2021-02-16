@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Footer from '../Footer/Footer';
 import './Nav.css';
-import { useSelector } from 'react-redux';
 import { Typography, Button, makeStyles, Drawer } from '@material-ui/core';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import HomeIcon from '@material-ui/icons/Home';
@@ -12,7 +12,6 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import SearchIcon from '@material-ui/icons/Search';
 import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
 
 const useStyles = makeStyles({
   button: {
@@ -32,6 +31,7 @@ function Nav() {
 
   const history = useHistory();
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   let loginLinkData = {
     path: '/login',

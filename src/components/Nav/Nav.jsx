@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import LogOutButton from '../LogOutButton/LogOutButton';
+import Footer from '../Footer/Footer';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { Typography, Button, makeStyles, Drawer } from '@material-ui/core';
@@ -52,68 +52,74 @@ function Nav() {
               <LocalDiningIcon className={classes.logo} />
             </div>
             <div className="title">
-              <Typography color="secondary" variant="h6">The</Typography>
-              <Typography color="secondary" variant="h4">Condescending</Typography>
-              <Typography color="secondary" variant="h6">Chef</Typography>
+              <Typography color="secondary" variant="h6" style={{fontWeight: '500'}}>The</Typography>
+              <Typography color="secondary" variant="h4" style={{fontWeight: '500'}}>Condescending</Typography>
+              <Typography color="secondary" variant="h6" style={{fontWeight: '500'}}>Chef</Typography>
             </div>
           </center>
         </div>
         <center className="links">
-          <Typography color="primary" variant="subtitle1">Chef {user.username}</Typography>
+          <Typography color="secondary" variant="h6">Chef {user.username}</Typography>
           <Button
             style={{marginTop: '20px'}}
-            color="primary"
+            color="secondary"
             className={classes.button}
             startIcon={<HomeIcon />}
             onClick={() => history.push('/user')}
           >
-            <Typography color="primary" variant="body1">Dashboard</Typography>
+            <Typography color="secondary" variant="h6">Dashboard</Typography>
           </Button>
           <br />
           <Button
-            color="primary"
+            style={{marginTop: '10px'}}
+            color="secondary"
             className={classes.button}
             startIcon={<MenuBookIcon />}
             onClick={() => history.push('/myRecipes')}
           >
-            <Typography color="primary" variant="body1">My Recipes</Typography>
+            <Typography color="secondary" variant="h6">My Recipes</Typography>
           </Button>
           <br />
           <Button
-            color="primary"
+            style={{marginTop: '10px'}}
+            color="secondary"
             className={classes.button}
             startIcon={<AddToPhotosIcon />}
             onClick={() => history.push('/addRecipe')}
           >
-            <Typography color="primary" variant="body1">Add Recipe</Typography>
+            <Typography color="secondary" variant="h6">Add Recipe</Typography>
           </Button>
           <br />
           <Button
-            color="primary"
+            style={{marginTop: '10px'}}
+            color="secondary"
             className={classes.button}
             startIcon={<SearchIcon />}
             onClick={() => history.push('/search')}
           >
-            <Typography color="primary" variant="body1">Search</Typography>
+            <Typography color="secondary" variant="h6">Search</Typography>
           </Button>
           <br />
           <Button
-            color="primary"
+            style={{marginTop: '10px'}}
+            color="secondary"
             className={classes.button}
             startIcon={<InfoIcon />}
             onClick={() => history.push('/about')}
           >
-            <Typography color="primary" variant="body1">About the App</Typography>
+            <Typography color="secondary" variant="h6">About the App</Typography>
           </Button>
           <br />
           <Button
-            color="primary"
+            style={{marginTop: '10px'}}
+            color="secondary"
             className={classes.button}
             startIcon={<ExitToAppIcon />}
             onClick={() => dispatch({ type: 'LOGOUT' })}
           >
-            <Typography color="primary" variant="body1">Logout</Typography>
+            <Typography color="secondary" variant="h6">Logout</Typography>
           </Button>
+          <Footer />
         </center>
       </div>
     </Drawer >

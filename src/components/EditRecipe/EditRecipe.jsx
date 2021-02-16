@@ -67,17 +67,23 @@ function EditRecipe() {
 
     const submitChanges = () => {
 
-        for (let ingredient of editRecipeIngredients) {
-            if (ingredient.amount === '' || ingredient.unit === '' || ingredient.name === '') {
-                setOpenFail(true);
+        if (editRecipeDetails.url === null) {
+            for (let ingredient of editRecipeIngredients) {
+                if (ingredient.amount === '' || ingredient.unit === '' || ingredient.name === '') {
+                    setOpenFail(true);
+                }
             }
-        }
-        if (editRecipeDetails.name === '' || editRecipeDetails.description === '') {
-            setOpenFail(true);
-        } else {
-            const editedRecipe = { ...editRecipeDetails, ingredients: editRecipeIngredients };
-            console.log('editedRecipe:', editedRecipe);
-            dispatch({ type: 'SUBMIT_EDITED_RECIPE', payload: editedRecipe});
+            if (editRecipeDetails.name === '' || editRecipeDetails.description === '') {
+                setOpenFail(true);
+            } else {
+                const editedRecipe = { ...editRecipeDetails, ingredients: editRecipeIngredients };
+                console.log('editedRecipe:', editedRecipe);
+                dispatch({ type: 'SUBMIT_EDITED_RECIPE', payload: editedRecipe });
+                // success dialog
+                setOpenSuccess(true);
+            }
+        } else if (editRecipeDetails.url !== null) {
+            dispatch({ type: 'SUBMIT_EDITED_RECIPE', payload: editRecipeDetails });
             // success dialog
             setOpenSuccess(true);
         }
@@ -88,7 +94,7 @@ function EditRecipe() {
     return (
         <div className="edit-container">
             <center>
-            <Button
+                <Button
                     color="primary"
                     variant="contained"
                     // endIcon={<LibraryAddIcon />}
@@ -111,10 +117,10 @@ function EditRecipe() {
             <Checkbox
                 onChange={(event) => { dispatch({ type: 'EDIT_MARKED_FOR_REVIEW', payload: event.target.checked }) }}
                 color="primary"
-                checked={editRecipeDetails.marked_for_review? true : false}
+                checked={editRecipeDetails.marked_for_review ? true : false}
                 style={{ color: '#ad4830' }}
             />
-            <br/>
+            <br />
             <TextField
                 required
                 variant="filled"
@@ -133,76 +139,90 @@ function EditRecipe() {
                 onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_PHOTO', payload: event.target.value }) }}
             />
             <br />
-            <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
-            <IconButton
-                color="primary"
-                type="button"
-                onClick={() => handleAdd()}
-            >
-                <AddCircleIcon />
-            </IconButton>
-            {editRecipeIngredients.map((ing, i) => {
-                return (
-                    <div key={`${i}`}>
-                        <TextField
-                            required
-                            variant="filled"
-                            label="#"
-                            type="number"
-                            size="small"
-                            name={`${i}`}
-                            style={{ width: '70px' }}
-                            className={classes.input}
-                            value={ing.amount}
-                            onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_AMOUNT', payload: [event.target.name, event.target.value] }) }}
-                        />
-                        <TextField
-                            required
-                            variant="filled"
-                            name={`${i}`}
-                            label="unit"
-                            type="text"
-                            size="small"
-                            style={{ width: '90px' }}
-                            className={classes.input}
-                            value={ing.unit}
-                            onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_UNIT', payload: [event.target.name, event.target.value] }) }}
-                        />
-                        <TextField
-                            required
-                            variant="filled"
-                            name={`${i}`}
-                            label="name"
-                            type="text"
-                            size="small"
-                            style={{ width: '300px' }}
-                            className={classes.input}
-                            value={ing.name}
-                            onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_NAME', payload: [event.target.name, event.target.value] }) }}
-                        />
-                        <IconButton
-                            color="primary"
-                            type="button"
-                            onClick={() => handleRemove(ing.name)}
-                        >
-                            <CancelIcon />
-                        </IconButton>
-                    </div>
-                );
-            })
+            {editRecipeDetails.url === null
+                ?
+                <>
+                    <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
+                    <IconButton
+                        color="primary"
+                        type="button"
+                        onClick={() => handleAdd()}
+                    >
+                        <AddCircleIcon />
+                    </IconButton>
+                    {editRecipeIngredients.map((ing, i) => {
+                        return (
+                            <div key={`${i}`}>
+                                <TextField
+                                    required
+                                    variant="filled"
+                                    label="#"
+                                    type="number"
+                                    size="small"
+                                    name={`${i}`}
+                                    style={{ width: '70px' }}
+                                    className={classes.input}
+                                    value={ing.amount}
+                                    onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_AMOUNT', payload: [event.target.name, event.target.value] }) }}
+                                />
+                                <TextField
+                                    required
+                                    variant="filled"
+                                    name={`${i}`}
+                                    label="unit"
+                                    type="text"
+                                    size="small"
+                                    style={{ width: '90px' }}
+                                    className={classes.input}
+                                    value={ing.unit}
+                                    onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_UNIT', payload: [event.target.name, event.target.value] }) }}
+                                />
+                                <TextField
+                                    required
+                                    variant="filled"
+                                    name={`${i}`}
+                                    label="name"
+                                    type="text"
+                                    size="small"
+                                    style={{ width: '300px' }}
+                                    className={classes.input}
+                                    value={ing.name}
+                                    onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_NAME', payload: [event.target.name, event.target.value] }) }}
+                                />
+                                <IconButton
+                                    color="primary"
+                                    type="button"
+                                    onClick={() => handleRemove(ing.name)}
+                                >
+                                    <CancelIcon />
+                                </IconButton>
+                            </div>
+                        );
+                    })
+                    }
+                    <br />
+                    <TextField
+                        required
+                        variant="filled"
+                        label="Description"
+                        multiline
+                        rows={10}
+                        style={{ width: '500px' }}
+                        className={classes.input}
+                        value={editRecipeDetails.description}
+                        onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_DESCRIPTION', payload: event.target.value }) }}
+                    />
+                </>
+                :
+                <TextField
+                    variant="filled"
+                    label="Recipe URL"
+                    style={{ width: '400px' }}
+                    value={editRecipeDetails.url}
+                    className={classes.input}
+                    onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_URL', payload: event.target.value }) }}
+                />
             }
-            <br />
-            <TextField
-                required
-                variant="filled"
-                label="Description"
-                multiline
-                rows={10}
-                style={{ width: '500px' }}
-                className={classes.input}
-                value={editRecipeDetails.description}
-                onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_DESCRIPTION', payload: event.target.value }) }}
-            />
             {' '}
             <TextField
                 variant="filled"

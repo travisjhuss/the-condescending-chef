@@ -14,9 +14,19 @@ function* fetchAllRecipesForReview() {
     }
 }
 
+function* addFeedbackToRecipe(action) {
+    try {
+        console.log('in addFeedbackToRecipe:', action.payload);
+        yield axios.put(`/api/admin/feedback/${action.payload.recipeId}`, action.payload);
+        yield put({type: 'FETCH_ALL_RECIPES_FOR_REVIEW'});
+    } catch(err) {
+        console.log('error in fetchAllRecipesForReview:', err);   
+    }
+}
 
 function* adminSaga() {
     yield takeEvery('FETCH_ALL_RECIPES_FOR_REVIEW', fetchAllRecipesForReview);
+    yield takeEvery('ADD_FEEDBACK_TO_RECIPE', addFeedbackToRecipe)
 }
 
 export default adminSaga;

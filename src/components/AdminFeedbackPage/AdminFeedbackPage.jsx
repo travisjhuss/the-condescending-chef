@@ -7,6 +7,7 @@ import {
     Grid, Paper,
     makeStyles, TextField
 } from '@material-ui/core';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
 const useStyles = makeStyles({
     paper: {
@@ -54,43 +55,73 @@ function AdminFeedbackPage() {
     const [recipeScore, setRecipeScore] = useState('');
 
     const submitFeedback = () => {
-        console.log('recipeFeedback:', recipeFeedback);
-        console.log('recipeScore:', recipeScore);
+        const dataToSend = {
+            recipeId: recipeDetails.id,
+            feedback: recipeFeedback,
+            score: recipeScore
+        }
+        console.log('dataToSend:', dataToSend);
+        dispatch({ type: 'ADD_FEEDBACK_TO_RECIPE', payload: dataToSend })
+        // history to admin
+        history.push('/admin');
     }
 
+    // from stack overflow
+    const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+      }
+
     return (
-        <div class={classes.container}>
+        <div className={classes.container}>
             <Grid container spacing={4}>
                 <Grid item xs={6} container spacing={2}>
                     <Grid item xs={12}>
                         <img src={recipeDetails.photo} width="250" />
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography color="secondary" variant="h5" >{recipeDetails.name}</Typography>
-                        <Typography color="secondary" variant="subtitle1">From user:{' '}{recipeDetails.user_id}</Typography>
-                        <Typography variant="caption" color="secondary">
-                            {recipeDetails.tags}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="h6" color="secondary">
-                            Ingredients:
-                    </Typography>
-                        <br />
-                        {recipeIngredients.map((ingredient, i) => {
-                            return (
-                                <Typography key={i} color="primary">
-                                    &#183;{' '}{ingredient.amount} {ingredient.unit} {ingredient.name}
+                                <Typography color="secondary" variant="h5" >{recipeDetails.name}</Typography>
+                                <Typography color="secondary" variant="subtitle1">From user:{' '}{recipeDetails.user_id}</Typography>
+                                <Typography variant="caption" color="secondary">
+                                    {recipeDetails.tags}
                                 </Typography>
-                            )
-                        })}
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="h6" color="secondary">
-                            Instructions:
-                        </Typography>
-                        <Typography color="primary">{recipeDetails.description}</Typography>
-                    </Grid>
+                            </Grid>
+                    {recipeDetails.url !== null
+                        ?
+                        <Grid item xs={6}>
+                            <Button 
+                                endIcon={<OpenInNewIcon />} 
+                                color="secondary"
+                                // onclick open link in new tab
+                                onClick={() => openInNewTab(recipeDetails.url)}
+                            >
+                                <Typography display="inline" color="secondary" variant="h5">Open Recipe</Typography>
+                            </Button>
+                        </Grid>
+                        :
+                        <>
+                            <Grid item xs={12}>
+                                <Typography variant="h6" color="secondary">
+                                    Ingredients:
+                                </Typography>
+                                <br />
+                                {recipeIngredients.map((ingredient, i) => {
+                                    return (
+                                        <Typography key={i} color="primary">
+                                            &#183;{' '}{ingredient.amount} {ingredient.unit} {ingredient.name}
+                                        </Typography>
+                                    )
+                                })}
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="h6" color="secondary">
+                                    Instructions:
+                                </Typography>
+                                <Typography color="primary">{recipeDetails.description}</Typography>
+                            </Grid>
+                        </>
+                    }
+
                 </Grid>
                 <Grid item xs={6} container spacing={2}>
                     <Grid item xs={12}>
@@ -98,9 +129,9 @@ function AdminFeedbackPage() {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body2" color="secondary" display="inline">Score:{' '}</Typography>
-                        <select 
-                            value={recipeScore} 
-                            className="sort-select" 
+                        <select
+                            value={recipeScore}
+                            className="sort-select"
                             onChange={(e) => setRecipeScore(e.target.value)}
                         >
                             <option></option>

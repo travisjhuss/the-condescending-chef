@@ -20,11 +20,25 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
   });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-  // POST route code here
+// put to add feedback
+router.put('/feedback/:id', rejectUnauthenticated, (req, res) => {
+    console.log('/admin PUT route:', req.body);
+
+    const feedbackSqlText = `
+        UPDATE "recipes" 
+        SET "chef_grade" = $1, 
+        "chef_feedback" = $2,
+        "marked_for_review" = false
+        WHERE id = $3;   
+        `;
+
+    pool.query(feedbackSqlText, [req.body.score, req.body.feedback, req.body.recipeId])
+        .then((result) => {
+            res.sendStatus(201);
+        }).catch((error) => {
+            console.log('error in admin put', error);
+            res.sendStatus(500);
+        })
 });
 
 module.exports = router;

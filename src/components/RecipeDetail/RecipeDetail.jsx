@@ -138,7 +138,11 @@ function RecipeDetail() {
                 {recipeDetails.url
                     ?
                     <Grid item xs={6}>
-                        <Button endIcon={<OpenInNewIcon />} color="secondary">
+                        <Button 
+                            endIcon={<OpenInNewIcon />} 
+                            color="secondary"
+                            // onclick open link in new tab    
+                        >
                             <Typography display="inline" color="secondary" variant="h5">Open Recipe</Typography>
                         </Button>
                     </Grid>

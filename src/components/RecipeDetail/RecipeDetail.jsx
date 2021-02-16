@@ -64,6 +64,12 @@ function RecipeDetail() {
         history.push(`/editRecipe/${id}`)
     }
 
+    // from stack overflow
+    const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+      }
+
 
     console.log('recipeDetails:', recipeDetails);
     console.log('recipeIngredients:', recipeIngredients);
@@ -82,6 +88,7 @@ function RecipeDetail() {
                     {user.id === recipeDetails.user_id
                         ?
                         <>
+                            {/* edit to add edit button to url recipes */}
                             {recipeDetails.url === null
                             ? 
                             <IconButton 
@@ -141,7 +148,8 @@ function RecipeDetail() {
                         <Button 
                             endIcon={<OpenInNewIcon />} 
                             color="secondary"
-                            // onclick open link in new tab    
+                            // onclick open link in new tab 
+                            onClick={() => openInNewTab(recipeDetails.url)}   
                         >
                             <Typography display="inline" color="secondary" variant="h5">Open Recipe</Typography>
                         </Button>

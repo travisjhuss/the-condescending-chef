@@ -43,7 +43,7 @@ function AdminDashboard() {
 
     const openReviewForm = (id) => {
         console.log('clicked on recipe id:', id);
-        // history.push(`/recipeDetails/${id}`);
+        history.push(`/admin/feedback/${id}`);
     }
 
     console.log('recipes to review:', recipesToReview);

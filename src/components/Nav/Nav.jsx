@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Footer from '../Footer/Footer';
 import './Nav.css';
-import { Typography, Button, makeStyles, Drawer } from '@material-ui/core';
+import { Typography, Button, makeStyles, Drawer, Divider } from '@material-ui/core';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
@@ -60,6 +60,7 @@ function Nav() {
         </div>
         <center className="links">
           <Typography color="secondary" variant="h6">Chef {user.username}</Typography>
+          <hr></hr>
           <Button
             style={{marginTop: '20px'}}
             color="secondary"

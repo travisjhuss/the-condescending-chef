@@ -44,6 +44,7 @@ function Nav() {
   }
 
   return (
+    // switch to styled div
     <Drawer anchor="left" variant="permanent" open={true}>
       <div className="drawer">
         <div className="drawer-top">

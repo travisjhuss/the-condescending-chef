@@ -58,7 +58,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {user.id && <Nav />}
+        {user.id  && <Nav />}
         <div>
 
           <Switch>
@@ -161,7 +161,9 @@ function App() {
             >
               <EditRecipe />
             </ProtectedRoute>
-
+            {user.access_level === 2 
+            ?
+            <>
             <ProtectedRoute
               // logged in shows AdminDashboard else shows LoginPage
               exact
@@ -177,7 +179,8 @@ function App() {
             >
               <AdminFeedbackPage />
             </ProtectedRoute>
-
+              </>
+              : null}
             <ProtectedRoute
               // logged in shows Search else shows LoginPage
               exact

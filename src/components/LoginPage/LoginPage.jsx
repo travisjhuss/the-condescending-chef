@@ -7,7 +7,7 @@ function LoginPage() {
   const history = useHistory();
 
   return (
-    <div>
+    <div style={{marginTop: '200px'}}>
       <LoginForm />
 
       <center>

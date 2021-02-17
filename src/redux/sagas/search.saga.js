@@ -18,7 +18,7 @@ function* fetchSearchResults(action) {
         console.log('fetchSearchResults triggered', action.payload);
         const response = yield axios.get(`/api/search?q=${action.payload}`);
         console.log('search:', response.data);
-        // yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data });
+        yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data });
 
     } catch(err) {
         console.log('search results error', err);

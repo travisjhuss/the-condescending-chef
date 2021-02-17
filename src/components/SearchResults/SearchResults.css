@@ -4,9 +4,9 @@
     padding: 20px;
 }
 
-.sort-container {
-    text-align: right;
-    margin: 10px 30px;
+.search-sort-container {
+    text-align: left;
+    margin: 10px 5px;
 }
 
 .sort-select {

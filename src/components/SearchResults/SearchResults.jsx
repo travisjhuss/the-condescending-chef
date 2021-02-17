@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 // MUI
 import {
@@ -31,7 +30,6 @@ const useStyles = makeStyles({
 function SearchResults({searchResults}) {
 
     const history = useHistory();
-    const dispatch = useDispatch();
     const classes = useStyles();
 
     const [sortType, setSortType] = useState('date');
@@ -53,7 +51,7 @@ function SearchResults({searchResults}) {
     
     return (
         <div className="search-results-container">
-            <div className="sort-container">
+            <div className="search-sort-container">
                 <Typography variant="body2" color="secondary" display="inline">Sort by:{' '}</Typography>
                 <select value={sortType} className="sort-select" onChange={(e) => setSortType(e.target.value)}>
                     <option value="date">Date</option>

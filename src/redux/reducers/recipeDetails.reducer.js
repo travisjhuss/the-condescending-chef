@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+// make state with empty strings to help inputs or fetch on start up
 const recipeDetails = (state = [], action) => {
     switch (action.type) {
       case 'SET_SELECTED_RECIPE':

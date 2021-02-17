@@ -85,8 +85,7 @@ function RecipeDetail() {
                     >
                         <ArrowBackIosIcon />
                     </IconButton>
-                    {user.id === recipeDetails.user_id
-                        ?
+                    {user.id === recipeDetails.user_id &&
                         <>
                             <IconButton
                                 color="secondary"
@@ -105,7 +104,6 @@ function RecipeDetail() {
                                 <DeleteOutlineIcon />
                             </IconButton>
                         </>
-                        : null
                     }
                 </Grid>
                 <Grid item xs={8}>

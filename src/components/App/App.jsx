@@ -22,6 +22,7 @@ import RecipeDetail from '../RecipeDetail/RecipeDetail';
 import EditRecipe from '../EditRecipe/EditRecipe';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import AdminFeedbackPage from '../AdminFeedbackPage/AdminFeedbackPage';
+import Search from '../Search/Search';
 import { useSelector } from 'react-redux';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -175,6 +176,14 @@ function App() {
               path="/admin/feedback/:id"
             >
               <AdminFeedbackPage />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // logged in shows Search else shows LoginPage
+              exact
+              path="/search"
+            >
+              <Search />
             </ProtectedRoute>
 
             {/* If none of the other routes matched, we will show a 404. */}

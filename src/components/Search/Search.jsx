@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import SearchResults from '../SearchResults/SearchResults';
 import './Search.css';
 // MUI
-import { TextField, InputAdornment, makeStyles, Typography, Card } from '@material-ui/core';
+import { TextField, InputAdornment, makeStyles, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles({
@@ -35,7 +36,7 @@ function Search() {
 
     const [searchText, setSearchText] = useState('');
 
-    const [isThereSearch, setIsThereSearch] = useState(false);
+    // const [isThereSearch, setIsThereSearch] = useState(false);
 
     const handleSearch = () => {
         console.log('clicked search,', searchText);
@@ -68,6 +69,8 @@ function Search() {
                     />
                 </form>
             </center>
+            {/* set up prop in SearchResults component*/}
+            <SearchResults searchResults={searchResults}/>
         </div>
     )
 }

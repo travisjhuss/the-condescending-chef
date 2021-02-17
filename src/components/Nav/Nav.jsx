@@ -98,7 +98,7 @@ function Nav() {
             startIcon={<SearchIcon />}
             onClick={() => history.push('/search')}
           >
-            <Typography color="secondary" variant="h6">Search</Typography>
+            <Typography color="secondary" variant="h6">Browse</Typography>
           </Button>
           <br />
           <Button

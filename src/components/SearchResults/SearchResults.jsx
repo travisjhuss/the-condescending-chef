@@ -28,12 +28,10 @@ const useStyles = makeStyles({
     }
 })
 
-function SearchResults() {
+function SearchResults({searchResults}) {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    // change to all recipes
-    const userRecipes = useSelector(store => store.userRecipes);
     const classes = useStyles();
 
     const [sortType, setSortType] = useState('date');
@@ -45,7 +43,7 @@ function SearchResults() {
     }
 
     // console.log('userRecipes:', userRecipes);
-    const sortedData = userRecipes.sort((a, b) => {
+    const sortedData = searchResults.sort((a, b) => {
         if (sortType === 'date' || sortType === 'chef_grade') {
             return b[sortType] > a[sortType] ? 1 : -1;
         } else {

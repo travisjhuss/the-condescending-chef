@@ -12,6 +12,7 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import SearchIcon from '@material-ui/icons/Search';
 import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import RateReviewIcon from '@material-ui/icons/RateReview';
 
 const useStyles = makeStyles({
   button: {
@@ -41,6 +42,11 @@ function Nav() {
   if (user.id != null) {
     loginLinkData.path = '/user';
     loginLinkData.text = 'Home';
+  }
+
+  const logout = () => {
+    dispatch({ type: 'LOGOUT' });
+    history.push('/home');
   }
 
   return (
@@ -112,15 +118,28 @@ function Nav() {
             <Typography color="secondary" variant="h6">About the App</Typography>
           </Button>
           <br />
+          {user.access_level === 2 &&
+          <Button
+            style={{marginTop: '10px'}}
+            color="secondary"
+            className={classes.button}
+            startIcon={<RateReviewIcon />}
+            onClick={() => history.push('/admin')}
+          >
+            <Typography color="secondary" variant="h6">Admin</Typography>
+          </Button>
+          }
+          <br />
           <Button
             style={{marginTop: '10px'}}
             color="secondary"
             className={classes.button}
             startIcon={<ExitToAppIcon />}
-            onClick={() => dispatch({ type: 'LOGOUT' })}
+            onClick={logout}
           >
             <Typography color="secondary" variant="h6">Logout</Typography>
           </Button>
+          
           <Footer />
         </center>
       </div>

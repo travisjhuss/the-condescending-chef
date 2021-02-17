@@ -33,6 +33,7 @@ function Search() {
 
     const dispatch = useDispatch();
     const searchResults = useSelector(state => state.searchResults);
+    const allRecipes = useSelector(state => state.allRecipes);
 
     // change to fetch all recipes
     useEffect(() => {
@@ -41,12 +42,12 @@ function Search() {
 
     const [searchText, setSearchText] = useState('');
 
-    // const [isThereSearch, setIsThereSearch] = useState(false);
+    const [isThereSearch, setIsThereSearch] = useState(false);
 
     const handleSearch = () => {
         console.log('clicked search,', searchText);
         dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: searchText });
-        // setIsThereSearch(true);
+        setIsThereSearch(true);
     }
 
     console.log('searchResults:', searchResults);
@@ -75,8 +76,10 @@ function Search() {
                     />
                 </form>
             </center>
-            {/* set up prop in SearchResults component*/}
-            <SearchResults searchResults={searchResults}/>
+            {isThereSearch
+            ?   <SearchResults searchResults={searchResults}/>
+            :   <SearchResults searchResults={allRecipes}/>
+            }
         </div>
     )
 }

@@ -161,8 +161,7 @@ function App() {
             >
               <EditRecipe />
             </ProtectedRoute>
-            {user.access_level === 2 
-            ?
+            {user.access_level === 2 &&
             <>
             <ProtectedRoute
               // logged in shows AdminDashboard else shows LoginPage
@@ -180,7 +179,7 @@ function App() {
               <AdminFeedbackPage />
             </ProtectedRoute>
               </>
-              : null}
+            }
             <ProtectedRoute
               // logged in shows Search else shows LoginPage
               exact

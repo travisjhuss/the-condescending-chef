@@ -1,6 +1,6 @@
-const searchResultsReducer = (state = [], action) => {
+const allRecipesReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_SEARCH_RESULTS':
+        case 'SET_ALL_RECIPES':
             return action.payload;
         default:
             return state;
@@ -8,5 +8,5 @@ const searchResultsReducer = (state = [], action) => {
 };
 
 // search will be on the redux state at:
-// state.searchResults
-export default searchResultsReducer;
+// state.allRecipes
+export default allRecipesReducer;

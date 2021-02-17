@@ -4,8 +4,24 @@ const pool = require('../modules/pool');
 // middleware for checking login
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
+// GET all recipes
+router.get('/', rejectUnauthenticated, (req, res) => {
+    
+    const sqlText = `
+        SELECT * FROM "recipes"
+        `;
+    pool.query(sqlText)
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(`Error making database query ${sqlText}`, error);
+            res.sendStatus(500);
+        });
+});
+
 // GET details from selected recipe
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     // Get id from req.params
     const id = req.params.id;
     console.log('get details for recipe id:', id);
@@ -23,8 +39,8 @@ router.get('/:id', (req, res) => {
         });
 });
 
-// GET ingredients from selected movie
-router.get('/ingredients/:id', (req, res) => {
+// GET ingredients from selected recipe
+router.get('/ingredients/:id', rejectUnauthenticated, (req, res) => {
     // Get id from req.params
     const id = req.params.id;
     console.log('get ingredients for recipe id:', id);

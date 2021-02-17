@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchResults from '../SearchResults/SearchResults';
 import './Search.css';
@@ -32,7 +32,12 @@ function Search() {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-    const searchResults = useSelector(store => store.searchResults);
+    const searchResults = useSelector(state => state.searchResults);
+
+    // change to fetch all recipes
+    useEffect(() => {
+        dispatch({ type: 'FETCH_ALL_RECIPES' });
+    }, []);
 
     const [searchText, setSearchText] = useState('');
 
@@ -44,6 +49,7 @@ function Search() {
         // setIsThereSearch(true);
     }
 
+    console.log('searchResults:', searchResults);
     return (
         <div className="search-container">
             <center>

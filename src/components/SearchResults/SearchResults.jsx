@@ -38,10 +38,6 @@ function SearchResults() {
 
     const [sortType, setSortType] = useState('date');
 
-    // change to fetch all recipes
-    useEffect(() => {
-        dispatch({ type: 'FETCH_MY_RECIPES' });
-    }, []);
 
     const openRecipe = (id) => {
         console.log('clicked on recipe id:', id);

@@ -13,9 +13,22 @@ function* fetchAllRecipes() {
     }
 }
 
+function* fetchSearchResults(action) {
+    try {
+        console.log('fetchSearchResults triggered', action.payload);
+        const response = yield axios.get(`/api/search?q=${action.payload}`);
+        console.log('search:', response.data);
+        // yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data });
+
+    } catch(err) {
+        console.log('search results error', err);
+    }
+}
+
 
 function* searchSaga() {
     yield takeEvery('FETCH_ALL_RECIPES', fetchAllRecipes);
+    yield takeEvery('FETCH_SEARCH_RESULTS', fetchSearchResults)
 }
 
 export default searchSaga;

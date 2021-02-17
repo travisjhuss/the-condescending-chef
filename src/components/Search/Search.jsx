@@ -45,7 +45,7 @@ function Search() {
 
     const handleSearch = () => {
         console.log('clicked search,', searchText);
-        // dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: searchText });
+        dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: searchText });
         // setIsThereSearch(true);
     }
 

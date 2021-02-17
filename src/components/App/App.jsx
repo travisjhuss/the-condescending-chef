@@ -8,8 +8,6 @@ import {
 
 import { useDispatch } from 'react-redux';
 
-import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AddRecipe from '../AddRecipe/AddRecipe';
 import AboutPage from '../AboutPage/AboutPage';
@@ -18,7 +16,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import Header from '../Header/Header';
+import Nav from '../Nav/Nav';
 import MyRecipes from '../MyRecipes/MyRecipes';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
 import EditRecipe from '../EditRecipe/EditRecipe';
@@ -30,7 +28,8 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import './App.css';
 
-const font = "'Fraunces', serif;"
+// const font = "'Fraunces', serif;"
+const font = "'Josefin Slab', serif;"
 
 const theme = createMuiTheme({
   typography: {
@@ -43,7 +42,7 @@ const theme = createMuiTheme({
     secondary: {
       main: '#fff4dd'
     }
-  }
+  },
 })
 
 function App() {
@@ -58,7 +57,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {user.id && <Header />}
+        {user.id && <Nav />}
         <div>
 
           <Switch>
@@ -183,7 +182,6 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
-          <Footer />
         </div>
       </Router>
     </ThemeProvider>

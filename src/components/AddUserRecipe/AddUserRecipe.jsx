@@ -6,7 +6,7 @@ import AddFail from '../AddFail/AddFail';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
-import { TextField, Button, IconButton, makeStyles, Typography, Checkbox, Dialog, Snackbar } from '@material-ui/core';
+import { TextField, Button, IconButton, makeStyles, Typography, Checkbox, Dialog, Snackbar, Grid } from '@material-ui/core';
 
 import './AddUserRecipe.css';
 
@@ -156,117 +156,132 @@ function AddUserRecipe() {
     console.log('marked for review?', recipeForReview);
     return (
         <div className="user-recipe-container">
-            <TextField
-                required
-                variant="filled"
-                label="Recipe Name"
-                style={{ width: '500px' }}
-                className={classes.input}
-                value={recipeName}
-                onChange={(event) => setRecipeName(event.target.value)}
-            />
-            <TextField
-                variant="filled"
-                label="Photo url"
-                style={{ width: '400px' }}
-                className={classes.input}
-                value={recipePhoto}
-                onChange={(event) => setRecipePhoto(event.target.value)}
-            />
-            <br />
-            <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
-            <IconButton color="primary" type="button" onClick={() => handleAdd()}>
-                <AddCircleIcon />
-            </IconButton>
-            {ingredientFields.map((field, idx) => {
-                return (
-                    <div key={`${field}-${idx}`}>
+            <center>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
                         <TextField
                             required
                             variant="filled"
-                            name="amount"
-                            label="#"
-                            type="number"
-                            size="small"
-                            style={{ width: '70px' }}
+                            label="Recipe Name"
+                            style={{ width: '500px' }}
                             className={classes.input}
-                            value={field.amount || ""}
-                            onChange={e => handleAmountChange(idx, e)}
+                            value={recipeName}
+                            onChange={(event) => setRecipeName(event.target.value)}
                         />
+                    </Grid>
+                    <Grid item xs={12}>
                         <TextField
-                            required
                             variant="filled"
-                            name="unit"
-                            label="unit"
-                            type="text"
-                            size="small"
-                            style={{ width: '90px' }}
+                            label="Photo url"
+                            style={{ width: '500px' }}
                             className={classes.input}
-                            value={field.unit || ""}
-                            onChange={e => handleUnitChange(idx, e)}
+                            value={recipePhoto}
+                            onChange={(event) => setRecipePhoto(event.target.value)}
                         />
-                        <TextField
-                            required
-                            variant="filled"
-                            name="name"
-                            label="name"
-                            type="text"
-                            size="small"
-                            style={{ width: '300px' }}
-                            className={classes.input}
-                            value={field.name || ""}
-                            onChange={e => handleNameChange(idx, e)}
-                        />
-                        <IconButton color="primary" type="button" onClick={() => handleRemove(idx)}>
-                            <CancelIcon />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography display="inline" variant="h6" color="secondary">Ingredients</Typography>
+                        <IconButton color="primary" type="button" onClick={() => handleAdd()}>
+                            <AddCircleIcon />
                         </IconButton>
-                    </div>
-                );
-            })
-            }
-            <br />
-            <TextField
-                required
-                variant="filled"
-                label="Description"
-                multiline
-                rows={10}
-                style={{ width: '500px' }}
-                className={classes.input}
-                value={recipeDescription}
-                onChange={(event) => setRecipeDescription(event.target.value)}
-            />
-            <Typography display="inline" color="secondary">Mark for Review</Typography>
-            <Checkbox
-                onChange={() => setRecipeForReview(!recipeForReview)}
-                color="primary"
-                value={recipeForReview}
-                style={{ color: '#ad4830' }}
-            />
-            <br />
-            <Typography color="secondary">
-                Tags:{' '}{tags}
-            </Typography>
-            <br />
-            <TextField
-                variant="filled"
-                label="add Tag"
-                style={{ width: '400px' }}
-                value={newTag}
-                onChange={(event) => setNewTag(event.target.value)}
-                className={classes.input}
-            />
-            <IconButton color="primary" type="button" onClick={() => addTag()}>
-                <AddCircleIcon />
-            </IconButton>
-            <Button
-                color="primary"
-                variant="contained"
-                endIcon={<LibraryAddIcon />}
-                onClick={submitRecipe}
-            >
-                <Typography color="secondary">Add Recipe</Typography>
-            </Button>
+                        {ingredientFields.map((field, idx) => {
+                            return (
+                                <div key={`${field}-${idx}`}>
+                                    <TextField
+                                        required
+                                        variant="filled"
+                                        name="amount"
+                                        label="#"
+                                        type="number"
+                                        size="small"
+                                        style={{ width: '60px' }}
+                                        className={classes.input}
+                                        value={field.amount || ""}
+                                        onChange={e => handleAmountChange(idx, e)}
+                                    />
+                                    <TextField
+                                        required
+                                        variant="filled"
+                                        name="unit"
+                                        label="unit"
+                                        type="text"
+                                        size="small"
+                                        style={{ width: '75px' }}
+                                        className={classes.input}
+                                        value={field.unit || ""}
+                                        onChange={e => handleUnitChange(idx, e)}
+                                    />
+                                    <TextField
+                                        required
+                                        variant="filled"
+                                        name="name"
+                                        label="name"
+                                        type="text"
+                                        size="small"
+                                        style={{ width: '300px' }}
+                                        className={classes.input}
+                                        value={field.name || ""}
+                                        onChange={e => handleNameChange(idx, e)}
+                                    />
+                                    <IconButton color="primary" type="button" onClick={() => handleRemove(idx)}>
+                                        <CancelIcon />
+                                    </IconButton>
+                                </div>
+                            );
+                        })
+                        }
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            variant="filled"
+                            label="Instructions"
+                            multiline
+                            rows={8}
+                            style={{ width: '500px' }}
+                            className={classes.input}
+                            value={recipeDescription}
+                            onChange={(event) => setRecipeDescription(event.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography color="secondary">
+                            Tags:{' '}{tags}
+                        </Typography>
+                        <br />
+                        <TextField
+                            variant="filled"
+                            label="add Tag"
+                            style={{ width: '400px' }}
+                            value={newTag}
+                            onChange={(event) => setNewTag(event.target.value)}
+                            className={classes.input}
+                        />
+                        <IconButton color="primary" type="button" onClick={() => addTag()}>
+                            <AddCircleIcon />
+                        </IconButton>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography display="inline" color="secondary">Mark for Review</Typography>
+                        <Checkbox
+                            onChange={() => setRecipeForReview(!recipeForReview)}
+                            color="primary"
+                            value={recipeForReview}
+                            style={{ color: '#ad4830' }}
+                        />
+                        {' '}
+                        <Button
+                            style={{marginLeft: '100px'}}
+                            color="primary"
+                            variant="contained"
+                            endIcon={<LibraryAddIcon />}
+                            onClick={submitRecipe}
+                        >
+                            <Typography color="secondary">Add Recipe</Typography>
+                        </Button>
+                    </Grid>
+                </Grid>
+            
 
             <Dialog
                 maxWidth="sm"
@@ -282,6 +297,7 @@ function AddUserRecipe() {
             >
                 <AddFail handleFailClose={handleFailClose} />
             </Snackbar>
+            </center>
         </div>
     )
 }

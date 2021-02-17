@@ -133,7 +133,7 @@ function RecipeDetail() {
                         {' '}
                         <Typography display="inline" color="secondary" variant="h5">{recipeDetails.chef_grade}</Typography>
                         <Paper className={classes.paper} style={{ height: '100px' }}>
-                            <Typography variant="body1" color="primary">{recipeDetails.chef_feedback}</Typography>
+                            <Typography variant="h6" color="primary">{recipeDetails.chef_feedback}</Typography>
                         </Paper>
                     </Grid>
                 }
@@ -158,7 +158,7 @@ function RecipeDetail() {
                             <Paper className={classes.paper} style={{ height: '250px' }}>
                                 {recipeIngredients.map((ingredient, i) => {
                                     return (
-                                        <Typography key={i} color="primary">
+                                        <Typography key={i} color="primary" variant="h6">
                                             &#183;{' '}{ingredient.amount} {ingredient.unit} {ingredient.name}
                                         </Typography>
                                     )
@@ -170,7 +170,7 @@ function RecipeDetail() {
                                 Instructions:
                             </Typography>
                             <Paper className={classes.paper} style={{ height: '250px' }}>
-                                <Typography color="primary">{recipeDetails.description}</Typography>
+                                <Typography color="primary" variant="h6">{recipeDetails.description}</Typography>
                             </Paper>
                         </Grid>
                     </>

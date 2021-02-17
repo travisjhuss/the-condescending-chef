@@ -15,9 +15,8 @@ function UserDashboard() {
     <div className="dashboard">
     
 
-      <Typography variant="h4" color="secondary">Welcome, {user.username}!</Typography>
+      <Typography variant="h4" color="secondary">Welcome, Chef {user.username}!</Typography>
 
-      <LogOutButton className="btn" />
     
     </div>
 

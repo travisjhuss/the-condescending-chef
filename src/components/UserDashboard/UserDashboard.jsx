@@ -15,17 +15,14 @@ const useStyles = makeStyles({
   },
   paperBody: {
     backgroundColor: '#fff4dd',
-    margin: '2px',
+    padding: '5px',
   },
   head: {
     marginBottom: '30px'
   },
-  select: {
-    backgroundColor: '#fff4dd',
-    border: '1px, #ad4830, solid',
-    height: '30px',
-    marginBottom: '30px'
-  }
+  button: {
+    textTransform: 'none'
+  },
 })
 
 function UserDashboard() {
@@ -43,13 +40,35 @@ function UserDashboard() {
     dispatch({ type: 'FETCH_FIVE_FROM_MY_RECIPES' });
   }, []);
 
+  const openRecipe = (id) => {
+    console.log('clicked on recipe id:', id);
+    history.push(`/recipeDetails/${id}`);
+  }
+
   console.log('five from all:', fiveAllRecipes);
   console.log('five from mine:', fiveUserRecipes);
   return (
     <center className="dashboard">
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h4" color="secondary">Welcome, Chef {user.username}!</Typography>
+          <Typography variant="h3" color="secondary">Welcome, Chef {user.username}!</Typography>
+          <hr className="line-break" />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography
+            variant="h6"
+            color="secondary"
+            style={{fontStyle: 'italic'}}
+          >
+            “A recipe has no soul. You, as the cook, must bring soul to the recipe.”
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            color="secondary"
+          >
+            - Thomas Keller
+          </Typography>
+          <hr className="line-quote" />
         </Grid>
         <Grid item xs={6}>
           <Paper className={classes.paperHead}>
@@ -61,12 +80,20 @@ function UserDashboard() {
             </Typography>
           </Paper>
           <Paper className={classes.paperBody}>
-            <Typography
-              variant="h6"
-              color="primary"
-            >
-              {/* {userRecipes[0].name} */}
-            </Typography>
+            {fiveUserRecipes.map((recipe) => {
+              return (
+                <>
+                  <Button
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => openRecipe(recipe.id)}
+                  >
+                    <Typography variant="h6">{recipe.name}</Typography>
+                  </Button>
+                  <hr className="line-break" />
+                </>
+              )
+            })}
           </Paper>
         </Grid>
         <Grid item xs={6}>
@@ -77,6 +104,22 @@ function UserDashboard() {
             >
               Recent Recipes
             </Typography>
+          </Paper>
+          <Paper className={classes.paperBody}>
+            {fiveAllRecipes.map((recipe) => {
+              return (
+                <>
+                  <Button
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => openRecipe(recipe.id)}
+                  >
+                    <Typography variant="h6">{recipe.name}</Typography>
+                  </Button>
+                  <hr className="line-break" />
+                </>
+              )
+            })}
           </Paper>
         </Grid>
       </Grid>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 // MUI
 import {
     Button, Typography,
@@ -24,13 +25,17 @@ const useStyles = makeStyles({
         border: '1px, #ad4830, solid',
         height: '30px',
         marginBottom: '30px'
+    },
+    button: {
+        textTransform: 'none'
     }
 })
 
-function SearchResults({searchResults}) {
+function SearchResults({ searchResults }) {
 
     const history = useHistory();
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const [sortType, setSortType] = useState('name');
 
@@ -40,6 +45,10 @@ function SearchResults({searchResults}) {
         history.push(`/recipeDetails/${id}`);
     }
 
+    const viewAll = () => {
+        dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: '' });
+        history.push('/search');
+    }
     // console.log('userRecipes:', userRecipes);
     const sortedData = searchResults.sort((a, b) => {
         if (sortType === 'date' || sortType === 'chef_grade') {
@@ -48,11 +57,19 @@ function SearchResults({searchResults}) {
             return a[sortType].toUpperCase() > b[sortType].toUpperCase() ? 1 : -1;
         }
     });
-    
+
     return (
         <div className="search-results-container">
+            <div className="view-all-btn">
+                <Button
+                    className={classes.button}
+                    onClick={() => viewAll()}
+                >
+                    <Typography variant="body1" color="secondary">View All</Typography>
+                </Button>
+            </div>
             <div className="search-sort-container">
-                <Typography variant="body2" color="secondary" display="inline">Sort by:{' '}</Typography>
+                <Typography variant="body1" color="secondary" display="inline">Sort by:{' '}</Typography>
                 <select value={sortType} className="sort-select" onChange={(e) => setSortType(e.target.value)}>
                     <option value="date">Date</option>
                     <option value="name">Name</option>

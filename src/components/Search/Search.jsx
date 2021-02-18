@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import SearchResults from '../SearchResults/SearchResults';
 import useQuery from '../../hooks/useQuery';
 import './Search.css';
 // MUI
-import { TextField, InputAdornment, makeStyles, Typography } from '@material-ui/core';
+import { TextField, InputAdornment, makeStyles, Typography, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles({
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
     },
     resize: {
         fontSize: '20px'
-    }
+    },
 })
 
 function Search() {
@@ -33,24 +34,22 @@ function Search() {
     const classes = useStyles();
     const query = useQuery();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const searchResults = useSelector(state => state.searchResults);
-    const allRecipes = useSelector(state => state.allRecipes);
 
-    // change to fetch all recipes
     useEffect(() => {
         dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: query.get('q') || '' });
     }, []);
 
     const [searchText, setSearchText] = useState('');
 
-    const [isThereSearch, setIsThereSearch] = useState(false);
 
     const handleSearch = (evt) => {
         evt.preventDefault();
         console.log('clicked search,', searchText);
         dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: searchText });
-        // setIsThereSearch(true);
+        history.push(`/search/?q=${searchText}`)
     }
 
     console.log('searchResults:', searchResults);
@@ -79,7 +78,7 @@ function Search() {
                     />
                 </form>
             </center>
-            
+
             <SearchResults searchResults={searchResults}/>
             
         </div>

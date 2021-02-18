@@ -92,7 +92,7 @@ function EditRecipe() {
     // console.log('editRecipeIng:', editRecipeIngredients);
     // console.log('editRecipeDeets:', editRecipeDetails);
     return (
-        <div className="edit-container">
+        <center className="edit-container">
             <center>
                 <Button
                     color="primary"
@@ -112,127 +112,137 @@ function EditRecipe() {
                     <Typography color="secondary">Save Changes</Typography>
                 </Button>
             </center>
-            <br />
-            <Typography display="inline" color="secondary">Mark for Review</Typography>
-            <Checkbox
-                onChange={(event) => { dispatch({ type: 'EDIT_MARKED_FOR_REVIEW', payload: event.target.checked }) }}
-                color="primary"
-                checked={editRecipeDetails.marked_for_review ? true : false}
-                style={{ color: '#ad4830' }}
-            />
-            <br />
-            <TextField
-                required
-                variant="filled"
-                label="Recipe Name"
-                style={{ width: '500px' }}
-                className={classes.input}
-                value={editRecipeDetails.name}
-                onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_NAME', payload: event.target.value }) }}
-            />
-            <TextField
-                variant="filled"
-                label="Photo url"
-                style={{ width: '400px' }}
-                className={classes.input}
-                value={editRecipeDetails.photo}
-                onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_PHOTO', payload: event.target.value }) }}
-            />
-            <br />
-            {editRecipeDetails.url === null
-                ?
-                <>
-                    <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
-                    <IconButton
+            <Grid container spacing={2} style={{marginTop: '20px'}}>
+                <Grid item xs={12}>
+                    <Typography display="inline" color="secondary">Mark for Review</Typography>
+                    <Checkbox
+                        onChange={(event) => { dispatch({ type: 'EDIT_MARKED_FOR_REVIEW', payload: event.target.checked }) }}
                         color="primary"
-                        type="button"
-                        onClick={() => handleAdd()}
-                    >
-                        <AddCircleIcon />
-                    </IconButton>
-                    {editRecipeIngredients.map((ing, i) => {
-                        return (
-                            <div key={`${i}`}>
-                                <TextField
-                                    required
-                                    variant="filled"
-                                    label="#"
-                                    type="number"
-                                    size="small"
-                                    name={`${i}`}
-                                    style={{ width: '70px' }}
-                                    className={classes.input}
-                                    value={ing.amount}
-                                    onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_AMOUNT', payload: [event.target.name, event.target.value] }) }}
-                                />
-                                <TextField
-                                    required
-                                    variant="filled"
-                                    name={`${i}`}
-                                    label="unit"
-                                    type="text"
-                                    size="small"
-                                    style={{ width: '90px' }}
-                                    className={classes.input}
-                                    value={ing.unit}
-                                    onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_UNIT', payload: [event.target.name, event.target.value] }) }}
-                                />
-                                <TextField
-                                    required
-                                    variant="filled"
-                                    name={`${i}`}
-                                    label="name"
-                                    type="text"
-                                    size="small"
-                                    style={{ width: '300px' }}
-                                    className={classes.input}
-                                    value={ing.name}
-                                    onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_NAME', payload: [event.target.name, event.target.value] }) }}
-                                />
-                                <IconButton
-                                    color="primary"
-                                    type="button"
-                                    onClick={() => handleRemove(ing.name)}
-                                >
-                                    <CancelIcon />
-                                </IconButton>
-                            </div>
-                        );
-                    })
-                    }
-                    <br />
+                        checked={editRecipeDetails.marked_for_review ? true : false}
+                        style={{ color: '#ad4830' }}
+                    />
+                </Grid>
+                <Grid item xs={12}>
                     <TextField
                         required
                         variant="filled"
-                        label="Description"
-                        multiline
-                        rows={10}
+                        label="Recipe Name"
                         style={{ width: '500px' }}
                         className={classes.input}
-                        value={editRecipeDetails.description}
-                        onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_DESCRIPTION', payload: event.target.value }) }}
+                        value={editRecipeDetails.name}
+                        onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_NAME', payload: event.target.value }) }}
                     />
-                </>
-                :
-                <TextField
-                    variant="filled"
-                    label="Recipe URL"
-                    style={{ width: '400px' }}
-                    value={editRecipeDetails.url}
-                    className={classes.input}
-                    onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_URL', payload: event.target.value }) }}
-                />
-            }
-            {' '}
-            <TextField
-                variant="filled"
-                label="Tags"
-                style={{ width: '400px' }}
-                value={editRecipeDetails.tags}
-                className={classes.input}
-                onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_TAGS', payload: event.target.value }) }}
-            />
-
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        variant="filled"
+                        label="Photo url"
+                        style={{ width: '500px' }}
+                        className={classes.input}
+                        value={editRecipeDetails.photo}
+                        onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_PHOTO', payload: event.target.value }) }}
+                    />
+                </Grid>
+                {editRecipeDetails.url === null
+                    ?
+                    <>
+                        <Grid item xs={12}>
+                            <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
+                            <IconButton
+                                color="primary"
+                                type="button"
+                                onClick={() => handleAdd()}
+                            >
+                                <AddCircleIcon />
+                            </IconButton>
+                        </Grid>
+                        {editRecipeIngredients.map((ing, i) => {
+                            return (
+                                <Grid item xs={12} key={`${i}`}>
+                                    <TextField
+                                        required
+                                        variant="filled"
+                                        label="#"
+                                        type="number"
+                                        size="small"
+                                        name={`${i}`}
+                                        style={{ width: '60px' }}
+                                        className={classes.input}
+                                        value={ing.amount}
+                                        onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_AMOUNT', payload: [event.target.name, event.target.value] }) }}
+                                    />
+                                    <TextField
+                                        required
+                                        variant="filled"
+                                        name={`${i}`}
+                                        label="unit"
+                                        type="text"
+                                        size="small"
+                                        style={{ width: '75px' }}
+                                        className={classes.input}
+                                        value={ing.unit}
+                                        onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_UNIT', payload: [event.target.name, event.target.value] }) }}
+                                    />
+                                    <TextField
+                                        required
+                                        variant="filled"
+                                        name={`${i}`}
+                                        label="name"
+                                        type="text"
+                                        size="small"
+                                        style={{ width: '300px' }}
+                                        className={classes.input}
+                                        value={ing.name}
+                                        onChange={(event) => { dispatch({ type: 'EDIT_INGREDIENT_NAME', payload: [event.target.name, event.target.value] }) }}
+                                    />
+                                    <IconButton
+                                        color="primary"
+                                        type="button"
+                                        onClick={() => handleRemove(ing.name)}
+                                    >
+                                        <CancelIcon />
+                                    </IconButton>
+                                </Grid>
+                            );
+                        })
+                        }
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                variant="filled"
+                                label="Description"
+                                multiline
+                                rows={10}
+                                style={{ width: '500px' }}
+                                className={classes.input}
+                                value={editRecipeDetails.description}
+                                onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_DESCRIPTION', payload: event.target.value }) }}
+                            />
+                        </Grid>
+                    </>
+                    :
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="filled"
+                            label="Recipe URL"
+                            style={{ width: '500px' }}
+                            value={editRecipeDetails.url}
+                            className={classes.input}
+                            onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_URL', payload: event.target.value }) }}
+                        />
+                    </Grid>
+                }
+                <Grid item xs={12}>
+                    <TextField
+                        variant="filled"
+                        label="Tags"
+                        style={{ width: '500px' }}
+                        value={editRecipeDetails.tags}
+                        className={classes.input}
+                        onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_TAGS', payload: event.target.value }) }}
+                    />
+                </Grid>
+            </Grid>
             <Dialog
                 maxWidth="sm"
                 open={openSuccess}
@@ -247,7 +257,7 @@ function EditRecipe() {
             >
                 <AddFail handleFailClose={handleFailClose} />
             </Snackbar>
-        </div>
+        </center>
     )
 }
 

@@ -10,12 +10,13 @@ import './UserDashboard.css';
 const useStyles = makeStyles({
   paperHead: {
     backgroundColor: '#ad4830',
-    borderRadius: '3px',
-    margin: '2px',
+    padding: '5px',
+    width: '400px'
   },
   paperBody: {
     backgroundColor: '#fff4dd',
     padding: '5px',
+    width: '400px'
   },
   head: {
     marginBottom: '30px'

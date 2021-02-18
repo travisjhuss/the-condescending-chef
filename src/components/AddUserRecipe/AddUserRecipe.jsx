@@ -24,8 +24,11 @@ const useStyles = makeStyles({
         backgroundColor: '#fff4dd',
         borderRadius: '3px',
         border: '#a0432c 2px solid',
-        margin: '2px'
-    }
+        margin: '2px',
+    },
+    resize: {
+        fontSize: '18px'
+    },
 })
 
 function AddUserRecipe() {
@@ -166,6 +169,11 @@ function AddUserRecipe() {
                             style={{ width: '500px' }}
                             className={classes.input}
                             value={recipeName}
+                            InputProps={{
+                                classes: {
+                                    input: classes.resize
+                                }
+                              }}
                             onChange={(event) => setRecipeName(event.target.value)}
                         />
                     </Grid>
@@ -176,6 +184,11 @@ function AddUserRecipe() {
                             style={{ width: '500px' }}
                             className={classes.input}
                             value={recipePhoto}
+                            InputProps={{
+                                classes: {
+                                    input: classes.resize
+                                }
+                              }}
                             onChange={(event) => setRecipePhoto(event.target.value)}
                         />
                     </Grid>
@@ -196,6 +209,11 @@ function AddUserRecipe() {
                                         size="small"
                                         style={{ width: '60px' }}
                                         className={classes.input}
+                                        InputProps={{
+                                            classes: {
+                                                input: classes.resize
+                                            }
+                                          }}
                                         value={field.amount || ""}
                                         onChange={e => handleAmountChange(idx, e)}
                                     />
@@ -207,6 +225,11 @@ function AddUserRecipe() {
                                         type="text"
                                         size="small"
                                         style={{ width: '75px' }}
+                                        InputProps={{
+                                            classes: {
+                                                input: classes.resize
+                                            }
+                                          }}
                                         className={classes.input}
                                         value={field.unit || ""}
                                         onChange={e => handleUnitChange(idx, e)}
@@ -219,6 +242,11 @@ function AddUserRecipe() {
                                         type="text"
                                         size="small"
                                         style={{ width: '300px' }}
+                                        InputProps={{
+                                            classes: {
+                                                input: classes.resize
+                                            }
+                                          }}
                                         className={classes.input}
                                         value={field.name || ""}
                                         onChange={e => handleNameChange(idx, e)}
@@ -240,6 +268,11 @@ function AddUserRecipe() {
                             rows={8}
                             style={{ width: '500px' }}
                             className={classes.input}
+                            InputProps={{
+                                classes: {
+                                    input: classes.resize
+                                }
+                              }}
                             value={recipeDescription}
                             onChange={(event) => setRecipeDescription(event.target.value)}
                         />
@@ -254,6 +287,11 @@ function AddUserRecipe() {
                             label="add Tag"
                             style={{ width: '400px' }}
                             value={newTag}
+                            InputProps={{
+                                classes: {
+                                    input: classes.resize
+                                }
+                              }}
                             onChange={(event) => setNewTag(event.target.value)}
                             className={classes.input}
                         />

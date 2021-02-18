@@ -25,7 +25,10 @@ const useStyles = makeStyles({
         borderRadius: '3px',
         border: '#a0432c 2px solid',
         margin: '2px'
-    }
+    },
+    resize: {
+        fontSize: '18px'
+    },
 })
 
 function AddOutsideRecipe() {
@@ -116,6 +119,11 @@ function AddOutsideRecipe() {
                             style={{ width: '500px' }}
                             className={classes.input}
                             value={recipeName}
+                            InputProps={{
+                                classes: {
+                                    input: classes.resize
+                                }
+                              }}
                             onChange={(event) => setRecipeName(event.target.value)}
                         />
                     </Grid>
@@ -126,6 +134,11 @@ function AddOutsideRecipe() {
                             style={{ width: '500px' }}
                             className={classes.input}
                             value={recipePhoto}
+                            InputProps={{
+                                classes: {
+                                    input: classes.resize
+                                }
+                              }}
                             onChange={(event) => setRecipePhoto(event.target.value)}
                         />
                     </Grid>
@@ -137,6 +150,11 @@ function AddOutsideRecipe() {
                             style={{ width: '500px' }}
                             className={classes.input}
                             value={recipeUrl}
+                            InputProps={{
+                                classes: {
+                                    input: classes.resize
+                                }
+                              }}
                             onChange={(event) => setRecipeUrl(event.target.value)}
                         />
                     </Grid>
@@ -150,6 +168,11 @@ function AddOutsideRecipe() {
                             label="add Tag"
                             style={{ width: '400px' }}
                             value={newTag}
+                            InputProps={{
+                                classes: {
+                                    input: classes.resize
+                                }
+                              }}
                             onChange={(event) => setNewTag(event.target.value)}
                             className={classes.input}
                         />

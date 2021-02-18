@@ -168,7 +168,13 @@ function RecipeDetail() {
                                 Instructions:
                             </Typography>
                             <Paper className={classes.paper} style={{ height: '250px' }}>
-                                <Typography color="primary" variant="h6">{recipeDetails.description}</Typography>
+                                <Typography 
+                                    color="primary" 
+                                    variant="h6" 
+                                    style={{ whiteSpace: 'pre-wrap' }}
+                                >
+                                    {recipeDetails.description}
+                                </Typography>
                             </Paper>
                         </Grid>
                     </>

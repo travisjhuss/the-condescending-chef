@@ -1,0 +1,23 @@
+.search-results-container {
+    margin-top: 20px;
+    margin-left: 25px;
+    padding: 20px;
+}
+
+.search-sort-container {
+    text-align: left;
+    margin: 10px 5px;
+    display: inline;
+}
+
+.sort-select {
+    background-color: #fff4dd;
+    color: #ad4830;
+    font-family: 'Josefin Slab', serif;
+    border:  #ad4830 1px solid;
+    border-radius: 3px;
+}
+
+.view-all-btn {
+    display: inline;
+}

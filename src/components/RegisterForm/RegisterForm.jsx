@@ -1,14 +1,36 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, TextField, makeStyles } from '@material-ui/core';
 
 import './RegisterForm.css';
+
+const useStyles = makeStyles({
+  input: {
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#94836d',
+      },
+      '&:hover fieldset': {
+        borderColor: ' #variant="filled"',
+        border: '#a0432c 4px solid',
+      }
+    },
+    backgroundColor: '#fff4dd',
+    borderRadius: '3px',
+    // border: '#a0432c 2px solid',
+    margin: '2px'
+  },
+  resize: {
+    fontSize: '20px'
+  }
+})
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -33,7 +55,9 @@ function RegisterForm() {
       <div>
         <label htmlFor="username">
           <Typography variant="body1" color="primary">Username:</Typography>
-          <input
+          <TextField
+            className={classes.input}
+            variant="filled"
             type="text"
             name="username"
             value={username}
@@ -45,7 +69,9 @@ function RegisterForm() {
       <div>
         <label htmlFor="password">
           <Typography variant="body1" color="primary">Password:</Typography>
-          <input
+          <TextField
+            className={classes.input}
+            variant="filled"
             type="password"
             name="password"
             value={password}
@@ -54,7 +80,7 @@ function RegisterForm() {
           />
         </label>
       </div>
-      <div>
+      <div style={{marginTop: "10px"}}>
         <Button type="submit" color="primary" variant="contained">
           <Typography variant="button" color="secondary">Register</Typography>
         </Button>

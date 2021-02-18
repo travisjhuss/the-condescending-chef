@@ -1,13 +1,35 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, TextField, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  input: {
+      '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+              borderColor: '#94836d',
+          },
+          '&:hover fieldset': {
+              borderColor: ' #variant="filled"',
+              border: '#a0432c 4px solid',
+          }
+      },
+      backgroundColor: '#fff4dd',
+      borderRadius: '3px',
+      // border: '#a0432c 2px solid',
+      margin: '2px'
+  },
+  resize: {
+      fontSize: '20px'
+  }
+})
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const login = (event) => {
     event.preventDefault();
@@ -37,7 +59,9 @@ function LoginForm() {
         <div>
           <label htmlFor="username">
             <Typography variant="body1" color="primary">Username:</Typography>
-            <input
+            <TextField
+              className={classes.input}
+              variant="filled"
               type="text"
               name="username"
               required
@@ -49,7 +73,9 @@ function LoginForm() {
         <div>
           <label htmlFor="password">
             <Typography variant="body1" color="primary">Password:</Typography>
-            <input
+            <TextField
+              className={classes.input}
+              variant="filled"
               type="password"
               name="password"
               required
@@ -58,7 +84,7 @@ function LoginForm() {
             />
           </label>
         </div>
-        <div>
+        <div style={{marginTop: "10px"}}>
           {/* <input className="btn" type="submit" name="submit" value="Log In" /> */}
           <Button type="submit" color="primary" variant="contained">
             <Typography variant="button" color="secondary">Log In</Typography>

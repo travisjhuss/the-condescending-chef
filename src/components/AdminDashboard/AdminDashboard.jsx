@@ -48,7 +48,7 @@ function AdminDashboard() {
 
     console.log('recipes to review:', recipesToReview);
     return (
-        <div style={{ marginTop: '100px' }}>
+        <div style={{ marginTop: '100px', marginLeft: '250px' }}>
             <TableContainer component={Paper} class={classes.table}>
                 <Table >
                     <TableHead class={classes.head}>

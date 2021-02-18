@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchResults from '../SearchResults/SearchResults';
+import useQuery from '../../hooks/useQuery';
 import './Search.css';
 // MUI
 import { TextField, InputAdornment, makeStyles, Typography } from '@material-ui/core';
@@ -30,24 +31,26 @@ const useStyles = makeStyles({
 function Search() {
 
     const classes = useStyles();
-
+    const query = useQuery();
     const dispatch = useDispatch();
+
     const searchResults = useSelector(state => state.searchResults);
     const allRecipes = useSelector(state => state.allRecipes);
 
     // change to fetch all recipes
     useEffect(() => {
-        dispatch({ type: 'FETCH_ALL_RECIPES' });
+        dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: query.get('q') || '' });
     }, []);
 
     const [searchText, setSearchText] = useState('');
 
     const [isThereSearch, setIsThereSearch] = useState(false);
 
-    const handleSearch = () => {
+    const handleSearch = (evt) => {
+        evt.preventDefault();
         console.log('clicked search,', searchText);
         dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: searchText });
-        setIsThereSearch(true);
+        // setIsThereSearch(true);
     }
 
     console.log('searchResults:', searchResults);
@@ -76,10 +79,9 @@ function Search() {
                     />
                 </form>
             </center>
-            {isThereSearch
-            ?   <SearchResults searchResults={searchResults}/>
-            :   <SearchResults searchResults={allRecipes}/>
-            }
+            
+            <SearchResults searchResults={searchResults}/>
+            
         </div>
     )
 }

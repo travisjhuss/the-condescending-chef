@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 
     console.log('GET for search triggered:', req.query);
     // if search was more than 1 word, split into an array with each word as an element
-    const searchArray = req.query.q.split(' ');
+    const searchArray = req.query.string.split(' ');
     // variable to handle query text for multiple words
     let newSearchQuery = '';
     // add the wildcard % before and after each word in array

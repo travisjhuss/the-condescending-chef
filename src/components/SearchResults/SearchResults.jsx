@@ -32,7 +32,7 @@ function SearchResults({searchResults}) {
     const history = useHistory();
     const classes = useStyles();
 
-    const [sortType, setSortType] = useState('date');
+    const [sortType, setSortType] = useState('name');
 
 
     const openRecipe = (id) => {

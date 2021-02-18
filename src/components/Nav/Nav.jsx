@@ -13,6 +13,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import RateReviewIcon from '@material-ui/icons/RateReview';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 
 const useStyles = makeStyles({
   button: {
@@ -76,6 +77,15 @@ function Nav() {
             onClick={() => history.push('/user')}
           >
             <Typography color="secondary" variant="h6">Dashboard</Typography>
+          </Button>
+          <Button
+            style={{marginTop: '10px'}}
+            color="secondary"
+            className={classes.button}
+            startIcon={<AccountBalanceIcon />}
+            onClick={() => history.push('/hardTruth')}
+          >
+            <Typography color="secondary" variant="h6">The Hard Truth</Typography>
           </Button>
           <br />
           <Button

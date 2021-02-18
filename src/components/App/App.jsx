@@ -23,6 +23,7 @@ import EditRecipe from '../EditRecipe/EditRecipe';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import AdminFeedbackPage from '../AdminFeedbackPage/AdminFeedbackPage';
 import Search from '../Search/Search';
+import HardTruth from '../HardTruth/HardTruth';
 import { useSelector } from 'react-redux';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -144,6 +145,14 @@ function App() {
               path="/myRecipes"
             >
               <MyRecipes />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // logged in shows HardTruth else shows LoginPage
+              exact
+              path="/hardTruth"
+            >
+              <HardTruth />
             </ProtectedRoute>
 
             <ProtectedRoute

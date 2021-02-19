@@ -74,9 +74,9 @@ function AdminFeedbackPage() {
       }
 
     return (
-        <div className={classes.container}>
-            <Grid container spacing={4}>
-                <Grid item xs={6} container spacing={2}>
+        <center className={classes.container}>
+            <Grid container spacing={2}>
+                <Grid item xs={6} container spacing={1}>
                     <Grid item xs={12}>
                         <img src={recipeDetails.photo} width="250" />
                     </Grid>
@@ -118,7 +118,7 @@ function AdminFeedbackPage() {
                                 <Typography variant="h5" color="secondary">
                                     Instructions:
                                 </Typography>
-                                <Typography variant="h6" color="primary">{recipeDetails.description}</Typography>
+                                <Typography variant="h6" color="primary" style={{ whiteSpace: 'pre-wrap' }}>{recipeDetails.description}</Typography>
                             </Grid>
                         </>
                     }
@@ -166,7 +166,7 @@ function AdminFeedbackPage() {
                     </Grid>
                 </Grid>
             </Grid>
-        </div>
+        </center>
     )
 }
 

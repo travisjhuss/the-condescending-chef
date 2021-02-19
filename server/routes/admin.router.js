@@ -10,7 +10,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
     const getAllReviewRecipesQuery = `
         SELECT * FROM "recipes" 
-        WHERE "marked_for_review" = true;
+        WHERE "marked_for_review" = true
+        ORDER BY "date" DESC;
         `;
     pool.query(getAllReviewRecipesQuery).then((result) => {
       res.send(result.rows);

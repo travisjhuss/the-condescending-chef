@@ -5,9 +5,8 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
-import { useDispatch } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+// imported components
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AddRecipe from '../AddRecipe/AddRecipe';
 import AboutPage from '../AboutPage/AboutPage';
@@ -24,15 +23,15 @@ import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import AdminFeedbackPage from '../AdminFeedbackPage/AdminFeedbackPage';
 import Search from '../Search/Search';
 import HardTruth from '../HardTruth/HardTruth';
-import { useSelector } from 'react-redux';
-
+// MUI
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import './App.css';
 
-// const font = "'Fraunces', serif;"
+// assign imported font to font variable
+// const font = "'Fraunces', serif;" // alternate font
 const font = "'Josefin Slab', serif;"
-
+// custom mui theme
 const theme = createMuiTheme({
   typography: {
     fontFamily: font,
@@ -48,10 +47,10 @@ const theme = createMuiTheme({
 })
 
 function App() {
-
+  // get user data from reducer
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-
+  // on load, fetch user data
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
@@ -170,6 +169,7 @@ function App() {
             >
               <EditRecipe />
             </ProtectedRoute>
+            {/* components available to admin */}
             {user.access_level === 2 &&
             <>
             <ProtectedRoute

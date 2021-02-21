@@ -7,9 +7,9 @@ import { TextField, Button, IconButton, makeStyles, Typography, Checkbox, Dialog
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-
 import './AddOutRecipe.css';
 
+// custom styles
 const useStyles = makeStyles({
     input: {
         '& .MuiOutlinedInput-root': {
@@ -34,45 +34,45 @@ const useStyles = makeStyles({
 function AddOutsideRecipe() {
 
     const dispatch = useDispatch();
-
+    // get user data from reducer
     const user = useSelector((store) => store.user);
-
+    // assign to styles to classes
     const classes = useStyles();
-
+    // states for form inputs
     const [recipeName, setRecipeName] = useState('');
     const [recipePhoto, setRecipePhoto] = useState('');
     const [recipeUrl, setRecipeUrl] = useState('');
     const [recipeForReview, setRecipeForReview] = useState(false);
     let [tags, setTags] = useState('');
     const [newTag, setNewTag] = useState('');
-
     // for dialog box
     const [openSuccess, setOpenSuccess] = useState(false);
     const [openFail, setOpenFail] = useState(false);
 
+    // function for closing form failure alert
     const handleFailClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-
         setOpenFail(false);
     };
-
-
+    // function to add tag to tags string
     const addTag = () => {
         if (newTag !== '') {
             setTags(tags += ` #${newTag}`)
             setNewTag('');
         }
     }
-
+    // submitting recipe function
     const submitRecipe = () => {
-
+        // check to see required fields are not blank
         if (recipeName === '' || recipeUrl === '') {
+            // if fields are blank, open alert
             setOpenFail(true);
         } else {
-            //check to see if photo is empty string
+            // check to see if photo is empty string
             if (recipePhoto === '') {
+                // if no photo used, apply default photo
                 const recipeToAdd = {
                     user_id: user.id,
                     name: recipeName,
@@ -82,10 +82,12 @@ function AddOutsideRecipe() {
                     tags: tags
                 };
                 console.log('recipeToAdd:', recipeToAdd);
+                // send recipe to saga for post
                 dispatch({ type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd });
                 // success dialog
                 setOpenSuccess(true);
             } else {
+                // if recipe does have photo
                 const recipeToAdd = {
                     user_id: user.id,
                     name: recipeName,
@@ -95,6 +97,7 @@ function AddOutsideRecipe() {
                     tags: tags
                 };
                 console.log('recipeToAdd:', recipeToAdd);
+                // send recipe to saga for post
                 dispatch({ type: 'ADD_NEW_OUTSIDE_RECIPE', payload: recipeToAdd });
                 // success dialog
                 setOpenSuccess(true);
@@ -102,11 +105,6 @@ function AddOutsideRecipe() {
         }
     }
 
-    // console.log('tags:', tags);
-    // console.log('recipeName:', recipeName);
-    console.log('recipePhoto:', recipePhoto);
-    // console.log('recipeURL:', recipeUrl);
-    // console.log('markedforreview?', recipeForReview);
     return (
         <div className="outside-recipe-container">
             <center>
@@ -198,14 +196,16 @@ function AddOutsideRecipe() {
                             <Typography color="secondary">Add Recipe</Typography>
                         </Button>
                     </Grid>
+
+                    {/*  dialog to confirm recipe was added successfully */}
                     <Dialog
                         maxWidth="sm"
                         open={openSuccess}
-                    // onClose={handleClose}
                     >
                         <AddSuccess />
                     </Dialog>
 
+                    {/*  alert for failure to add recipe */}
                     <Snackbar
                         autoHideDuration={6000}
                         open={openFail}

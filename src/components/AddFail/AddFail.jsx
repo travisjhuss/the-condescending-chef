@@ -1,6 +1,7 @@
 import Alert from '@material-ui/lab/Alert';
 import {Typography} from '@material-ui/core';
 
+// Alert shown when required fields are missing from recipe form
 function AddFail({handleFailClose}) {
     return(
         <Alert

@@ -105,8 +105,17 @@ function AddOutsideRecipe() {
         }
     }
 
+    const fillForm = () => {
+        console.log('fill form clicked');
+        setRecipeName('Roast Chicken');
+        setRecipePhoto('https://cafedelites.com/wp-content/uploads/2017/12/Garlic-Herb-Butter-Roast-Chicken-1.jpg');
+        setRecipeUrl('https://cafedelites.com/garlic-herb-butter-roast-chicken/');
+        setTags('#chicken #roast #comfort');
+    }
+
     return (
         <div className="outside-recipe-container">
+            <Button onClick={fillForm}></Button>
             <center>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>

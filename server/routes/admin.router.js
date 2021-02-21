@@ -4,10 +4,8 @@ const router = express.Router();
 // middleware for checking login
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// get all recipes for admin for review
+// GET all recipes that are marked for review
 router.get('/', rejectUnauthenticated, (req, res) => {
-    console.log('/admin GET route');
-
     const getAllReviewRecipesQuery = `
         SELECT * FROM "recipes" 
         WHERE "marked_for_review" = true
@@ -21,10 +19,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
   });
 
-// put to add feedback
+// PUT feedback into recipe at id
 router.put('/feedback/:id', rejectUnauthenticated, (req, res) => {
-    console.log('/admin PUT route:', req.body);
-
     const feedbackSqlText = `
         UPDATE "recipes" 
         SET "chef_grade" = $1, 
@@ -32,7 +28,6 @@ router.put('/feedback/:id', rejectUnauthenticated, (req, res) => {
         "marked_for_review" = false
         WHERE id = $3;   
         `;
-
     pool.query(feedbackSqlText, [req.body.score, req.body.feedback, req.body.recipeId])
         .then((result) => {
             res.sendStatus(201);

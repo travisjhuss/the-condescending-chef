@@ -2,11 +2,9 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-
+// GET recipes that meet search query
 router.get('/', (req, res) => {
-
-    console.log('GET for search triggered:', req.query);
-    // if search was more than 1 word, split into an array with each word as an element
+    // if search was more than 1 word, this will split into an array with each word as an element
     const searchArray = req.query.string.split(' ');
     // variable to handle query text for multiple words
     let newSearchQuery = '';
@@ -15,7 +13,7 @@ router.get('/', (req, res) => {
         searchArray[i] = `%${searchArray[i]}%`;
     }
     console.log('searchArray', searchArray);
-    // create the $number for the query 
+    // create the sql injection numbers for the query 
     for (let i = 1; i <= searchArray.length; i++) {
         newSearchQuery += `
             ("recipes".name ILIKE $${i} OR 
@@ -25,7 +23,6 @@ router.get('/', (req, res) => {
     }
     // take off the last AND
     newSearchQuery = newSearchQuery.slice(0, -4);
-
     console.log('newSearchQuery after slice:', newSearchQuery);
     // plug query text with the $numbers into the sql query
     const searchQuery = `
@@ -43,13 +40,6 @@ router.get('/', (req, res) => {
             res.sendStatus(500)
         })
 
-});
-
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-    // POST route code here
 });
 
 module.exports = router;

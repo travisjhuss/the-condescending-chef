@@ -6,7 +6,6 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // GET all recipes
 router.get('/', rejectUnauthenticated, (req, res) => {
-    
     const sqlText = `
         SELECT * FROM "recipes"
         `;
@@ -24,7 +23,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     // Get id from req.params
     const id = req.params.id;
-    console.log('get details for recipe id:', id);
     const sqlText = `
         SELECT * FROM "recipes"
         WHERE "id" = $1;
@@ -43,7 +41,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.get('/ingredients/:id', rejectUnauthenticated, (req, res) => {
     // Get id from req.params
     const id = req.params.id;
-    console.log('get ingredients for recipe id:', id);
     const sqlText = `
         SELECT "ingredients".id, "ingredients".amount, "ingredients".unit, "ingredients".name FROM "ingredients"
         JOIN "recipes" ON "recipes".id = "ingredients".recipe_id
@@ -60,7 +57,7 @@ router.get('/ingredients/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
-// Delete a recipe if it's something the logged in user added
+// DELETE a recipe if it's something the logged in user added
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const recipeId = req.params.id;
     const sqlText = `
@@ -78,12 +75,12 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         })
 });
 
-router.put('/:id', (req, res) => {
-    // Update this single recipe
-    console.log('req.body in recipes PUT', req.body);
-
+// PUT for editing user recipe
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+   // check for if recipe is user recipe or outside url
     if (req.body.url === null) {
-
+        // if recipe does not have url it is user recipe
+        // get recipe if from req.params
         let recipeIdToUpdate = req.params.id;
         let sqlTextForRecipes = `
         UPDATE "recipes" 
@@ -94,27 +91,27 @@ router.put('/:id', (req, res) => {
         "marked_for_review" = $5
         WHERE id = $6
         `;
-
         pool.query(sqlTextForRecipes, [req.body.name, req.body.description, req.body.photo, req.body.tags, req.body.marked_for_review, recipeIdToUpdate])
             .then((result) => {
+                // SECOND query
+                // delete previous ingredients where recipe_id matches edited recipe id
                 const sqlTextDeleteIngredients = `
                 DELETE FROM "ingredients"
                 WHERE "recipe_id" = $1;
                 `;
                 pool.query(sqlTextDeleteIngredients, [recipeIdToUpdate])
                     .then((result) => {
+                        // find new ingredients in req.body, assign to variable
                         const newIngredients = req.body.ingredients;
-                        console.log('newIngs', newIngredients);
-
                         const sqlTextChangeIngredients = `
-                    INSERT INTO "ingredients" ("recipe_id", "name", "unit", "amount")
-                    VALUES ($1, $2, $3, $4);
-                    `;
-
+                        INSERT INTO "ingredients" ("recipe_id", "name", "unit", "amount")
+                        VALUES ($1, $2, $3, $4);
+                        `;
+                        // go through each ingredient in array and insert into database
                         newIngredients.forEach((ingredient) => {
                             // THIRD QUERY
                             pool.query(sqlTextChangeIngredients, [recipeIdToUpdate, ingredient.name, ingredient.unit, ingredient.amount]).then(result => {
-                                //If statement checks to see if we have reached the last ing before sending back a 201
+                                //If statement checks to see if we have reached the last ingredient before sending back a 201
                                 if (ingredient === newIngredients[newIngredients - 1]) {
                                     res.sendStatus(201);
                                 }
@@ -126,15 +123,18 @@ router.put('/:id', (req, res) => {
                         })
                     })
                     .catch((error) => {
+                        // catch for second query
                         console.log(`Error making database query ${sqlTextDeleteIngredients}`, error);
                         res.sendStatus(500);
                     })
             })
             .catch((error) => {
+                // catch for first query
                 console.log(`Error making database query ${sqlTextForRecipes}`, error);
                 res.sendStatus(500);
             });
     } else {
+        // if recipe does have url, it is an outside recipe
         let recipeIdToUpdate = req.params.id;
         let sqlTextForRecipes = `
             UPDATE "recipes" 
@@ -145,7 +145,6 @@ router.put('/:id', (req, res) => {
             "marked_for_review" = $5
             WHERE id = $6
             `;
-
         pool.query(sqlTextForRecipes, [req.body.name, req.body.photo, req.body.url, req.body.tags, req.body.marked_for_review, recipeIdToUpdate])
             .then((result) => {
                 res.sendStatus(201);

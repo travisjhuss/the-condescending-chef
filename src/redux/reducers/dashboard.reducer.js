@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+// stores five most recent recipes from all users
 const fiveAllRecipes = (state = [], action) => {
     switch (action.type) {
         case 'SET_FIVE_ALL_RECIPES':
@@ -9,6 +10,7 @@ const fiveAllRecipes = (state = [], action) => {
     }
 };
 
+// stores five most recent recipes from logged in user
 const fiveUserRecipes = (state = [], action) => {
     switch (action.type) {
         case 'SET_FIVE_MY_RECIPES':

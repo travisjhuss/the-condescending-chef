@@ -16,7 +16,6 @@ const useStyles = makeStyles({
       },
       backgroundColor: '#fff4dd',
       borderRadius: '3px',
-      // border: '#a0432c 2px solid',
       margin: '2px'
   },
   resize: {
@@ -85,7 +84,6 @@ function LoginForm() {
           </label>
         </div>
         <div style={{marginTop: "10px"}}>
-          {/* <input className="btn" type="submit" name="submit" value="Log In" /> */}
           <Button type="submit" color="primary" variant="contained">
             <Typography variant="button" color="secondary">Log In</Typography>
           </Button>

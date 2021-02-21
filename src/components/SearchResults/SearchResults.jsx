@@ -6,8 +6,7 @@ import {
     Button, Typography,
     Grid, Card,
     makeStyles, CardActionArea,
-    CardActions, CardContent,
-    CardMedia
+    CardContent, CardMedia
 } from '@material-ui/core';
 import './SearchResults.css';
 
@@ -49,7 +48,7 @@ function SearchResults({ searchResults }) {
         dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: '' });
         history.push('/search');
     }
-    // console.log('userRecipes:', userRecipes);
+    // allows for sorting on the dom
     const sortedData = searchResults.sort((a, b) => {
         if (sortType === 'date' || sortType === 'chef_grade') {
             return b[sortType] > a[sortType] ? 1 : -1;

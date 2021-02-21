@@ -48,26 +48,29 @@ function AdminFeedbackPage() {
         dispatch({ type: 'FETCH_RECIPE_DETAILS', payload: id });
         dispatch({ type: 'FETCH_RECIPE_INGREDIENTS', payload: id });
     }, [id]);
-
+    // save recipe info from reducers
     const recipeDetails = useSelector(state => state.details.recipeDetails);
     const recipeIngredients = useSelector(state => state.details.recipeIngredients);
-
+    // states for inputs
     const [recipeFeedback, setRecipeFeedback] = useState('');
     const [recipeScore, setRecipeScore] = useState('');
 
     const submitFeedback = () => {
+        // package review data
         const dataToSend = {
             recipeId: recipeDetails.id,
             feedback: recipeFeedback,
             score: recipeScore
         }
         console.log('dataToSend:', dataToSend);
+        // send to saga for PUT
         dispatch({ type: 'ADD_FEEDBACK_TO_RECIPE', payload: dataToSend })
         // history to admin
         history.push('/admin');
     }
 
     // from stack overflow
+    // opens link in new tab
     const openInNewTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
@@ -87,8 +90,10 @@ function AdminFeedbackPage() {
                                     {recipeDetails.tags}
                                 </Typography>
                             </Grid>
+                    {/* check if recipe has url */}
                     {recipeDetails.url !== null
                         ?
+                        // if recipe has url, show button to open
                         <Grid item xs={12}>
                             <Button 
                                 endIcon={<OpenInNewIcon />} 
@@ -100,6 +105,7 @@ function AdminFeedbackPage() {
                             </Button>
                         </Grid>
                         :
+                        // if recipe does not have url, list recipe details
                         <>
                             <Grid item xs={12}>
                                 <Typography variant="h5" color="secondary">

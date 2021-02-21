@@ -52,45 +52,48 @@ function EditRecipe() {
         if (reason === 'clickaway') {
             return;
         }
-
         setOpenFail(false);
     };
-
+    // add ingredient inputs
     const handleAdd = () => {
         dispatch({ type: 'ADD_INGREDIENT_TO_EDIT' });
     }
-
+    // remove ingredient inputs
     const handleRemove = (name) => {
         dispatch({ type: 'REMOVE_INGREDIENT_FROM_EDIT', payload: name });
     }
 
 
     const submitChanges = () => {
-
+        // check if recipe had url
         if (editRecipeDetails.url === null) {
+            // if recipe does not have url
+            // check if each ingredient has any missing info
             for (let ingredient of editRecipeIngredients) {
                 if (ingredient.amount === '' || ingredient.unit === '' || ingredient.name === '') {
                     setOpenFail(true);
                 }
             }
+            // check if recipe has any missing inputs
             if (editRecipeDetails.name === '' || editRecipeDetails.description === '') {
                 setOpenFail(true);
             } else {
+                // package edited recipe
                 const editedRecipe = { ...editRecipeDetails, ingredients: editRecipeIngredients };
                 console.log('editedRecipe:', editedRecipe);
+                // send to saga for PUT
                 dispatch({ type: 'SUBMIT_EDITED_RECIPE', payload: editedRecipe });
                 // success dialog
                 setOpenSuccess(true);
             }
         } else if (editRecipeDetails.url !== null) {
+            // if recipe does have url, send to saga for PUT
             dispatch({ type: 'SUBMIT_EDITED_RECIPE', payload: editRecipeDetails });
             // success dialog
             setOpenSuccess(true);
         }
     }
 
-    // console.log('editRecipeIng:', editRecipeIngredients);
-    // console.log('editRecipeDeets:', editRecipeDetails);
     return (
         <center className="edit-container">
             <center>
@@ -143,8 +146,10 @@ function EditRecipe() {
                         onChange={(event) => { dispatch({ type: 'EDIT_RECIPE_PHOTO', payload: event.target.value }) }}
                     />
                 </Grid>
+                {/* check it recipe has url */}
                 {editRecipeDetails.url === null
                     ?
+                    // if recipe has no url, show proper inputs for ingredients and description
                     <>
                         <Grid item xs={12}>
                             <Typography display="inline" variant="subtitle1" color="secondary">Ingredients</Typography>
@@ -221,6 +226,7 @@ function EditRecipe() {
                         </Grid>
                     </>
                     :
+                    // if recipe does have url, show proper input
                     <Grid item xs={12}>
                         <TextField
                             variant="filled"

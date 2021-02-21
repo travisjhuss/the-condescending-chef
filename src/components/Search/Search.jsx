@@ -5,7 +5,7 @@ import SearchResults from '../SearchResults/SearchResults';
 import useQuery from '../../hooks/useQuery';
 import './Search.css';
 // MUI
-import { TextField, InputAdornment, makeStyles, Typography, Button } from '@material-ui/core';
+import { TextField, InputAdornment, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles({
@@ -21,7 +21,6 @@ const useStyles = makeStyles({
         },
         backgroundColor: '#fff4dd',
         borderRadius: '3px',
-        // border: '#a0432c 2px solid',
         margin: '2px'
     },
     resize: {
@@ -38,17 +37,18 @@ function Search() {
 
     const searchResults = useSelector(state => state.searchResults);
 
+    // on page load, if there is already a query, keep results, or show all recipes
     useEffect(() => {
         dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: query.get('q') || '' });
     }, []);
 
     const [searchText, setSearchText] = useState('');
 
-
     const handleSearch = (evt) => {
         evt.preventDefault();
-        console.log('clicked search,', searchText);
+        // send query to saga for a GET
         dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: searchText });
+        // store query in url to allow it to stay on refresh
         history.push(`/search/?q=${searchText}`)
     }
 
@@ -66,21 +66,21 @@ function Search() {
                         value={searchText}
                         InputProps={{
                             startAdornment: (
-                              <InputAdornment position="start">
-                                <SearchIcon color="primary" />
-                              </InputAdornment>
+                                <InputAdornment position="start">
+                                    <SearchIcon color="primary" />
+                                </InputAdornment>
                             ),
                             classes: {
                                 input: classes.resize
                             }
-                          }}
+                        }}
                         onChange={(event) => setSearchText(event.target.value)}
                     />
                 </form>
             </center>
+            {/* pass results as a prop into results component */}
+            <SearchResults searchResults={searchResults} />
 
-            <SearchResults searchResults={searchResults}/>
-            
         </div>
     )
 }

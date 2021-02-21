@@ -34,7 +34,7 @@ function AdminDashboard() {
     const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
-
+    // get recipes that need review from reducer
     const recipesToReview = useSelector(state => state.admin.recipesToReview)
 
     useEffect(() => {
@@ -48,7 +48,7 @@ function AdminDashboard() {
 
     console.log('recipes to review:', recipesToReview);
     return (
-        <div style={{ marginTop: '50px', marginLeft: '250px' }}>
+        <div className="admin-table">
             <TableContainer component={Paper} class={classes.table}>
                 <Table >
                     <TableHead class={classes.head}>

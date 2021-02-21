@@ -5,21 +5,7 @@ import { Typography, Button, IconButton, Drawer, makeStyles } from '@material-ui
 import MenuIcon from '@material-ui/icons/Menu';
 import './Header.css';
 
-const useStyles = makeStyles({
-    drawer: {
-        backgroundColor: '#fff4dd',
-    },
-    button: {
-        marginRight: '30px',
-    },
-  })
-
 function Header() {
-
-    const user = useSelector((store) => store.user);
-
-    const classes = useStyles();
-
     return (
             <Drawer anchor="left" variant="permanent" open={true}>
                 <Nav />

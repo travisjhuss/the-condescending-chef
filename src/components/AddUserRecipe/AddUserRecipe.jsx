@@ -36,7 +36,7 @@ function AddUserRecipe() {
     const dispatch = useDispatch();
 
     const user = useSelector((store) => store.user);
-
+    // states for form inputs
     let [tags, setTags] = useState('');
     const [newTag, setNewTag] = useState('');
     const [recipeName, setRecipeName] = useState('');
@@ -48,7 +48,7 @@ function AddUserRecipe() {
         unit: null,
         name: null
     }]);
-
+    // for form confirmation or failure
     const [openSuccess, setOpenSuccess] = useState(false);
     const [openFail, setOpenFail] = useState(false);
 
@@ -56,7 +56,6 @@ function AddUserRecipe() {
         if (reason === 'clickaway') {
             return;
         }
-
         setOpenFail(false);
     };
 
@@ -82,7 +81,7 @@ function AddUserRecipe() {
         values[index].name = event.target.value
         setIngredientFields(values);
     }
-
+    // add another set of ingredient inputs
     const handleAdd = () => {
         const values = [...ingredientFields];
         values.push({
@@ -92,7 +91,7 @@ function AddUserRecipe() {
         });
         setIngredientFields(values);
     }
-
+    // remove set of ingredient inputs
     const handleRemove = (i) => {
         const values = [...ingredientFields];
         values.splice(i, 1);
@@ -108,16 +107,21 @@ function AddUserRecipe() {
 
 
     const submitRecipe = () => {
-
+        // check to make sure that none of the ingredient inputs are blank
         for (let ingredient of ingredientFields) {
             if (ingredient.amount === null || ingredient.unit === null || ingredient.name === null) {
                 setOpenFail(true);
             }
         }
+        // chef if required fields are blank
         if (recipeName === '' || recipeDescription === '') {
+            // if yes, open alert
             setOpenFail(true);
         } else {
+            // else  move on
+            // check if photo is blank
             if (recipePhoto === '') {
+                // if no photo, then add default photo
                 const recipeToAdd = {
                     user_id: user.id,
                     name: recipeName,
@@ -128,10 +132,12 @@ function AddUserRecipe() {
                     tags: tags
                 };
                 console.log('recipeToAdd:', recipeToAdd);
+                // send recipe to saga for post
                 dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
                 // success dialog
                 setOpenSuccess(true);
             } else {
+                // if recipe has photo
                 const recipeToAdd = {
                     user_id: user.id,
                     name: recipeName,
@@ -142,6 +148,7 @@ function AddUserRecipe() {
                     tags: tags
                 };
                 console.log('recipeToAdd:', recipeToAdd);
+                // send recipe to saga for post
                 dispatch({ type: 'ADD_NEW_USER_RECIPE', payload: recipeToAdd });
                 // success dialog
                 setOpenSuccess(true);
@@ -151,12 +158,6 @@ function AddUserRecipe() {
 
     const classes = useStyles();
 
-    console.log('ingredientFields:', ingredientFields);
-    console.log('tags:', tags);
-    console.log('recipeName:', recipeName);
-    console.log('recipePhoto:', recipePhoto);
-    console.log('recipeDescription:', recipeDescription);
-    console.log('marked for review?', recipeForReview);
     return (
         <div className="user-recipe-container">
             <center>
@@ -197,6 +198,7 @@ function AddUserRecipe() {
                         <IconButton color="primary" type="button" onClick={() => handleAdd()}>
                             <AddCircleIcon />
                         </IconButton>
+                        {/* map through ingredients and create inputs for each */}
                         {ingredientFields.map((field, idx) => {
                             return (
                                 <div key={`${field}-${idx}`}>
@@ -320,14 +322,14 @@ function AddUserRecipe() {
                     </Grid>
                 </Grid>
             
-
+            {/* success pop up */}
             <Dialog
                 maxWidth="sm"
                 open={openSuccess}
             >
                 <AddSuccess />
             </Dialog>
-
+            {/* missing fields pop up */}
             <Snackbar
                 autoHideDuration={6000}
                 open={openFail}

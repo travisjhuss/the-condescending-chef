@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+// stores recipes that are marked for review for admin
 const recipesToReview = (state = [], action) => {
     switch (action.type) {
       case 'SET_RECIPES_TO_REVIEW':

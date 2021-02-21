@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 })
 
 function UserDashboard() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
+  // get data from reducers
   const user = useSelector((state) => state.user);
   const fiveUserRecipes = useSelector(state => state.dash.fiveUserRecipes);
   const fiveAllRecipes = useSelector(state => state.dash.fiveAllRecipes)
@@ -35,7 +35,7 @@ function UserDashboard() {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
-
+  // on load get five most recents recipes from user and everyone overall
   useEffect(() => {
     dispatch({ type: 'FETCH_FIVE_FROM_ALL_RECIPES' });
     dispatch({ type: 'FETCH_FIVE_FROM_MY_RECIPES' });
@@ -46,8 +46,6 @@ function UserDashboard() {
     history.push(`/recipeDetails/${id}`);
   }
 
-  console.log('five from all:', fiveAllRecipes);
-  console.log('five from mine:', fiveUserRecipes);
   return (
     <center className="dashboard">
       <Grid container spacing={3}>

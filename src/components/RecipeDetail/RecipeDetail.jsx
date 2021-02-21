@@ -6,8 +6,8 @@ import {
     Button, Typography,
     Grid, Paper,
     makeStyles, IconButton,
-    Checkbox, Dialog,
-    DialogTitle, DialogActions
+    Dialog, DialogTitle, 
+    DialogActions
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditOutlinedIcon from '@material-ui/icons/Edit';
@@ -65,14 +65,12 @@ function RecipeDetail() {
     }
 
     // from stack overflow
+    // allows recipe link to open in new tab
     const openInNewTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
     }
 
-
-    console.log('recipeDetails:', recipeDetails);
-    console.log('recipeIngredients:', recipeIngredients);
     return (
         <div className="recipe-container">
             <Grid container spacing={3}>
@@ -85,6 +83,7 @@ function RecipeDetail() {
                     >
                         <ArrowBackIosIcon />
                     </IconButton>
+                    {/* if recipe being viewed was created by logged in user, allow for delete and edit */}
                     {user.id === recipeDetails.user_id &&
                         <>
                             <IconButton
@@ -116,14 +115,17 @@ function RecipeDetail() {
                 <Grid item xs={4}>
                     <img src={recipeDetails.photo} className="recipe-img" />
                 </Grid>
+                {/* check if recipe has a grade */}
                 {recipeDetails.chef_grade === '0'
                     ?
+                    // if recipe has no grade, show if it is set for review
                     <Grid item xs={8} style={{ marginBottom: '40px' }}>
                         <Typography color="secondary" display="inline">
                             Marked for Review: {' '} {recipeDetails.marked_for_review ? 'Yes' : 'No'}
                         </Typography>
                     </Grid>
                     :
+                    // if recipe has grade, show score and feedback
                     <Grid item xs={8}>
                         <Typography variant="h6" color="secondary" display="inline">
                             Chef Score:
@@ -135,8 +137,10 @@ function RecipeDetail() {
                         </Paper>
                     </Grid>
                 }
+                {/* check if recipe has url */}
                 {recipeDetails.url
                     ?
+                    // if there is a url, show button to open in new tab
                     <Grid item xs={6}>
                         <Button
                             endIcon={<OpenInNewIcon />}
@@ -148,6 +152,7 @@ function RecipeDetail() {
                         </Button>
                     </Grid>
                     :
+                    // if recipe is user created, show details
                     <>
                         <Grid item xs={6}>
                             <Typography variant="h6" color="secondary">
@@ -180,6 +185,8 @@ function RecipeDetail() {
                     </>
                 }
             </Grid>
+
+            {/* delete confirmation */}
             <Dialog
                 maxWidth="sm"
                 open={openDeleteConfirmation}

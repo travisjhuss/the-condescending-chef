@@ -1,6 +1,7 @@
-import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
+// GET recipe for edit
 function* fetchRecipeToEdit(action) {
     try {
         console.log('fetchRecipeToEdit at id:', action.payload);
@@ -12,6 +13,7 @@ function* fetchRecipeToEdit(action) {
     }
 }
 
+// get ingredients for edit
 function* fetchRecipeToEditIngredients(action) {
     try {
         console.log('fetchRecipeToEditIngredients at id:', action.payload);
@@ -23,6 +25,7 @@ function* fetchRecipeToEditIngredients(action) {
     }
 }
 
+// PUT changes from edit into recipe
 function* submitEditedRecipe(action) {
     try {
         console.log('submitEditedRecipe payload:', action.payload);

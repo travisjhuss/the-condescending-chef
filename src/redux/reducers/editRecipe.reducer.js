@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+// reducer for editing recipe, stores and returns changes
 const editRecipeDetails = (state = [], action) => {
     switch (action.type) {
         case 'SET_EDITING_RECIPE':
@@ -21,6 +22,7 @@ const editRecipeDetails = (state = [], action) => {
     }
 };
 
+// reducer for editing ingredients, stores and returns changes
 const editRecipeIngredients = (state = [], action) => {
     switch (action.type) {
         case 'SET_EDITING_RECIPE_INGREDIENTS':

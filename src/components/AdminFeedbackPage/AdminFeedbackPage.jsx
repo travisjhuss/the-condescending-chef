@@ -89,7 +89,7 @@ function AdminFeedbackPage() {
                             </Grid>
                     {recipeDetails.url !== null
                         ?
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <Button 
                                 endIcon={<OpenInNewIcon />} 
                                 color="secondary"

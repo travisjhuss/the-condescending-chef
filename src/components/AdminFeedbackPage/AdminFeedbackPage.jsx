@@ -76,6 +76,11 @@ function AdminFeedbackPage() {
         if (newWindow) newWindow.opener = null
       }
 
+    const fillForm = () => {
+        setRecipeScore('2');
+        setRecipeFeedback(`Roast chicken is a hard thing to cook. Most recipes will yield a dry chicken and that's what I am worried about here. I would use a wet brine and soak the bird for 12-16 hours. After that I would dry the chicken in the fridge, uncovered to dry out the skin. This will give a moist chicken with golden crispy skin.`);
+    }
+
     return (
         <center className={classes.container}>
             <Grid container spacing={2}>
@@ -133,6 +138,7 @@ function AdminFeedbackPage() {
                 <Grid item xs={6} container spacing={2}>
                     <Grid item xs={12}>
                         <Typography color="secondary" variant="h4">Chef Feedback Form</Typography>
+                        <Button onClick={fillForm}></Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="h6" color="secondary" display="inline">Score:{' '}</Typography>

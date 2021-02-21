@@ -8,6 +8,7 @@ import {
     makeStyles, CardActionArea,
     CardContent, CardMedia
 } from '@material-ui/core';
+import GradeIcon from '@material-ui/icons/Grade';
 import './SearchResults.css';
 
 const useStyles = makeStyles({
@@ -96,7 +97,7 @@ function SearchResults({ searchResults }) {
                                     {recipe.chef_grade === '0'
                                         ? null
                                         : <Typography variant="h5" color="secondary" align="right">
-                                            {recipe.chef_grade}
+                                            <GradeIcon/>{recipe.chef_grade}
                                         </Typography>}
                                 </CardContent>
                             </CardActionArea>

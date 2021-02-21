@@ -9,6 +9,7 @@ import {
     CardActions, CardContent,
     CardMedia
 } from '@material-ui/core';
+import GradeIcon from '@material-ui/icons/Grade';
 import './HardTruth.css';
 
 const useStyles = makeStyles({
@@ -108,7 +109,7 @@ function HardTruth() {
                                                     color="primary"
                                                     align="left"
                                                 >
-                                                    Chef Score: {recipe.chef_grade}
+                                                    Chef Score: <GradeIcon/>{recipe.chef_grade}
                                                 </Typography>
                                                 <Typography
                                                     variant="h6"

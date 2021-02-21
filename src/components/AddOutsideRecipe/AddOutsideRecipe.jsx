@@ -115,8 +115,8 @@ function AddOutsideRecipe() {
 
     return (
         <div className="outside-recipe-container">
-            <Button onClick={fillForm}></Button>
             <center>
+            <Button onClick={fillForm}></Button>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField

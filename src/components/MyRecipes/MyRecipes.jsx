@@ -8,6 +8,7 @@ import {
     makeStyles, CardActionArea,
     CardContent, CardMedia
 } from '@material-ui/core';
+import GradeIcon from '@material-ui/icons/Grade';
 import './MyRecipes.css';
 
 const useStyles = makeStyles({
@@ -88,7 +89,7 @@ function MyRecipes() {
                                     {recipe.chef_grade === '0'
                                         ? null
                                         : <Typography variant="h5" color="secondary" align="right">
-                                            {recipe.chef_grade}
+                                            <GradeIcon/>{recipe.chef_grade}
                                         </Typography>}
                                 </CardContent>
                             </CardActionArea>

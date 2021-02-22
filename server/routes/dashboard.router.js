@@ -4,9 +4,8 @@ const router = express.Router();
 // middleware for checking login
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// GET all recipes
+// GET five most recent recipes from all users
 router.get('/fiveAll', rejectUnauthenticated, (req, res) => {
-    
     const getFiveAllRecipesQuery = `
         SELECT * FROM "recipes" 
         ORDER BY "date" DESC
@@ -23,9 +22,8 @@ router.get('/fiveAll', rejectUnauthenticated, (req, res) => {
 });
 
 
+// GET five most recent recipes from logged in user
 router.get('/fiveMy', rejectUnauthenticated, (req, res) => {
-    console.log('/fiveMy GET route');
-    // HOW YOU KNOW IF SOMEONE IS LOGGED IN 
     const getFiveUserRecipesQuery = `
         SELECT * FROM "recipes" 
         WHERE "user_id" = $1

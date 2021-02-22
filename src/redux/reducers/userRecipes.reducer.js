@@ -1,3 +1,5 @@
+
+// stores all logged in user recipes
 const userRecipesReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_USER_RECIPES':

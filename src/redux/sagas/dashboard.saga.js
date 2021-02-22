@@ -1,9 +1,9 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
+// GET five most recent recipes from all user
 function* fetchFiveFromAllRecipes() {
     try {
-        // 
         const response = yield axios.get('/api/dashboard/fiveAll');
         console.log('fetchFiveFromAllRecipes response.data', response.data);
         // save in recipes reducer
@@ -13,9 +13,9 @@ function* fetchFiveFromAllRecipes() {
     }
 }
 
+// GET five most recent recipes from logged in user
 function* fetchFiveFromMyRecipes() {
     try {
-        // 
         const response = yield axios.get('/api/dashboard/fiveMy');
         console.log('fetchFiveFromMyRecipes response.data', response.data);
         // save in recipes reducer

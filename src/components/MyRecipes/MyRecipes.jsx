@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // MUI
 import {
-    Button, Typography,
+    Typography,
     Grid, Card,
     makeStyles, CardActionArea,
-    CardActions, CardContent,
-    CardMedia
+    CardContent, CardMedia
 } from '@material-ui/core';
+import GradeIcon from '@material-ui/icons/Grade';
 import './MyRecipes.css';
 
 const useStyles = makeStyles({
@@ -46,7 +46,7 @@ function MyRecipes() {
         history.push(`/recipeDetails/${id}`);
     }
 
-    // console.log('userRecipes:', userRecipes);
+    // assigning userRecipes to sortedData allows user to sort data on the dom
     const sortedData = userRecipes.sort((a, b) => {
         if (sortType === 'date' || sortType === 'chef_grade') {
             return b[sortType] > a[sortType] ? 1 : -1;
@@ -89,7 +89,7 @@ function MyRecipes() {
                                     {recipe.chef_grade === '0'
                                         ? null
                                         : <Typography variant="h5" color="secondary" align="right">
-                                            {recipe.chef_grade}
+                                            <GradeIcon/>{recipe.chef_grade}
                                         </Typography>}
                                 </CardContent>
                             </CardActionArea>

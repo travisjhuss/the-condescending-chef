@@ -17,7 +17,6 @@ const useStyles = makeStyles({
     },
     backgroundColor: '#fff4dd',
     borderRadius: '3px',
-    // border: '#a0432c 2px solid',
     margin: '2px'
   },
   resize: {

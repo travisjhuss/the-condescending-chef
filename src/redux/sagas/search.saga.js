@@ -13,20 +13,22 @@ function* fetchAllRecipes() {
     }
 }
 
+// GET all matching recipes to search query
 function* fetchSearchResults(action) {
-
+    // check if dispatch has a route attached
     const whichRoute = action.payload
-      ? axios.get('api/search', {
+        // if query is there
+        ? axios.get('api/search', {
           params: { string: action.payload },
         })
-      : axios.get('/api/recipes/');
+        // if no query, response will have all recipes
+        : axios.get('/api/recipes/');
 
     try {
         console.log('fetchSearchResults triggered', action.payload);
         const response = yield whichRoute;
         console.log('search:', response.data);
         yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data });
-
     } catch(err) {
         console.log('search results error', err);
     }

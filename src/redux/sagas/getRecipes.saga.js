@@ -41,6 +41,7 @@ function* fetchRecipeIngredients(action) {
 
 function* deleteUserRecipe(action) {
     try {
+        // delete recipe from logged in user
         const deleteID = action.payload;
         console.log('deleting recipe with id:', deleteID);
         yield axios.delete(`/api/recipes/${deleteID}`);

@@ -1,9 +1,9 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
+// get all recipes that need review
 function* fetchAllRecipesForReview() {
     try {
-        // get all recipes
         console.log('in fetchAllRecipe for admin');
         const response = yield axios.get('/api/admin');
         console.log('fetchAllRecipes response.data', response.data);
@@ -14,6 +14,7 @@ function* fetchAllRecipesForReview() {
     }
 }
 
+// PUT feedback into reviewed recipe
 function* addFeedbackToRecipe(action) {
     try {
         console.log('in addFeedbackToRecipe:', action.payload);

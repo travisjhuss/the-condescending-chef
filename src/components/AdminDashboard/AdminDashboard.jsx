@@ -34,7 +34,7 @@ function AdminDashboard() {
     const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
-
+    // get recipes that need review from reducer
     const recipesToReview = useSelector(state => state.admin.recipesToReview)
 
     useEffect(() => {
@@ -46,9 +46,13 @@ function AdminDashboard() {
         history.push(`/admin/feedback/${id}`);
     }
 
+    const changeDate = (date) => {
+        return new Date(date).toLocaleDateString("en-us");
+    }
+
     console.log('recipes to review:', recipesToReview);
     return (
-        <div style={{ marginTop: '50px', marginLeft: '250px' }}>
+        <div className="admin-table">
             <TableContainer component={Paper} class={classes.table}>
                 <Table >
                     <TableHead class={classes.head}>
@@ -66,7 +70,7 @@ function AdminDashboard() {
                                 <TableRow key={i} class={classes.body}>
                                     <TableCell>{recipe.name}</TableCell>
                                     <TableCell>{recipe.user_id}</TableCell>
-                                    <TableCell>{recipe.date}</TableCell>
+                                    <TableCell>{changeDate(recipe.date)}</TableCell>
                                     <TableCell>
                                         <IconButton onClick={() => openReviewForm(recipe.id)}>
                                             <OpenInNewIcon />

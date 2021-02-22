@@ -9,6 +9,7 @@ import {
     CardActions, CardContent,
     CardMedia
 } from '@material-ui/core';
+import GradeIcon from '@material-ui/icons/Grade';
 import './HardTruth.css';
 
 const useStyles = makeStyles({
@@ -17,7 +18,6 @@ const useStyles = makeStyles({
         borderRadius: '3px',
         margin: '5px 50px',
         height: '200px',
-        // width: '800px'
     },
     head: {
         marginBottom: '30px'
@@ -53,7 +53,7 @@ function HardTruth() {
         history.push(`/recipeDetails/${id}`);
     }
 
-    // console.log('userRecipes:', userRecipes);
+    // assign userRecipes to sortedData for sorting on the DOM
     const sortedData = userRecipes.sort((a, b) => {
         if (sortType === 'date' || sortType === 'chef_grade') {
             return b[sortType] > a[sortType] ? 1 : -1;
@@ -109,7 +109,7 @@ function HardTruth() {
                                                     color="primary"
                                                     align="left"
                                                 >
-                                                    Chef Score: {recipe.chef_grade}
+                                                    Chef Score: <GradeIcon/>{recipe.chef_grade}
                                                 </Typography>
                                                 <Typography
                                                     variant="h6"

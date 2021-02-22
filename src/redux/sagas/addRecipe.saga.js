@@ -1,6 +1,7 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
+// POSTS to user generated recipe
 function* postNewUserRecipe(action) {
     try {
         console.log('in postNewUserRecipe:', action.payload);
@@ -11,6 +12,7 @@ function* postNewUserRecipe(action) {
     }
 }
 
+// POSTS recipe from url
 function* postNewOutsideRecipe(action) {
     try {
         console.log('in postNewOutsideRecipe:', action.payload);

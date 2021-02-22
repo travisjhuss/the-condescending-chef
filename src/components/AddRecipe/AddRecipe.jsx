@@ -11,7 +11,7 @@ function AddRecipe() {
     const [isUserRecipe, setIsUserRecipe] = useState(false);
     const [isOutsideRecipe, setIsOutsideRecipe] = useState(false);
     const [isFormOpen, setIsFormOpen] = useState(false);
-
+    // function for determining which form is open and how to change
     const clickUserRecipeForm = () => {
         setIsFormOpen(true);
         setIsUserRecipe(true);
@@ -33,8 +33,10 @@ function AddRecipe() {
     return (
         <div className="add-recipe-container">
             <center>
+                {/* check if a form is already open */}
                 {isFormOpen
                     ? 
+                    // if form is open, show change form button
                     <Button
                         variant="contained"
                         color="primary"
@@ -46,6 +48,7 @@ function AddRecipe() {
                         >Change Form</Typography>
                     </Button>
                     :
+                    // otherwise show buttons to choose form
                     <>
                         <Button
                             variant="contained"

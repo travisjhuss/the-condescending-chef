@@ -6,9 +6,9 @@ import {
     Button, Typography,
     Grid, Card,
     makeStyles, CardActionArea,
-    CardActions, CardContent,
-    CardMedia
+    CardContent, CardMedia
 } from '@material-ui/core';
+import GradeIcon from '@material-ui/icons/Grade';
 import './SearchResults.css';
 
 const useStyles = makeStyles({
@@ -49,7 +49,7 @@ function SearchResults({ searchResults }) {
         dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: '' });
         history.push('/search');
     }
-    // console.log('userRecipes:', userRecipes);
+    // allows for sorting on the dom
     const sortedData = searchResults.sort((a, b) => {
         if (sortType === 'date' || sortType === 'chef_grade') {
             return b[sortType] > a[sortType] ? 1 : -1;
@@ -97,7 +97,7 @@ function SearchResults({ searchResults }) {
                                     {recipe.chef_grade === '0'
                                         ? null
                                         : <Typography variant="h5" color="secondary" align="right">
-                                            {recipe.chef_grade}
+                                            <GradeIcon/>{recipe.chef_grade}
                                         </Typography>}
                                 </CardContent>
                             </CardActionArea>

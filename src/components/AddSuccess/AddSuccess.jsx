@@ -1,11 +1,12 @@
 import { useHistory } from 'react-router-dom';
-
+// MUI
 import { DialogActions, DialogTitle, Button } from '@material-ui/core';
 
+// success message for when recipe added
 function AddSuccess() {
 
     const history = useHistory();
-
+    
     const addAnother = () => {
         history.push('/addRecipe')
     }

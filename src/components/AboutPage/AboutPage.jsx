@@ -8,7 +8,7 @@ import { Typography} from '@material-ui/core';
 
 function AboutPage() {
   return (
-    <div style={{marginLeft: '260px', marginTop: '75px', padding: '20px'}}>
+    <div className="about-container">
       <div>
         <Typography variant="h4" color="secondary">Welcome to </Typography>
         <Typography variant="h3" color="secondary">The Condescending Chef</Typography>

@@ -18,7 +18,8 @@ const useStyles = makeStyles({
     },
     container: {
         marginTop: "50px",
-        marginLeft: "280px"
+        marginLeft: "325px",
+        marginRight: "75px"
     },
     input: {
         '& .MuiOutlinedInput-root': {
@@ -48,30 +49,38 @@ function AdminFeedbackPage() {
         dispatch({ type: 'FETCH_RECIPE_DETAILS', payload: id });
         dispatch({ type: 'FETCH_RECIPE_INGREDIENTS', payload: id });
     }, [id]);
-
+    // save recipe info from reducers
     const recipeDetails = useSelector(state => state.details.recipeDetails);
     const recipeIngredients = useSelector(state => state.details.recipeIngredients);
-
+    // states for inputs
     const [recipeFeedback, setRecipeFeedback] = useState('');
     const [recipeScore, setRecipeScore] = useState('');
 
     const submitFeedback = () => {
+        // package review data
         const dataToSend = {
             recipeId: recipeDetails.id,
             feedback: recipeFeedback,
             score: recipeScore
         }
         console.log('dataToSend:', dataToSend);
+        // send to saga for PUT
         dispatch({ type: 'ADD_FEEDBACK_TO_RECIPE', payload: dataToSend })
         // history to admin
         history.push('/admin');
     }
 
     // from stack overflow
+    // opens link in new tab
     const openInNewTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
       }
+
+    const fillForm = () => {
+        setRecipeScore('2');
+        setRecipeFeedback(`Roast chicken is a hard thing to cook. Most recipes will yield a dry chicken and that's what I am worried about here. I would use a wet brine and soak the bird for 12-16 hours. After that I would dry the chicken in the fridge, uncovered to dry out the skin. This will give a moist chicken with golden crispy skin.`);
+    }
 
     return (
         <center className={classes.container}>
@@ -87,8 +96,10 @@ function AdminFeedbackPage() {
                                     {recipeDetails.tags}
                                 </Typography>
                             </Grid>
+                    {/* check if recipe has url */}
                     {recipeDetails.url !== null
                         ?
+                        // if recipe has url, show button to open
                         <Grid item xs={12}>
                             <Button 
                                 endIcon={<OpenInNewIcon />} 
@@ -100,6 +111,7 @@ function AdminFeedbackPage() {
                             </Button>
                         </Grid>
                         :
+                        // if recipe does not have url, list recipe details
                         <>
                             <Grid item xs={12}>
                                 <Typography variant="h5" color="secondary">
@@ -127,6 +139,7 @@ function AdminFeedbackPage() {
                 <Grid item xs={6} container spacing={2}>
                     <Grid item xs={12}>
                         <Typography color="secondary" variant="h4">Chef Feedback Form</Typography>
+                        <Button onClick={fillForm}></Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="h6" color="secondary" display="inline">Score:{' '}</Typography>

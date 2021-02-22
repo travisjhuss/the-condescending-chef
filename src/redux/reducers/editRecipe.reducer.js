@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 // reducer for editing recipe, stores and returns changes
-const editRecipeDetails = (state = [], action) => {
+export const editRecipeDetails = (state = [], action) => {
     switch (action.type) {
         case 'SET_EDITING_RECIPE':
             return action.payload;
@@ -51,7 +51,6 @@ const editRecipeIngredients = (state = [], action) => {
             return state;
     }
 };
-
 
 // recipeDetails will be on the redux state at:
 // state.edit.editRecipeDetails. &

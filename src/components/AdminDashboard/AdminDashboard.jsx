@@ -46,6 +46,10 @@ function AdminDashboard() {
         history.push(`/admin/feedback/${id}`);
     }
 
+    const changeDate = (date) => {
+        return new Date(date).toLocaleDateString("en-us");
+    }
+
     console.log('recipes to review:', recipesToReview);
     return (
         <div className="admin-table">
@@ -66,7 +70,7 @@ function AdminDashboard() {
                                 <TableRow key={i} class={classes.body}>
                                     <TableCell>{recipe.name}</TableCell>
                                     <TableCell>{recipe.user_id}</TableCell>
-                                    <TableCell>{recipe.date}</TableCell>
+                                    <TableCell>{changeDate(recipe.date)}</TableCell>
                                     <TableCell>
                                         <IconButton onClick={() => openReviewForm(recipe.id)}>
                                             <OpenInNewIcon />

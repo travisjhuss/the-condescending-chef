@@ -18,7 +18,8 @@ const useStyles = makeStyles({
     },
     container: {
         marginTop: "50px",
-        marginLeft: "280px"
+        marginLeft: "325px",
+        marginRight: "75px"
     },
     input: {
         '& .MuiOutlinedInput-root': {

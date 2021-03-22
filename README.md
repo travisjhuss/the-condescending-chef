@@ -49,7 +49,7 @@ Link to software that is required to install the app (e.g. node).
 - Redux
 
 ## Acknowledgement
-Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. Thank you to everyone in the Zhu cohort for sharing this experience and pushing each other to grow and be better. 
+Thanks to [Prime Digital Academy](https://www.primeacademy.io) who equipped and helped me to make this application a reality. Thank you to everyone in the Zhu cohort for sharing this experience and pushing each other to grow and be better. 
 
 ## Support
-If you have suggestions or issues, please email me at [travisjhuss@gmail.com](www.gmail.com)
+If you have suggestions or issues, please email me at [travisjhuss@gmail.com](https://www.gmail.com)

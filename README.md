@@ -13,7 +13,7 @@ Thats where my idea for an app came from. An app built for professional chefs to
 To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](https://shielded-escarpment-88386.herokuapp.com/#/home)
 
 
-## Screen Shot
+## Screen Shots
 
 ### Home Page:
 ![home](documentation/images/homepage.png)

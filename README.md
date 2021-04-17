@@ -13,6 +13,21 @@ Thats where my idea for an app came from. An app built for professional chefs to
 To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](https://shielded-escarpment-88386.herokuapp.com/#/home)
 
 
+## Screen Shot
+
+### Home Page:
+![home](documentation/images/homepage.png)
+
+### Add Recipe:
+![add](documentation/images/add_recipe.png)
+
+### Browse
+![browse](documentation/images/browse.png)
+
+### The Hard Truth (reviews)
+![reviews](documentation/images/hard_truth.png)
+
+
 ### Prerequisites
 
 Link to software that is required to install the app (e.g. node).

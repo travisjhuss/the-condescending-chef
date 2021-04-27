@@ -189,13 +189,13 @@ function App() {
             </ProtectedRoute>
               </>
             }
-            <ProtectedRoute
+            <Route
               // logged in shows Search else shows LoginPage
               exact
               path="/search"
             >
               <Search />
-            </ProtectedRoute>
+            </Route>
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>

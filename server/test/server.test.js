@@ -1,7 +1,6 @@
 const app = require('../server');
 const testServer = require('supertest');
 
-
 describe('Testing user routes', () => {
   test('Logout route should always respond with status200', async () => {
     const response = await testServer(app).post('/api/user/logout');
@@ -23,5 +22,12 @@ describe('Testing user routes', () => {
 
     const userResponse = await agent.get('/api/user/');
     expect(userResponse.statusCode).toBe(200);
+  });
+});
+
+describe('Testing recipe routes', () => {
+  test('Recipe route to get all recipes', async () => {
+    const response = await testServer(app).get('/api/recipes');
+    expect(response.statusCode).toBe(200);
   });
 });

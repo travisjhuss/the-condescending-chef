@@ -5,7 +5,7 @@ const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // GET all recipes
-router.get('/', rejectUnauthenticated, (req, res) => {
+router.get('/', (req, res) => {
     const sqlText = `
         SELECT * FROM "recipes"
         `;
@@ -20,7 +20,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 // GET details from selected recipe
-router.get('/:id', rejectUnauthenticated, (req, res) => {
+router.get('/:id', (req, res) => {
     // Get id from req.params
     const id = req.params.id;
     const sqlText = `
@@ -38,7 +38,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 // GET ingredients from selected recipe
-router.get('/ingredients/:id', rejectUnauthenticated, (req, res) => {
+router.get('/ingredients/:id', (req, res) => {
     // Get id from req.params
     const id = req.params.id;
     const sqlText = `

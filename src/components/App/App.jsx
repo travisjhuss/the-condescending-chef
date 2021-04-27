@@ -154,13 +154,13 @@ function App() {
               <HardTruth />
             </ProtectedRoute>
 
-            <ProtectedRoute
+            <Route
               // logged in shows RecipeDetails else shows LoginPage
               exact
               path="/recipeDetails/:id"
             >
               <RecipeDetail />
-            </ProtectedRoute>
+            </Route>
 
             <ProtectedRoute
               // logged in shows EditRecipe else shows LoginPage

@@ -58,18 +58,27 @@ function LandingPage() {
             <Typography variant="h5" color="secondary">
               Register to the right for reviews ...
             </Typography>
-            <br/>
+            <br />
             <Typography variant="h5" color="secondary">
               ... or start browsing now.
             </Typography>
-            <br/>
-            <Button variant="contained" color="primary" onClick={() => {history.push('/search')}}>
+            <br />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                history.push('/search');
+              }}
+            >
               <Typography variant="button" color="secondary">
                 View Recipes
               </Typography>
             </Button>
-            <br/>
-            <Typography variant="h6" color="secondary" className='browse'>
+            <Typography
+              variant="h6"
+              color="secondary"
+              style={{ marginTop: '25px' }}
+            >
               Already a Member?
             </Typography>
             <Button variant="contained" color="primary" onClick={onLogin}>

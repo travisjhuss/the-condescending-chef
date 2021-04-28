@@ -30,4 +30,33 @@ describe('Testing recipe routes', () => {
     const response = await testServer(app).get('/api/recipes');
     expect(response.statusCode).toBe(200);
   });
+
+  test('Recipe route to edit recipe only when logged in as owner of recipe', async () => {
+    const agent = testServer.agent(app);
+
+    const editResponseNotLoggedIn = await agent.put('/api/recipes/8').send({
+      name: 'recipe name',
+      description: 'recipe instructions',
+      photo: 'photo.jpg',
+      url: 'recipe.com',
+      marked_for_review: true,
+      tags: '#one #two',
+    });
+    expect(editResponseNotLoggedIn.statusCode).toBe(403);
+
+    const loginResponse = await agent
+      .post('/api/user/login')
+      .send({ username: 'GordonRamsey', password: 'hell' });
+    expect(loginResponse.statusCode).toBe(200);
+
+    const editResponseLoggedIn = await agent.put('/api/recipes/8').send({
+      name: 'recipe name',
+      description: 'recipe instructions',
+      photo: 'photo.jpg',
+      url: 'recipe.com',
+      marked_for_review: true,
+      tags: '#one #two',
+    });
+    expect(editResponseLoggedIn.statusCode).toBe(201);
+  });
 });

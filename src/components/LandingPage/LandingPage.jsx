@@ -51,6 +51,7 @@ function LandingPage() {
             Condescending Chef" you'll get the hard truth and come out a better
             cook able to tackle any challenge in your kitchen.
           </Typography>
+          <hr className="line-break" />
         </div>
         <div className="grid-col grid-col_2"></div>
         <div className="grid-col grid-col_2"></div>

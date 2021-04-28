@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography} from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 // This is one of our simplest components
 // It doesn't have local state,
@@ -8,26 +8,40 @@ import { Typography} from '@material-ui/core';
 
 function AboutPage() {
   return (
-    <div className="about-container">
-      <div>
-        <Typography variant="h4" color="secondary">Welcome to </Typography>
-        <Typography variant="h3" color="secondary">The Condescending Chef</Typography>
-        <br />
-        <Typography variant="h6" color="secondary">
-          Think of it as your own personal Gordon Ramsey. An online
-          community and database of recipes reviewed by real chefs giving you
-          the feedback you seek.
-          </Typography>
-        <br />
-        <Typography variant="h6" color="secondary">
-          Drawing from decades of real restaurant experience, our chefs will take
-          the time to dig through the recipe and give feedback. Feedback can include
-          not just a review of a given recipe but also tips to make it better or
-          certain substitutions to consider. With the "The Condescending Chef"
-          you'll get the hard truth and come out a better cook able to tackle any
-          challenge in your kitchen.
+    <div className="container">
+      <center>
+        <Typography variant="h4" color="secondary">
+          Welcome to
         </Typography>
-      </div>
+        <Typography variant="h3" color="secondary">
+          The Condescending Chef
+        </Typography>
+        <Typography variant="subtitle1" color="secondary">
+          a web-app by Travis J. Huss
+        </Typography>
+        <hr className="line-break" />
+      </center>
+      <Typography variant="h6" color="secondary">
+        More and more people rely on the internet as a way to get recipes. Many
+        of us just want a simple recipe and end up spending half an hour looking
+        through food blog after food blog only to settle on a recipe that
+        doesn't deliver at the end. A lot of time and energy goes into cooking
+        and having it not work out can be deflating.
+      </Typography>
+      <br />
+      <Typography variant="h6" color="secondary">
+        I had the amazing experience of working as a professional chef for 15
+        years and over time you hone the ability to read a recipe and understand
+        it like some read Shakespeare. I can take one look at a recipe and see
+        where the red flags are.
+      </Typography>
+      <br />
+      <Typography variant="h6" color="secondary">
+        Thats where my idea for an app came from. An app built for professional
+        chefs to give feedback to everyday home cooks on recipes they find
+        online, or even their own personal recipes. I sincerely hope you enjoy
+        using The Condescending Chef and maybe learn a thing or two.
+      </Typography>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Typography, Button, TextField, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -29,6 +30,7 @@ function LoginForm() {
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const history = useHistory();
 
   const login = (event) => {
     event.preventDefault();
@@ -41,6 +43,7 @@ function LoginForm() {
           password: password,
         },
       });
+      history.push('/user');
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }

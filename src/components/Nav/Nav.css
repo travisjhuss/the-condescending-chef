@@ -17,6 +17,10 @@ background: linear-gradient(167deg, rgba(170,69,46,1) 0%, rgba(196,82,54,1) 35%,
   border-bottom: 1px solid #fff4dd;
 }
 
+.drawer-top:hover {
+  cursor: pointer;
+}
+
 .links {
   margin-top: 10px;
 }

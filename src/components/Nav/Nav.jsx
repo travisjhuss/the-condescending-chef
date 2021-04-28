@@ -51,7 +51,7 @@ function Nav() {
     // switch to styled div
     <Drawer anchor="left" variant="permanent" open={true}>
       <div className="drawer">
-        <div className="drawer-top">
+        <div className="drawer-top" onClick={() => history.push('/home')}>
           <center>
             <div className="logo">
               <LocalDiningIcon className={classes.logo} />

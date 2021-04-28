@@ -25,6 +25,7 @@ Containers
 .container {
   padding: 20px;
   margin-top: 75px;
+  margin-left: 250px;
 }
 
 .about-container {

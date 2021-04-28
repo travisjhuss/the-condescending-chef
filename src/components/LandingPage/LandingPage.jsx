@@ -8,6 +8,7 @@ import LocalDiningIcon from '@material-ui/icons/LocalDining';
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
+import LoginForm from '../LoginForm/LoginForm';
 
 const useStyles = makeStyles({
   logo: {
@@ -53,43 +54,19 @@ function LandingPage() {
         </div>
         <div className="grid-col grid-col_2"></div>
         <div className="grid-col grid-col_2"></div>
-        <div className="grid-col grid-col_4 browse">
+        <div className="grid-col grid-col_4">
           <center>
-            <Typography variant="h5" color="secondary">
-              Register to the right for reviews ...
-            </Typography>
-            <br />
-            <Typography variant="h5" color="secondary">
-              ... or start browsing now.
-            </Typography>
-            <br />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                history.push('/search');
-              }}
-            >
-              <Typography variant="button" color="secondary">
-                View Recipes
-              </Typography>
-            </Button>
-            <Typography
-              variant="h6"
-              color="secondary"
-              style={{ marginTop: '25px' }}
-            >
-              Already a Member?
-            </Typography>
-            <Button variant="contained" color="primary" onClick={onLogin}>
-              <Typography variant="button" color="secondary">
-                Login
-              </Typography>
-            </Button>
+          <Typography variant="h5" color="secondary">
+            Already a member?
+          </Typography>
+            <LoginForm />
           </center>
         </div>
         <div className="grid-col grid-col_4">
           <center>
+          <Typography variant="h5" color="secondary">
+            New here?
+          </Typography>
             <RegisterForm />
           </center>
         </div>

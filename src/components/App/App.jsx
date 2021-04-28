@@ -58,7 +58,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {user.id  && <Nav />}
+        <Nav />
         <div>
 
           <Switch>
@@ -119,16 +119,15 @@ function App() {
               <RegisterPage />
             </ProtectedRoute>
 
-            <ProtectedRoute
+            <Route
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows LandingPage at "/home"
               exact
               path="/home"
-              authRedirect="/user"
             >
               <LandingPage />
-            </ProtectedRoute>
+            </Route>
 
             <ProtectedRoute
               // logged in shows AddRecipe else shows LoginPage
@@ -169,6 +168,7 @@ function App() {
             >
               <EditRecipe />
             </ProtectedRoute>
+
             {/* components available to admin */}
             {user.access_level === 2 &&
             <>

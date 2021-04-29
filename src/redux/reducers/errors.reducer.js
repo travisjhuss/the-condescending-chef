@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 // loginMessage holds the string that will display
 // on the login screen if there's an error
-const loginMessage = (state = '', action) => {
+export const loginMessage = (state = '', action) => {
   switch (action.type) {
     case 'CLEAR_LOGIN_ERROR':
       return '';
@@ -19,7 +19,7 @@ const loginMessage = (state = '', action) => {
 
 // registrationMessage holds the string that will display
 // on the registration screen if there's an error
-const registrationMessage = (state = '', action) => {
+export const registrationMessage = (state = '', action) => {
   switch (action.type) {
     case 'CLEAR_REGISTRATION_ERROR':
       return '';

@@ -3,13 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../Footer/Footer';
 import './Nav.css';
-import {
-  Typography,
-  Button,
-  makeStyles,
-  Drawer,
-  Divider,
-} from '@material-ui/core';
+// mui
+import { Typography, Button, Drawer } from '@material-ui/core';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
@@ -21,19 +16,8 @@ import RateReviewIcon from '@material-ui/icons/RateReview';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
-
-const useStyles = makeStyles({
-  button: {
-    textTransform: 'none',
-  },
-  logo: {
-    color: '#94836d',
-    fontSize: '150px',
-    position: 'absolute',
-    marginLeft: '-70px',
-    marginTop: '-29px',
-  },
-});
+// custom hook
+import useStyles from '../../hooks/useStyles';
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -54,7 +38,7 @@ function Nav() {
         <div className="drawer-top" onClick={() => history.push('/home')}>
           <center>
             <div className="logo">
-              <LocalDiningIcon className={classes.logo} />
+              <LocalDiningIcon className={classes.logoBig} />
             </div>
             <div className="title">
               <Typography
@@ -111,7 +95,7 @@ function Nav() {
                   Login
                 </Typography>
               </Button>
-              <br/>
+              <br />
               <Button
                 style={{ marginTop: '10px' }}
                 color="secondary"

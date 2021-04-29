@@ -1,30 +1,11 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // MUI
-import { Typography, Button, makeStyles, Grid, Paper } from '@material-ui/core';
-import './UserDashboard.css';
-
-const useStyles = makeStyles({
-  paperHead: {
-    backgroundColor: '#ad4830',
-    padding: '5px',
-    width: '400px'
-  },
-  paperBody: {
-    backgroundColor: '#fff4dd',
-    padding: '5px',
-    width: '400px'
-  },
-  head: {
-    marginBottom: '30px'
-  },
-  button: {
-    textTransform: 'none'
-  },
-})
+import { Typography, Button, Grid, Paper } from '@material-ui/core';
+// custom hook
+import useStyles from '../../hooks/useStyles';
 
 function UserDashboard() {
   // get data from reducers

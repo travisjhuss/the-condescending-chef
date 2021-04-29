@@ -4,8 +4,6 @@ import AddOutsideRecipe from '../AddOutsideRecipe/AddOutsideRecipe';
 // mui
 import { Button, Typography } from '@material-ui/core';
 
-import './AddRecipe.css';
-
 function AddRecipe() {
     // states to determine what recipe form to show
     const [isUserRecipe, setIsUserRecipe] = useState(false);

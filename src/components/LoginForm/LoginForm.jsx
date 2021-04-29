@@ -2,27 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Typography, Button, TextField, makeStyles } from '@material-ui/core';
-
-const useStyles = makeStyles({
-  input: {
-      '& .MuiOutlinedInput-root': {
-          '& fieldset': {
-              borderColor: '#94836d',
-          },
-          '&:hover fieldset': {
-              borderColor: ' #variant="filled"',
-              border: '#a0432c 4px solid',
-          }
-      },
-      backgroundColor: '#fff4dd',
-      borderRadius: '3px',
-      margin: '2px'
-  },
-  resize: {
-      fontSize: '20px'
-  }
-})
+import { Typography, Button, TextField } from '@material-ui/core';
+// custom hook
+import useStyles from '../../hooks/useStyles';
 
 function LoginForm() {
   const [username, setUsername] = useState('');

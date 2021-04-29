@@ -1,29 +1,17 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 
 // Material UI imports
-import { Typography, Button, makeStyles } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
 import LoginForm from '../LoginForm/LoginForm';
-
-const useStyles = makeStyles({
-  logo: {
-    color: '#94836d',
-    fontSize: '40px',
-  },
-});
+// custom hook
+import useStyles from '../../hooks/useStyles';
 
 function LandingPage() {
-  const history = useHistory();
   const classes = useStyles();
-
-  const onLogin = (event) => {
-    history.push('/login');
-  };
 
   return (
     <div className="container">
@@ -57,17 +45,17 @@ function LandingPage() {
         <div className="grid-col grid-col_2"></div>
         <div className="grid-col grid-col_4">
           <center>
-          <Typography variant="h5" color="secondary">
-            Already a member?
-          </Typography>
+            <Typography variant="h5" color="secondary">
+              Already a member?
+            </Typography>
             <LoginForm />
           </center>
         </div>
         <div className="grid-col grid-col_4">
           <center>
-          <Typography variant="h5" color="secondary">
-            New here?
-          </Typography>
+            <Typography variant="h5" color="secondary">
+              New here?
+            </Typography>
             <RegisterForm />
           </center>
         </div>

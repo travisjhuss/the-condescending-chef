@@ -7,7 +7,6 @@ import {
   Typography,
   Grid,
   Paper,
-  makeStyles,
   IconButton,
   Dialog,
   DialogTitle,
@@ -17,20 +16,8 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import EditOutlinedIcon from "@material-ui/icons/Edit";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
-
-import "./RecipeDetail.css";
-
-const useStyles = makeStyles({
-  paper: {
-    backgroundColor: "#fff4dd",
-    margin: "auto",
-    padding: "10px",
-    overflow: "scroll",
-  },
-  button: {
-    marginRight: "30px",
-  },
-});
+// custom hook
+import useStyles from '../../hooks/useStyles';
 
 function RecipeDetail() {
   const dispatch = useDispatch();
@@ -83,7 +70,7 @@ function RecipeDetail() {
           <IconButton
             color="secondary"
             size="medium"
-            className={classes.button}
+            className={classes.recipeDetailButton}
             onClick={goBack}
           >
             <ArrowBackIosIcon />
@@ -94,7 +81,7 @@ function RecipeDetail() {
               <IconButton
                 color="secondary"
                 size="medium"
-                className={classes.button}
+                className={classes.recipeDetailButton}
                 onClick={() => openEditRecipe(recipeDetails.id)}
               >
                 <EditOutlinedIcon />
@@ -102,7 +89,7 @@ function RecipeDetail() {
               <IconButton
                 color="secondary"
                 size="medium"
-                className={classes.button}
+                className={classes.recipeDetailButton}
                 onClick={handleDelete}
               >
                 <DeleteOutlineIcon />

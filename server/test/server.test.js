@@ -60,3 +60,35 @@ describe('Testing recipe routes', () => {
     expect(editResponseLoggedIn.statusCode).toBe(201);
   });
 });
+
+describe('Deleting will only work when the logged in user is the recipe owner', () => {
+  test('Deleting unless logged in will return 403', async () => {
+    const agent = testServer.agent(app);
+    const notLoggedInResponse = await agent
+      .delete('/api/recipes/74')
+      .send({
+        recipeId: 74,
+        id: 5,
+      });
+    expect(notLoggedInResponse.statusCode).toBe(403);
+  })
+
+  test('Unless logged in user is the recipe owner, they cannot delete. will respond 200 because query was sent successfully but not deleted from db', async () => {
+    const agent = testServer.agent(app);
+    // first log in as user id=5
+    const loginResponse = await agent
+      .post('/api/user/login')
+      .send({ username: 'GordonRamsey', password: 'hell' });
+    expect(loginResponse.statusCode).toBe(200);
+    // Test user that is logged in cannot delete other user's recipe
+    const loggedInButNotOwnerResponse = await agent
+      .delete('/api/recipes/74')
+      .send({
+        recipeId: 74,
+        id: 5,
+      });
+    expect(loggedInButNotOwnerResponse.statusCode).toBe(200);
+  });
+
+  
+});
